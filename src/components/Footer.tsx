@@ -9,10 +9,10 @@ export default function Footer() {
 			</div>
 
 			<div className="m-4 flex flex-row gap-4 text-muted-foreground">
-				<Link href="https://github.com/w11dcard" target="_blank" rel="noopener noreferrer">
+				<Link href="https://github.com/matimortari" target="_blank" rel="noopener noreferrer">
 					<Icon icon="simple-icons:github" className="icon h-6 w-6" />
 				</Link>
-				<Link href="https://www.linkedin.com/in/matheus-mortari-19rt/" target="_blank" rel="noopener noreferrer">
+				<Link href="https://www.linkedin.com/in/matheus-mortari-19rt" target="_blank" rel="noopener noreferrer">
 					<Icon icon="simple-icons:linkedin" className="icon h-6 w-6" />
 				</Link>
 			</div>
