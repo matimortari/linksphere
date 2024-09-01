@@ -1,12 +1,11 @@
-import Providers from "@/src/components/Providers"
-import { authOptions } from "@/src/lib/auth"
-import { Analytics } from "@vercel/analytics/react"
 import type { Metadata } from "next"
 import { getServerSession } from "next-auth"
 import { Inter } from "next/font/google"
+import Providers from "../components/context/Providers"
 import Footer from "../components/Footer"
 import TopNav from "../components/TopNav"
-import "./globals.css"
+import { authOptions } from "../lib/auth"
+import "../styles/globals.css"
 
 export const metadata: Metadata = {
 	title: "neSS",
@@ -25,7 +24,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 		<html lang="en" className={inter.className}>
 			<body>
 				<Providers session={session}>
-					<Analytics />
 					<TopNav />
 					<main>{children}</main>
 					<Footer />
