@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
-export default function TopNav() {
+export default function Navbar() {
 	const { data: session } = useSession()
 	const [theme, setTheme] = useState("light")
 

@@ -3,29 +3,26 @@ import { getServerSession } from "next-auth"
 import { Inter } from "next/font/google"
 import Providers from "../components/context/Providers"
 import Footer from "../components/Footer"
-import TopNav from "../components/TopNav"
+import Navbar from "../components/Navbar"
 import { authOptions } from "../lib/auth"
 import "../styles/globals.css"
+
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
 	title: "neSS",
 	description: "Social media & link aggregator",
 }
 
-const inter = Inter({
-	subsets: ["latin"],
-	display: "swap",
-})
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	const session = await getServerSession(authOptions)
 
 	return (
-		<html lang="en" className={inter.className}>
-			<body>
+		<html lang="en">
+			<body className={inter.className}>
 				<Providers session={session}>
-					<TopNav />
-					<main>{children}</main>
+					<Navbar />
+					{children}
 					<Footer />
 				</Providers>
 			</body>
