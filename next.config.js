@@ -1,3 +1,4 @@
+export const distDir = "dist"
 export const images = {
 	remotePatterns: [
 		{
