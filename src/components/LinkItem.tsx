@@ -1,8 +1,8 @@
-export default function LinkItem({ url, label }) {
+export default function LinkItem({ url, title }) {
 	return (
 		<li className="my-2">
 			<a href={url} className="text-foreground hover:underline">
-				{label}
+				{title}
 			</a>
 		</li>
 	)

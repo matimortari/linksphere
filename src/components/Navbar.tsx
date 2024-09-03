@@ -38,7 +38,7 @@ export default function Navbar() {
 	}, [])
 
 	return (
-		<nav className="mb-8 flex items-center justify-end bg-transparent p-4">
+		<nav className="flex items-center justify-end bg-transparent p-2">
 			<div className="flex items-center gap-2">
 				<button onClick={toggleTheme} className="button flex h-10 w-10 items-center justify-center bg-background">
 					<Icon
@@ -48,7 +48,7 @@ export default function Navbar() {
 
 				{!session && (
 					<Link href="/login" className="button flex h-10 w-10 items-center justify-center">
-						<Icon icon="material-symbols:menu-rounded" />
+						<Icon icon="material-symbols:login" />
 					</Link>
 				)}
 

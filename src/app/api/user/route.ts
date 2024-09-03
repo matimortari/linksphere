@@ -9,13 +9,17 @@ export async function GET(req: NextRequest) {
 			return new NextResponse("Invalid userId", { status: 400 })
 		}
 
-		const links = await db.userLink.findMany({
-			where: { userId },
+		const user = await db.user.findUnique({
+			where: { id: userId },
 		})
 
-		return NextResponse.json(links)
+		if (!user) {
+			return new NextResponse("User not found", { status: 404 })
+		}
+
+		return NextResponse.json(user)
 	} catch (error) {
-		console.error("Error fetching links:", error)
-		return new NextResponse("Error fetching links", { status: 500 })
+		console.error("Error fetching user:", error)
+		return new NextResponse("Error fetching user data", { status: 500 })
 	}
 }
