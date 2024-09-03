@@ -1,4 +1,4 @@
-export interface Link {
+export interface UserLink {
 	id: number
 	url: string
 	label: string

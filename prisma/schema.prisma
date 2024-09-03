@@ -34,17 +34,20 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
+  description   String?
+  slug          String?    @unique
+  pubic         Boolean?
   accounts      Account[]
   sessions      Session[]
-  Link          Link[]
+  Link          UserLink[]
 }
 
-model Link {
+model UserLink {
   id     Int    @id @default(autoincrement())
   url    String
   label  String

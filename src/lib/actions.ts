@@ -1,32 +1,9 @@
-import { Link } from "@prisma/client"
-import { getServerSession } from "next-auth"
-import { authOptions } from "./auth"
-import { db } from "./db"
+import { UserLink } from "@prisma/client"
 
-export async function getUserLinks(): Promise<Link[]> {
-	const session = await getServerSession(authOptions)
-
-	if (!session || !session.user) {
-		throw new Error("Unauthorized")
+export async function fetchLinks(userId: string): Promise<UserLink[]> {
+	const response = await fetch(`/api/links?userId=${userId}`)
+	if (!response.ok) {
+		throw new Error("Failed to fetch links")
 	}
-
-	const links: Link[] = await db.link.findMany({
-		where: { userId: session.user.id },
-	})
-
-	return links
-}
-
-export async function fetchLinks(userId: string): Promise<Link[]> {
-	try {
-		return await db.link.findMany({
-			where: { userId },
-		})
-	} catch (error) {
-		if (error instanceof Error) {
-			throw new Error("Failed to fetch links: " + error.message)
-		} else {
-			throw new Error("An unknown error occurred")
-		}
-	}
+	return response.json()
 }
