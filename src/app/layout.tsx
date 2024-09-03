@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth"
 import { Inter } from "next/font/google"
 import Providers from "../components/context/Providers"
 import Footer from "../components/Footer"
+import Navbar from "../components/Navbar"
 import { authOptions } from "../lib/auth"
 import "../styles/globals.css"
 
@@ -20,6 +21,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 		<html lang="en">
 			<body className={inter.className}>
 				<Providers session={session}>
+					<Navbar />
 					{children}
 					<Footer />
 				</Providers>
