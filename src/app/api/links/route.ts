@@ -1,6 +1,7 @@
 import { db } from "@/src/lib/db"
 import { NextRequest, NextResponse } from "next/server"
 
+// Handler for GET requests to fetch user links
 export async function GET(req: NextRequest) {
 	try {
 		const slug = req.nextUrl.searchParams.get("slug")
