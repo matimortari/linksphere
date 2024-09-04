@@ -32,7 +32,7 @@ export interface User {
 	emailVerified?: Date
 	image?: string
 	description?: string
-	slug?: string
+	slug: string
 	pubic?: boolean
 	accounts?: Account[] // Optional relation to Account
 	sessions?: Session[] // Optional relation to Session
@@ -57,7 +57,7 @@ export interface CreateUserInput {
 	emailVerified?: Date
 	image?: string
 	description?: string
-	slug?: string
+	slug: string
 	pubic?: boolean
 }
 
@@ -67,7 +67,7 @@ export interface UpdateUserInput {
 	emailVerified?: Date
 	image?: string
 	description?: string
-	slug?: string
+	slug: string
 	pubic?: boolean
 }
 

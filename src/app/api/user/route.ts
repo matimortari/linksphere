@@ -3,14 +3,14 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
 	try {
-		const userId = req.nextUrl.searchParams.get("userId")
+		const slug = req.nextUrl.searchParams.get("slug")
 
-		if (!userId || typeof userId !== "string") {
-			return new NextResponse("Invalid userId", { status: 400 })
+		if (!slug || typeof slug !== "string") {
+			return new NextResponse("Invalid slug", { status: 400 })
 		}
 
 		const user = await db.user.findUnique({
-			where: { id: userId },
+			where: { slug },
 		})
 
 		if (!user) {

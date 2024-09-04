@@ -3,17 +3,21 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
 	try {
-		const userId = req.nextUrl.searchParams.get("userId")
+		const slug = req.nextUrl.searchParams.get("slug")
 
-		if (!userId || typeof userId !== "string") {
-			return new NextResponse("Invalid userId", { status: 400 })
+		if (!slug || typeof slug !== "string") {
+			return new NextResponse("Invalid slug", { status: 400 })
 		}
 
-		const links = await db.userLink.findMany({
-			where: { userId },
+		const userLinks = await db.userLink.findMany({
+			where: {
+				user: {
+					slug,
+				},
+			},
 		})
 
-		return NextResponse.json(links)
+		return NextResponse.json(userLinks)
 	} catch (error) {
 		console.error("Error fetching links:", error)
 		return new NextResponse("Error fetching links", { status: 500 })

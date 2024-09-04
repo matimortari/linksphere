@@ -13,8 +13,8 @@ export default function Home() {
 			return
 		}
 
-		if (status === "authenticated" && session?.user?.id) {
-			redirect(`/${session.user.id}`)
+		if (status === "authenticated" && session?.user?.slug) {
+			redirect(`/${session.user.slug}`)
 		}
 	}, [status, session])
 

@@ -1,25 +1,28 @@
 "use client"
 
 import LinkItem from "@/src/components/LinkItem"
-import { fetchLinks, fetchUser } from "@/src/lib/actions"
+import { fetchLinks, fetchUserBySlug } from "@/src/lib/actions"
 import { User, UserLink } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 
-export default function UserPage({ params }: { params: { userId: string } }) {
-	const [links, setLinks] = useState<UserLink[]>([])
+export default function UserPage({ params }: { params: { slug: string } }) {
 	const [user, setUser] = useState<User | null>(null)
-	const { userId } = params
+	const [links, setLinks] = useState<UserLink[]>([])
+	const { slug } = params
 	const { data: session, status } = useSession()
 
 	const fetchUserData = async () => {
-		if (status === "loading" || !userId) {
+		if (status === "loading" || !slug) {
 			return
 		}
 
 		try {
-			const [linksFromServer, userFromServer] = await Promise.all([fetchLinks(userId), fetchUser(userId)])
+			const [linksFromServer, userFromServer] = await Promise.all([
+				fetchLinks(slug), // Assuming fetchLinks can also use slug, adjust as needed
+				fetchUserBySlug(slug),
+			])
 			setLinks(linksFromServer as UserLink[])
 			setUser(userFromServer as User)
 		} catch (err) {
@@ -29,7 +32,7 @@ export default function UserPage({ params }: { params: { userId: string } }) {
 
 	useEffect(() => {
 		fetchUserData()
-	}, [userId, status])
+	}, [slug, status])
 
 	if (status === "loading") {
 		return <div>Loading...</div>

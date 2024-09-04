@@ -67,7 +67,7 @@ export default function Navbar() {
 					<div className="m-2 flex flex-col justify-center gap-4 p-2 text-center text-sm font-semibold">
 						{session && (
 							<>
-								<Link href={`/${session.user.id}`} className="button w-full text-center">
+								<Link href={`/${session.user.slug}`} className="button w-full text-center">
 									My Profile
 								</Link>
 								<Link href="/dashboard" className="button w-full text-center">

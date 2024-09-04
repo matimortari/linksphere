@@ -15,9 +15,12 @@ export default function Sidebar() {
 					{session.user.image && (
 						<Image src={session.user.image} alt={session.user.name || ""} width={40} height={40} className="avatar" />
 					)}
+					<p className="text-sm font-semibold">{session.user.name}</p>
 					<div className="flex flex-col items-center justify-center">
 						<h1>My Dashboard</h1>
-						<p className="text-sm font-normal">{session.user.name}</p>
+						<a href={`https://ness-live.vercel.app/${session.user.slug}`} className="text-xs font-normal">
+							ness-live.vercel.app/{session.user.slug}
+						</a>
 					</div>
 				</div>
 
