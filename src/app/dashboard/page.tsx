@@ -44,7 +44,10 @@ export default function Dashboard() {
 						<p className="text-muted">Welcome back, {session?.user.name}!</p>
 					</div>
 
-					<UpdateSlugForm currentSlug={session?.user.slug} />
+					<div className="flex flex-col">
+						<p className="text-lg font-semibold">Your URL:</p>
+						<UpdateSlugForm currentSlug={session?.user.slug} />
+					</div>
 
 					<div className="rounded-lg border border-muted p-4">
 						<div className="flex flex-col">
