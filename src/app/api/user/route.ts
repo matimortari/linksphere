@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 	}
 }
 
-// Handler for PUT requests to update user slug
+// Handler for PUT requests to update user slug or description
 export async function PUT(req: NextRequest) {
 	try {
 		const session = await getServerSession(authOptions)
@@ -36,24 +36,30 @@ export async function PUT(req: NextRequest) {
 			return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 		}
 
-		const { newSlug } = await req.json()
+		const { newSlug, newDescription } = await req.json()
 
-		if (!newSlug || typeof newSlug !== "string") {
-			return NextResponse.json({ error: "Invalid slug" }, { status: 400 })
+		const updateData: any = {}
+
+		if (newSlug && typeof newSlug === "string") {
+			updateData.slug = newSlug
 		}
 
-		if (!session.user.id || !newSlug) {
-			return NextResponse.json({ error: "User ID and new slug must be provided" }, { status: 400 })
+		if (newDescription && typeof newDescription === "string") {
+			updateData.description = newDescription
+		}
+
+		if (Object.keys(updateData).length === 0) {
+			return NextResponse.json({ error: "No valid fields provided" }, { status: 400 })
 		}
 
 		const updatedUser = await db.user.update({
 			where: { id: session.user.id },
-			data: { slug: newSlug },
+			data: updateData,
 		})
 
-		return NextResponse.json({ message: "Slug updated successfully", updatedUser })
+		return NextResponse.json({ message: "User updated successfully", updatedUser })
 	} catch (error) {
-		console.error("Error updating user slug:", error)
-		return NextResponse.json({ error: "Error updating user slug" }, { status: 500 })
+		console.error("Error updating user:", error)
+		return NextResponse.json({ error: "Error updating user data" }, { status: 500 })
 	}
 }

@@ -10,6 +10,7 @@ declare module "next-auth" {
 		user: DefaultSession["user"] & {
 			id: string
 			slug: string
+			description: string
 		}
 	}
 }

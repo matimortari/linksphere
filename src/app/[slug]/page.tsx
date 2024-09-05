@@ -36,7 +36,7 @@ export default function UserPage({ params }: { params: { slug: string } }) {
 	}
 
 	return (
-		<div className="flex h-screen flex-col items-center rounded-lg bg-muted py-8">
+		<div className="flex h-screen flex-col items-center bg-muted py-8">
 			{user && (
 				<div className="mb-8 flex flex-col justify-center gap-2 text-center">
 					{user.image && (
