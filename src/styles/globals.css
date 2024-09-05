@@ -54,6 +54,25 @@
 	}
 }
 
+html,
+body {
+	height: 100%;
+	margin: 0;
+}
+
+main {
+	position: relative;
+	z-index: 0;
+}
+
+nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 10;
+}
+
 .button {
 	border-width: 1px;
 	border-color: var(--muted);

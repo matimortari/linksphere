@@ -10,7 +10,7 @@ export default function Sidebar() {
 
 	if (session) {
 		return (
-			<aside className="h-6/12 w-3/12 rounded-lg border border-muted p-4 shadow-lg">
+			<aside className="w-3/12 rounded-lg border border-muted p-4 shadow-lg">
 				<div className="flex flex-col items-center gap-2 pb-6 text-2xl font-bold">
 					{session.user.image && (
 						<Image src={session.user.image} alt={session.user.name || ""} width={40} height={40} className="avatar" />

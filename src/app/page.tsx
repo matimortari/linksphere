@@ -21,15 +21,14 @@ export default function Home() {
 
 	if (!session?.user) {
 		return (
-			<div className="p-4">
-				<div className="flex h-screen flex-row rounded-lg border border-muted p-4 pt-16">
-					<div className="h-full w-1/2 px-8">
+			<div className="h-screen p-4 pt-16">
+				<div className="flex h-full flex-row">
+					<section className="w-1/2 p-8">
 						<h1 className="mb-4 text-5xl font-bold text-foreground">Welcome to NeSS!</h1>
-						<p className="mb-8 text-xl text-muted-foreground">
+						<p className="mb-4 text-xl text-muted-foreground">
 							Share your links, social profiles, <br />
 							contact info & more in one page.
 						</p>
-
 						<form className="link-form">
 							<span className="py-2">ness-live.vercel.app/</span>
 							<input type="text" placeholder="your_name" className="bg-transparent py-2" />
@@ -37,13 +36,13 @@ export default function Home() {
 								Sign In
 							</Link>
 						</form>
-					</div>
+					</section>
 
-					<div className="flex h-full w-1/2 px-8">
-						<div className="flex h-full w-full items-center justify-center rounded-lg">
+					<section className="w-1/2 p-8">
+						<div className="flex w-full items-center justify-center">
 							<CardCarousel />
 						</div>
-					</div>
+					</section>
 				</div>
 			</div>
 		)
