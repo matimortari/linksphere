@@ -1,4 +1,6 @@
+import { authOptions } from "@/src/lib/auth"
 import { db } from "@/src/lib/db"
+import { getServerSession } from "next-auth"
 import { NextRequest, NextResponse } from "next/server"
 
 // Handler for GET requests to fetch user links
@@ -22,5 +24,40 @@ export async function GET(req: NextRequest) {
 	} catch (error) {
 		console.error("Error fetching links:", error)
 		return new NextResponse("Error fetching links", { status: 500 })
+	}
+}
+
+// Handler for POST requests to add a new link
+export async function POST(req: NextRequest) {
+	try {
+		// Parse the request body
+		const { title, url } = await req.json()
+
+		// Validate input
+		if (!title || typeof title !== "string" || !url || typeof url !== "string") {
+			return new NextResponse(JSON.stringify({ error: "Invalid input" }), { status: 400 })
+		}
+
+		// Retrieve user from session
+		const session = await getServerSession(authOptions)
+		const userId = session?.user?.id
+
+		if (!userId) {
+			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
+		}
+
+		// Add link to the database
+		const newLink = await db.userLink.create({
+			data: {
+				title,
+				url,
+				userId,
+			},
+		})
+
+		return NextResponse.json(newLink)
+	} catch (error) {
+		console.error("Error adding link:", error)
+		return new NextResponse(JSON.stringify({ error: "Error adding link" }), { status: 500 })
 	}
 }
