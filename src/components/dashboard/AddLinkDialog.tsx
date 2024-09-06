@@ -1,11 +1,25 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")
 	const [error, setError] = useState<string | null>(null)
+	const dialogRef = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
+				onClose()
+			}
+		}
+
+		document.addEventListener("mousedown", handleClickOutside)
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside)
+		}
+	}, [onClose])
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -25,7 +39,8 @@ export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 			})
 
 			if (!response.ok) {
-				throw new Error("Failed to add link")
+				const message = await response.text()
+				throw new Error(message || "Failed to add link")
 			}
 
 			setTitle("")
@@ -39,39 +54,39 @@ export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-			<div className="content-container bg-background shadow-lg">
-				<h2 className="mb-4 text-2xl font-semibold">Add New Link</h2>
+			<div ref={dialogRef} className="rounded-lg bg-background p-16 shadow-lg">
+				<h2 className="title">Add New Link</h2>
 
 				{error && <p className="mb-4 text-destructive">{error}</p>}
 
 				<form onSubmit={handleSubmit}>
-					<div className="my-2">
-						<label className="text-lg font-semibold text-foreground">Title</label>
+					<div className="my-8 flex items-center space-x-2">
+						<label className="subtitle">Title:</label>
 						<input
 							type="text"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-							className="form-container my-2 block w-full"
+							className="form-container bg-transparent"
 							required
 						/>
 					</div>
 
-					<div className="my-2">
-						<label className="text-lg font-semibold text-foreground">URL</label>
+					<div className="my-8 flex items-center space-x-2">
+						<label className="subtitle">URL:</label>
 						<input
 							type="url"
 							value={url}
 							onChange={(e) => setUrl(e.target.value)}
-							className="form-container my-2 block w-full"
+							className="form-container bg-transparent"
 							required
 						/>
 					</div>
 
-					<div className="flex justify-end gap-2">
+					<div className="button-container justify-end">
 						<button type="button" className="button bg-destructive text-destructive-foreground" onClick={onClose}>
 							Cancel
 						</button>
-						<button type="submit" className="button bg-accent text-accent-foreground">
+						<button type="submit" className="button bg-primary text-primary-foreground">
 							Add Link
 						</button>
 					</div>

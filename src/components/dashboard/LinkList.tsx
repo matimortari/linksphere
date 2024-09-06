@@ -44,17 +44,20 @@ export default function LinkList() {
 		<div className="w-[542px] space-y-2">
 			{links.map((link) => (
 				<li key={link.id} className="content-container flex items-center overflow-hidden">
-					<a href={link.url} className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
-						{link.title}
-					</a>
+					<div className="flex flex-col justify-start gap-1">
+						<p>{link.title}</p>
+						<a href={link.url} className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
+							{link.url}
+						</a>
+					</div>
 				</li>
 			))}
 
 			<div className="button-container">
-				<button className="button bg-accent text-accent-foreground" onClick={() => setIsDialogOpen(true)}>
+				<button className="button bg-primary text-primary-foreground" onClick={() => setIsDialogOpen(true)}>
 					Add Link
 				</button>
-				<button className="button bg-accent text-accent-foreground" onClick={() => setIsDialogOpen(true)}>
+				<button className="button bg-primary text-primary-foreground" onClick={() => setIsDialogOpen(true)}>
 					Add Social Button
 				</button>
 				{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}

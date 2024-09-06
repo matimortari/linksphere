@@ -105,7 +105,7 @@ export default function AppearanceForm() {
 					/>
 				</div>
 
-				<button type="submit" className="button bg-accent text-accent-foreground">
+				<button type="submit" className="button bg-primary text-primary-foreground">
 					Update Settings
 				</button>
 			</form>

@@ -41,7 +41,7 @@ export default function Preview() {
 	}
 
 	return (
-		<div className="content-container shadow-lg">
+		<div className="rounded-3xl border border-muted p-12 shadow-lg">
 			{user && (
 				<div className="mb-2 flex flex-col justify-center gap-3 pt-8 text-center">
 					{user.image && (

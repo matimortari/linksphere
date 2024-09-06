@@ -36,7 +36,11 @@ export default function Dashboard() {
 				<main className="content-container w-full">
 					<header className="flex flex-col gap-2 pb-8">
 						<h1 className="title">Dashboard</h1>
-						<p className="text-muted-foreground">Welcome back, {session.user.name}!</p>
+						<div className="flex flex-row">
+							<span className="text-muted-foreground">
+								Welcome back, <span className="font-bold text-primary">{session.user.name}!</span>
+							</span>
+						</div>
 						<hr />
 					</header>
 
@@ -53,7 +57,7 @@ export default function Dashboard() {
 						<LinkList />
 						<hr />
 
-						<p className="subtitle">Preview</p>
+						<p className="title">Preview</p>
 						<Preview />
 						<hr />
 					</div>

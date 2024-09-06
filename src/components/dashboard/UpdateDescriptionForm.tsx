@@ -22,7 +22,7 @@ export default function UpdateDescriptionForm({ currentDescription }) {
 			const data = await response.json()
 
 			if (!response.ok) {
-				throw new Error(data.error || "Failed to update header")
+				throw new Error(data.error || "Failed to update header.")
 			}
 
 			setSuccess("Header updated successfully!")
@@ -32,22 +32,24 @@ export default function UpdateDescriptionForm({ currentDescription }) {
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="form-container w-[542px]">
-			<span className="py-2 text-muted-foreground">Your description Here</span>
-			<input
-				type="text"
-				onChange={(e) => setDescription(e.target.value)}
-				value={description}
-				className="bg-transparent"
-			/>
-			<button type="submit" className="button bg-accent text-accent-foreground">
-				Update Header
-			</button>
+		<div>
+			<form onSubmit={handleSubmit} className="form-container w-[542px]">
+				<span className="py-2 text-muted-foreground">Your description Here</span>
+				<input
+					type="text"
+					onChange={(e) => setDescription(e.target.value)}
+					value={description}
+					className="bg-transparent"
+				/>
+				<button type="submit" className="button bg-primary text-primary-foreground">
+					Update Header
+				</button>
+			</form>
 
-			<div className="font-bold">
+			<div className="px-4 pt-2 font-bold">
 				{error && <p className="text-destructive">{error}</p>}
 				{success && <p className="text-accent">{success}</p>}
 			</div>
-		</form>
+		</div>
 	)
 }

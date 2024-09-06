@@ -33,7 +33,7 @@ export default function Home() {
 						<form className="form-container">
 							<span className="text-muted-foreground">ness-live.vercel.app/</span>
 							<input type="text" placeholder="your_name" className="bg-transparent" />
-							<Link href="/login" className="button bg-accent text-accent-foreground">
+							<Link href="/login" className="button bg-primary text-primary-foreground">
 								Sign In
 							</Link>
 						</form>
