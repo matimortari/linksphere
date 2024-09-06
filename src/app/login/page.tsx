@@ -12,7 +12,7 @@ export default function Login() {
 	}
 
 	return (
-		<div className="h-screen p-4 pt-16">
+		<div className="main-container">
 			<div className="flex items-center justify-center">
 				<div className="flex flex-col items-center justify-center rounded-lg px-8 py-4 text-center shadow-md">
 					<strong className="p-4 text-5xl">Sign In</strong>

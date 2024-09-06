@@ -7,6 +7,10 @@
 		@apply bg-background text-foreground;
 	}
 
+	.input {
+		@apply bg-transparent border-none outline-none w-full;
+	}
+
 	:root {
 		--background: #f7f3f7;
 		--foreground: #1e1e1e;
@@ -73,17 +77,55 @@ nav {
 	z-index: 10;
 }
 
-.button {
-	border-width: 1px;
+.main-container {
+	height: 100%;
+	padding-top: 4rem;
+	padding-bottom: 1rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.dashboard-container {
+	padding-top: 4rem;
+	padding-bottom: 1rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.content-container {
+	padding: 1rem;
 	border-color: var(--muted);
+	border-width: 1px;
+	border-radius: 0.5rem;
+}
+
+.form-container {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.5rem;
+	padding-left: 1rem;
+	border-color: var(--muted);
+	border-width: 1px;
+	border-radius: 0.5rem;
+}
+
+.button-container {
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+}
+
+.button {
+	border-color: var(--muted);
+	border-width: 1px;
 	padding: 0.5rem;
 	border-radius: 0.5rem;
 	text-align: center;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .button:hover {
-	opacity: 0.5;
+	opacity: 0.8;
 }
 
 .avatar {
@@ -99,34 +141,14 @@ nav {
 	transform: scale(1.2);
 }
 
-.link-form {
-	display: inline-flex;
-	align-items: center;
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-	padding-left: 0.5rem;
-	border-color: var(--muted);
-	border-width: 1px;
-	border-radius: 0.5rem;
+.title {
+	font-size: 1.5rem;
+	line-height: 2rem;
+	font-weight: 600;
 }
 
-.content-container {
-	padding: 1rem;
-	border-color: var(--muted);
-	border-width: 1px;
-	border-radius: 0.5rem;
-}
-
-.hero-background {
-	background: linear-gradient(340deg,
-			rgb(41, 53, 76) 0%,
-			rgb(49, 66, 94) 35%,
-			rgb(59, 79, 109) 51%,
-			rgb(69, 101, 121) 61%,
-			rgb(69, 116, 125) 69%,
-			rgb(71, 132, 118) 74%,
-			rgb(74, 141, 126) 79%,
-			rgb(78, 148, 132) 85%,
-			rgb(73, 150, 123) 91%,
-			rgb(58, 158, 99) 100%);
+.subtitle {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+	font-weight: 600;
 }

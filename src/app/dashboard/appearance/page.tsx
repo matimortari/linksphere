@@ -26,20 +26,33 @@ export default function Appearance() {
 	}
 
 	return (
-		<div className="h-screen p-4 pt-16">
+		<div className="dashboard-container">
 			<div className="flex flex-row">
 				<Sidebar />
 
-				<main className="p-4">
-					<div className="flex flex-col pb-8">
-						<h1 className="text-2xl font-semibold">Appearance</h1>
-						<p className="text-muted">Update your profile appearance here.</p>
+				<main className="content-container w-full">
+					<header className="flex flex-col gap-2 pb-8">
+						<h1 className="title">Appearance</h1>
+						<p className="text-muted-foreground">Update your profile appearance here.</p>
+						<hr />
+					</header>
+
+					<div className="flex flex-col gap-4">
+						<p className="subtitle">Update Appearance</p>
+						<AppearanceForm />
+						<hr />
+
+						<p className="subtitle">TBA</p>
+						<hr />
+
+						<p className="subtitle">TBA</p>
+						<hr />
+
+						<p className="subtitle">TBA</p>
+						<hr />
 					</div>
 
-					<section className="flex flex-col">
-						<p className="mb-2 text-xl font-semibold">Update Appearance</p>
-						<AppearanceForm />
-					</section>
+					<section className="flex flex-col"></section>
 				</main>
 			</div>
 		</div>

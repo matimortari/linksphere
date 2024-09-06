@@ -21,17 +21,18 @@ export default function Home() {
 
 	if (!session?.user) {
 		return (
-			<div className="h-screen p-4 pt-16">
-				<div className="flex h-full flex-row">
+			<div className="main-container">
+				<div className="flex flex-row">
 					<section className="w-1/2 p-8">
 						<h1 className="mb-4 text-5xl font-bold text-foreground">Welcome to NeSS!</h1>
 						<p className="mb-4 text-xl text-muted-foreground">
 							Share your links, social profiles, <br />
 							contact info & more in one page.
 						</p>
-						<form className="link-form">
-							<span className="py-2">ness-live.vercel.app/</span>
-							<input type="text" placeholder="your_name" className="bg-transparent py-2" />
+
+						<form className="form-container">
+							<span className="text-muted-foreground">ness-live.vercel.app/</span>
+							<input type="text" placeholder="your_name" className="bg-transparent" />
 							<Link href="/login" className="button bg-accent text-accent-foreground">
 								Sign In
 							</Link>

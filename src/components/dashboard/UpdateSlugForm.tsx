@@ -32,19 +32,22 @@ export default function UpdateSlugForm({ currentSlug }) {
 	}
 
 	return (
-		<div className="flex flex-row items-center justify-start">
-			<form onSubmit={handleSubmit} className="link-form">
-				<span className="py-2">ness-live.vercel.app/</span>
-				<input type="text" onChange={(e) => setSlug(e.target.value)} value={slug} className="bg-transparent py-2" />
-				<button type="submit" className="button bg-accent text-accent-foreground">
-					Update URL
-				</button>
-			</form>
+		<form onSubmit={handleSubmit} className="form-container w-[542px]">
+			<span className="text-muted-foreground">ness-live.vercel.app/</span>
+			<input
+				type="text"
+				onChange={(e) => setSlug(e.target.value)}
+				value={slug}
+				className="input flex-1 bg-transparent"
+			/>
+			<button type="submit" className="button ml-4 rounded bg-accent px-4 py-2 text-accent-foreground">
+				Update URL
+			</button>
 
-			<div className="px-4 font-bold">
+			<div className="font-bold">
 				{error && <p className="text-destructive">{error}</p>}
 				{success && <p className="text-accent">{success}</p>}
 			</div>
-		</div>
+		</form>
 	)
 }

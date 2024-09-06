@@ -5,7 +5,7 @@ import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 import { useEffect } from "react"
 
-export default function Analytics() {
+export default function Preferences() {
 	const { data: session, status } = useSession()
 
 	useEffect(() => {
@@ -31,8 +31,8 @@ export default function Analytics() {
 
 				<main className="content-container w-full">
 					<header className="flex flex-col gap-2 pb-8">
-						<h1 className="title">Analytics</h1>
-						<p className="text-muted-foreground">View your profile analytics here.</p>
+						<h1 className="title">Settings</h1>
+						<p className="text-muted-foreground">Update your account settings here.</p>
 						<hr />
 					</header>
 

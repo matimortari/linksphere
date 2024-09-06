@@ -3,15 +3,15 @@
 import { fetchLinks, fetchUser } from "@/src/lib/actions"
 import { User, UserLink } from "@prisma/client"
 import { useSession } from "next-auth/react"
-import Image from "next/image"
 import { useEffect, useState } from "react"
-import LinkItem from "../LinkItem"
+import AddLinkDialog from "./AddLinkDialog"
 
-export default function Preview() {
+export default function LinkList() {
 	const { data: session, status } = useSession()
 	const [user, setUser] = useState<User | null>(null)
 	const [links, setLinks] = useState<UserLink[]>([])
 	const [loading, setLoading] = useState<boolean>(true)
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
 	const fetchUserData = async () => {
 		if (status === "loading" || !session?.user?.slug) {
@@ -37,26 +37,28 @@ export default function Preview() {
 	}, [session?.user?.slug, status])
 
 	if (loading) {
-		return <div className="h-screen p-4">Loading Preview...</div>
+		return <div className="flex h-screen items-center justify-center p-4">Loading Link...</div>
 	}
 
 	return (
-		<div className="content-container shadow-lg">
-			{user && (
-				<div className="mb-2 flex flex-col justify-center gap-3 pt-8 text-center">
-					{user.image && (
-						<Image src={user.image} alt={`${user.slug}`} width={100} height={100} className="avatar mx-auto" />
-					)}
-					<h1 className="text-2xl font-bold">@{user.slug}</h1>
-					{user.description && <p className="text-muted-foreground">{user.description}</p>}
-				</div>
-			)}
+		<div className="w-[542px] space-y-2">
+			{links.map((link) => (
+				<li key={link.id} className="content-container flex items-center overflow-hidden">
+					<a href={link.url} className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
+						{link.title}
+					</a>
+				</li>
+			))}
 
-			<ul className="mt-2 space-y-4">
-				{links.map((link) => (
-					<LinkItem key={link.id} {...link} />
-				))}
-			</ul>
+			<div className="button-container">
+				<button className="button bg-accent text-accent-foreground" onClick={() => setIsDialogOpen(true)}>
+					Add Link
+				</button>
+				<button className="button bg-accent text-accent-foreground" onClick={() => setIsDialogOpen(true)}>
+					Add Social Button
+				</button>
+				{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}
+			</div>
 		</div>
 	)
 }

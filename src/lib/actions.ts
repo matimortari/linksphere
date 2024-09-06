@@ -39,7 +39,6 @@ export async function fetchUserSettings() {
 			throw new Error(data.error || "Failed to fetch settings")
 		}
 
-		// Ensure the settings object is in the expected format
 		if (data.settings) {
 			return data.settings
 		} else {

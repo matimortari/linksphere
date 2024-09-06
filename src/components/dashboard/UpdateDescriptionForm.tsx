@@ -32,23 +32,22 @@ export default function UpdateDescriptionForm({ currentDescription }) {
 	}
 
 	return (
-		<div className="flex flex-row items-center justify-start">
-			<form onSubmit={handleSubmit} className="link-form">
-				<input
-					type="text"
-					onChange={(e) => setDescription(e.target.value)}
-					value={description}
-					className="bg-transparent py-2"
-				/>
-				<button type="submit" className="button bg-accent text-accent-foreground">
-					Update Header
-				</button>
-			</form>
+		<form onSubmit={handleSubmit} className="form-container w-[542px]">
+			<span className="py-2 text-muted-foreground">Your description Here</span>
+			<input
+				type="text"
+				onChange={(e) => setDescription(e.target.value)}
+				value={description}
+				className="bg-transparent"
+			/>
+			<button type="submit" className="button bg-accent text-accent-foreground">
+				Update Header
+			</button>
 
-			<div className="px-4 font-bold">
+			<div className="font-bold">
 				{error && <p className="text-destructive">{error}</p>}
 				{success && <p className="text-accent">{success}</p>}
 			</div>
-		</div>
+		</form>
 	)
 }

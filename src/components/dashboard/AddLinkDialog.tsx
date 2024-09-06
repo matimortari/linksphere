@@ -51,7 +51,7 @@ export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 							type="text"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-							className="link-form my-2 block w-full"
+							className="form-container my-2 block w-full"
 							required
 						/>
 					</div>
@@ -62,7 +62,7 @@ export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 							type="url"
 							value={url}
 							onChange={(e) => setUrl(e.target.value)}
-							className="link-form my-2 block w-full"
+							className="form-container my-2 block w-full"
 							required
 						/>
 					</div>
