@@ -31,7 +31,7 @@ export const authOptions = {
 		strategy: "database" as SessionStrategy,
 	},
 	callbacks: {
-		async signIn({ user, profile }) {
+		async signIn({ user, account, profile, email }) {
 			const existingUser = await db.user.findUnique({
 				where: { email: user.email },
 			})
