@@ -26,3 +26,30 @@ export async function GET(req: NextRequest) {
 		return NextResponse.json({ error: "Error fetching settings data" }, { status: 500 })
 	}
 }
+
+// Handler for PUT requests to update user settings
+export async function PUT(req: NextRequest) {
+	try {
+		const session = await getServerSession(authOptions)
+
+		if (!session || !session.user) {
+			return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+		}
+
+		const { linkBackgroundColor, linkTextColor, linkHoverBackgroundColor } = await req.json()
+
+		const updatedSettings = await db.userSettings.update({
+			where: { userId: session.user.id },
+			data: {
+				linkBackgroundColor,
+				linkTextColor,
+				linkHoverBackgroundColor,
+			},
+		})
+
+		return NextResponse.json({ message: "Settings updated successfully", updatedSettings })
+	} catch (error) {
+		console.error("Error updating settings:", error)
+		return NextResponse.json({ error: "Error updating settings data" }, { status: 500 })
+	}
+}

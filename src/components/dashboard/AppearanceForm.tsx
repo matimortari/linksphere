@@ -39,6 +39,30 @@ export default function AppearanceForm() {
 		e.preventDefault()
 		setError("")
 		setSuccess("")
+
+		try {
+			const response = await fetch(`/api/preferences`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					linkBackgroundColor: settings.linkBackgroundColor,
+					linkTextColor: settings.linkTextColor,
+					linkHoverBackgroundColor: settings.linkHoverBackgroundColor,
+				}),
+			})
+
+			const data = await response.json()
+
+			if (!response.ok) {
+				throw new Error(data.error || "Failed to update settings")
+			}
+
+			setSuccess("Settings updated successfully!")
+		} catch (error) {
+			setError((error as Error).message)
+		}
 	}
 
 	if (loading) {
@@ -54,8 +78,8 @@ export default function AppearanceForm() {
 						id="linkBackgroundColor"
 						type="color"
 						value={settings.linkBackgroundColor}
+						onChange={(e) => setSettings({ ...settings, linkBackgroundColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
-						readOnly
 					/>
 				</div>
 
@@ -65,8 +89,8 @@ export default function AppearanceForm() {
 						id="linkTextColor"
 						type="color"
 						value={settings.linkTextColor}
+						onChange={(e) => setSettings({ ...settings, linkTextColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
-						readOnly
 					/>
 				</div>
 
@@ -76,8 +100,8 @@ export default function AppearanceForm() {
 						id="linkHoverBackgroundColor"
 						type="color"
 						value={settings.linkHoverBackgroundColor}
+						onChange={(e) => setSettings({ ...settings, linkHoverBackgroundColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
-						readOnly
 					/>
 				</div>
 
