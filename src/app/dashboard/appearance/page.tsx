@@ -38,7 +38,7 @@ export default function Appearance() {
 
 					<section className="flex flex-col">
 						<p className="mb-2 text-xl font-semibold">Update Appearance</p>
-						<AppearanceForm currentSettings={session.user.slug} />
+						<AppearanceForm />
 					</section>
 				</main>
 			</div>

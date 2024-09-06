@@ -53,8 +53,6 @@ export const authOptions = {
 				await db.userSettings.create({
 					data: {
 						userId: newUser.id,
-						profileImage: null,
-						description: "",
 						linkBackgroundColor: "#ffffff",
 						linkTextColor: "#000000",
 						linkHoverBackgroundColor: "#eeeeee",

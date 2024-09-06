@@ -61,8 +61,6 @@ model UserLink {
 model UserSettings {
   id                       String  @id @default(cuid())
   userId                   String  @unique
-  profileImage             String?
-  description              String?
   linkBackgroundColor      String?
   linkTextColor            String?
   linkHoverBackgroundColor String?

@@ -2,8 +2,6 @@ import { useEffect, useState } from "react"
 
 export default function AppearanceForm() {
 	const [settings, setSettings] = useState({
-		profileImage: "",
-		description: "",
 		linkBackgroundColor: "#ffffff",
 		linkTextColor: "#000000",
 		linkHoverBackgroundColor: "#eeeeee",
@@ -48,7 +46,7 @@ export default function AppearanceForm() {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-start rounded-lg bg-gray-100 p-6 shadow-md">
+		<div className="content-container shadow-lg">
 			<form onSubmit={handleSubmit} className="flex w-full max-w-md flex-col space-y-4">
 				<div className="flex items-center space-x-2">
 					<span className="py-2 font-medium">Link Background Color:</span>
