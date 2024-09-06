@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-export default function UpdateSlugForm({ currentSlug }) {
-	const [slug, setSlug] = useState(currentSlug)
+export default function UpdateSlugForm({ currentSlug, setSlug }) {
+	const [slug, updateSlug] = useState(currentSlug)
 	const [error, setError] = useState("")
 	const [success, setSuccess] = useState("")
 
@@ -26,6 +26,7 @@ export default function UpdateSlugForm({ currentSlug }) {
 			}
 
 			setSuccess("Slug updated successfully!")
+			setSlug(slug)
 		} catch (error) {
 			setError((error as Error).message)
 		}
@@ -37,7 +38,7 @@ export default function UpdateSlugForm({ currentSlug }) {
 				<span className="text-muted-foreground">ness-live.vercel.app/</span>
 				<input
 					type="text"
-					onChange={(e) => setSlug(e.target.value)}
+					onChange={(e) => updateSlug(e.target.value)}
 					value={slug}
 					className="input flex-1 bg-transparent"
 				/>

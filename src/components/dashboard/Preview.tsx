@@ -1,32 +1,29 @@
 "use client"
 
-import { fetchLinks, fetchUser } from "@/src/lib/actions"
+import { fetchUser } from "@/src/lib/actions"
 import { User, UserLink } from "@prisma/client"
-import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import LinkItem from "../LinkItem"
 
-export default function Preview() {
-	const { data: session, status } = useSession()
+interface PreviewProps {
+	slug: string
+	description: string
+	links: UserLink[]
+}
+
+export default function Preview({ slug, description, links }: PreviewProps) {
 	const [user, setUser] = useState<User | null>(null)
-	const [links, setLinks] = useState<UserLink[]>([])
 	const [loading, setLoading] = useState<boolean>(true)
 
 	const fetchUserData = async () => {
-		if (status === "loading" || !session?.user?.slug) {
-			return
-		}
+		if (!slug) return
 
 		try {
-			const [userFromServer, linksFromServer] = await Promise.all([
-				fetchUser(session.user.slug),
-				fetchLinks(session.user.slug),
-			])
+			const userFromServer = await fetchUser(slug)
 			setUser(userFromServer)
-			setLinks(linksFromServer)
 		} catch (err) {
-			console.error("Failed to fetch data:", err)
+			console.error("Failed to fetch user data:", err)
 		} finally {
 			setLoading(false)
 		}
@@ -34,7 +31,7 @@ export default function Preview() {
 
 	useEffect(() => {
 		fetchUserData()
-	}, [session?.user?.slug, status])
+	}, [slug])
 
 	if (loading) {
 		return <div className="h-screen p-4">Loading Preview...</div>
@@ -43,20 +40,32 @@ export default function Preview() {
 	return (
 		<div className="rounded-3xl border border-muted p-12 shadow-lg">
 			{user && (
-				<div className="mb-2 flex flex-col justify-center gap-3 pt-8 text-center">
+				<div className="mb-8 flex flex-col items-center text-center">
 					{user.image && (
-						<Image src={user.image} alt={`${user.slug}`} width={100} height={100} className="avatar mx-auto" />
+						<Image
+							src={user.image}
+							alt={`Profile picture of ${user.slug}`}
+							width={100}
+							height={100}
+							className="rounded-full"
+						/>
 					)}
-					<h1 className="text-2xl font-bold">@{user.slug}</h1>
-					{user.description && <p className="text-muted-foreground">{user.description}</p>}
+					<h1 className="text-2xl font-bold">@{slug}</h1>
+					{description && <p className="mt-2 text-muted-foreground">{description}</p>}
 				</div>
 			)}
 
-			<ul className="mt-2 space-y-4">
-				{links.map((link) => (
-					<LinkItem key={link.id} {...link} />
-				))}
-			</ul>
+			<div className="space-y-4">
+				{links.length > 0 ? (
+					<ul className="list-inside list-disc space-y-2">
+						{links.map((link) => (
+							<LinkItem key={link.id} {...link} />
+						))}
+					</ul>
+				) : (
+					<p className="text-muted-foreground">No links available</p>
+				)}
+			</div>
 		</div>
 	)
 }

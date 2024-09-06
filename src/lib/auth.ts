@@ -1,4 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import { UserLink } from "@prisma/client"
 import { DefaultSession, SessionStrategy } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
@@ -11,6 +12,7 @@ declare module "next-auth" {
 			id: string
 			slug: string
 			description: string
+			links: UserLink[]
 		}
 	}
 }
@@ -75,6 +77,13 @@ export const authOptions = {
 			const dbUser = await db.user.findUnique({ where: { id: user.id } })
 			if (dbUser) {
 				session.user.slug = dbUser.slug
+				session.user.description = dbUser.description
+
+				// Fetch user's links and add them to the session
+				const links = await db.userLink.findMany({
+					where: { userId: dbUser.id },
+				})
+				session.user.links = links
 			}
 			return session
 		},

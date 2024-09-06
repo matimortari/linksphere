@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-export default function UpdateDescriptionForm({ currentDescription }) {
-	const [description, setDescription] = useState(currentDescription)
+export default function UpdateDescriptionForm({ currentDescription, setDescription }) {
+	const [description, updateDescription] = useState(currentDescription)
 	const [error, setError] = useState("")
 	const [success, setSuccess] = useState("")
 
@@ -26,6 +26,7 @@ export default function UpdateDescriptionForm({ currentDescription }) {
 			}
 
 			setSuccess("Header updated successfully!")
+			setDescription(description)
 		} catch (error) {
 			setError((error as Error).message)
 		}
@@ -34,12 +35,11 @@ export default function UpdateDescriptionForm({ currentDescription }) {
 	return (
 		<div>
 			<form onSubmit={handleSubmit} className="form-container w-[542px]">
-				<span className="py-2 text-muted-foreground">Your description Here</span>
 				<input
 					type="text"
-					onChange={(e) => setDescription(e.target.value)}
+					onChange={(e) => updateDescription(e.target.value)}
 					value={description}
-					className="bg-transparent"
+					className="input flex-1 bg-transparent"
 				/>
 				<button type="submit" className="button bg-primary text-primary-foreground">
 					Update Header

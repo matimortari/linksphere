@@ -1,22 +1,17 @@
 "use client"
 
 import { Icon } from "@iconify/react"
-import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 
-export default function Sidebar() {
-	const { data: session } = useSession()
-
+export default function Sidebar({ slug, name, image }) {
 	return (
 		<aside className="content-container mr-4 h-full w-4/12 shadow-lg">
 			<div className="flex flex-col items-center justify-center gap-2 py-2">
-				{session?.user.image && (
-					<Image src={session.user.image} alt={session.user.name || ""} width={40} height={40} className="avatar" />
-				)}
-				<p className="text-lg font-semibold">{session?.user.name}</p>
-				<a href={`https://ness-live.vercel.app/${session?.user.slug}`} className="text-xs font-normal">
-					ness-live.vercel.app/{session?.user.slug}
+				{image && <Image src={image} alt={name || ""} width={40} height={40} className="avatar" />}
+				<p className="text-lg font-semibold">{name}</p>
+				<a href={`https://ness-live.vercel.app/${slug}`} className="text-xs font-normal">
+					ness-live.vercel.app/{slug}
 				</a>
 			</div>
 

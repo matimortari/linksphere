@@ -2,7 +2,13 @@
 
 import { useEffect, useRef, useState } from "react"
 
-export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
+export default function AddLinkDialog({
+	onClose,
+	onAddLink,
+}: {
+	onClose: () => void
+	onAddLink: (link: { id: string; title: string; url: string }) => void
+}) {
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")
 	const [error, setError] = useState<string | null>(null)
@@ -43,9 +49,11 @@ export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 				throw new Error(message || "Failed to add link")
 			}
 
+			const newLink = await response.json()
 			setTitle("")
 			setUrl("")
 			setError(null)
+			onAddLink(newLink) // Update the parent component with the new link
 			onClose()
 		} catch (err) {
 			setError("An error occurred while adding the link.")

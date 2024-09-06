@@ -1,67 +1,30 @@
 "use client"
 
-import { fetchLinks, fetchUser } from "@/src/lib/actions"
-import { User, UserLink } from "@prisma/client"
-import { useSession } from "next-auth/react"
-import { useEffect, useState } from "react"
-import AddLinkDialog from "./AddLinkDialog"
+import { UserLink } from "@prisma/client"
 
-export default function LinkList() {
-	const { data: session, status } = useSession()
-	const [user, setUser] = useState<User | null>(null)
-	const [links, setLinks] = useState<UserLink[]>([])
-	const [loading, setLoading] = useState<boolean>(true)
-	const [isDialogOpen, setIsDialogOpen] = useState(false)
+interface LinkListProps {
+	links: UserLink[]
+}
 
-	const fetchUserData = async () => {
-		if (status === "loading" || !session?.user?.slug) {
-			return
-		}
-
-		try {
-			const [userFromServer, linksFromServer] = await Promise.all([
-				fetchUser(session.user.slug),
-				fetchLinks(session.user.slug),
-			])
-			setUser(userFromServer)
-			setLinks(linksFromServer)
-		} catch (err) {
-			console.error("Failed to fetch data:", err)
-		} finally {
-			setLoading(false)
-		}
-	}
-
-	useEffect(() => {
-		fetchUserData()
-	}, [session?.user?.slug, status])
-
-	if (loading) {
-		return <div className="flex h-screen items-center justify-center p-4">Loading Link...</div>
-	}
-
+export default function LinkList({ links }: LinkListProps) {
 	return (
 		<div className="w-[542px] space-y-2">
-			{links.map((link) => (
-				<li key={link.id} className="content-container flex items-center overflow-hidden">
-					<div className="flex flex-col justify-start gap-1">
-						<p>{link.title}</p>
-						<a href={link.url} className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
-							{link.url}
-						</a>
-					</div>
-				</li>
-			))}
-
-			<div className="button-container">
-				<button className="button bg-primary text-primary-foreground" onClick={() => setIsDialogOpen(true)}>
-					Add Link
-				</button>
-				<button className="button bg-primary text-primary-foreground" onClick={() => setIsDialogOpen(true)}>
-					Add Social Button
-				</button>
-				{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}
-			</div>
+			{links.length > 0 ? (
+				<ul className="list-inside list-disc space-y-2">
+					{links.map((link) => (
+						<li key={link.id} className="content-container flex items-center overflow-hidden">
+							<div className="flex flex-col justify-start gap-1">
+								<p>{link.title}</p>
+								<a href={link.url} className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground">
+									{link.url}
+								</a>
+							</div>
+						</li>
+					))}
+				</ul>
+			) : (
+				<p className="text-muted-foreground">No links available</p>
+			)}
 		</div>
 	)
 }
