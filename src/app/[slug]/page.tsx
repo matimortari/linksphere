@@ -36,19 +36,18 @@ export default function UserPage({ params }: { params: { slug: string } }) {
 	}
 
 	return (
-		<div className="flex h-screen flex-col items-center bg-muted py-8">
+		<div className="flex h-screen flex-col items-center bg-muted pt-12 shadow-xl">
 			{user && (
-				<div className="mb-8 flex flex-col justify-center gap-2 text-center">
+				<div className="mb-2 flex flex-col justify-center gap-3 text-center">
 					{user.image && (
-						<Image src={user.image} alt={`${user.name}'s picture`} width={40} height={40} className="avatar mx-auto" />
+						<Image src={user.image} alt={`${user.slug}`} width={100} height={100} className="avatar mx-auto" />
 					)}
-
-					<h1 className="text-2xl font-bold">{user.name}</h1>
-					{user.description && <p className="text-accent">{user.description}</p>}
+					<h1 className="text-2xl font-bold">@{user.slug}</h1>
+					{user.description && <p className="text-muted-foreground">{user.description}</p>}
 				</div>
 			)}
 
-			<ul className="space-y-4">
+			<ul className="mt-2 space-y-4">
 				{links.map((link) => (
 					<LinkItem key={link.id} {...link} />
 				))}

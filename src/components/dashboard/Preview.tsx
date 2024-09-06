@@ -41,26 +41,21 @@ export default function Preview() {
 	}
 
 	return (
-		<div className="content-container my-4 bg-muted shadow-lg">
+		<div className="my-4 flex w-[60vw] flex-col items-center rounded-lg border border-muted bg-muted p-12 shadow-xl">
 			{user && (
-				<div className="mb-4 flex flex-col items-center text-center">
+				<div className="mb-2 flex flex-col justify-center gap-3 pt-8 text-center">
 					{user.image && (
-						<Image src={user.image} alt={`${user.name}'s picture`} width={40} height={40} className="avatar mx-auto" />
+						<Image src={user.image} alt={`${user.slug}`} width={100} height={100} className="avatar mx-auto" />
 					)}
-					<h2 className="text-xl font-semibold">{user.name}</h2>
-					{user.description && <p className="mt-2 text-accent">{user.description}</p>}
+					<h1 className="text-2xl font-bold">@{user.slug}</h1>
+					{user.description && <p className="text-muted-foreground">{user.description}</p>}
 				</div>
 			)}
-
-			{links.length > 0 ? (
-				<ul className="space-y-4">
-					{links.map((link) => (
-						<LinkItem key={link.id} {...link} />
-					))}
-				</ul>
-			) : (
-				<p className="text-muted-foreground">No links</p>
-			)}
+			<ul className="mt-2 space-y-4">
+				{links.map((link) => (
+					<LinkItem key={link.id} {...link} />
+				))}
+			</ul>
 		</div>
 	)
 }
