@@ -57,3 +57,80 @@ export async function POST(req: NextRequest) {
 		return new NextResponse(JSON.stringify({ error: "Error adding link" }), { status: 500 })
 	}
 }
+
+// Handler for PUT requests to update an existing link
+export async function PUT(req: NextRequest) {
+	try {
+		const { id, title, url } = await req.json()
+
+		if (typeof id !== "number" || !title || typeof title !== "string" || !url || typeof url !== "string") {
+			return new NextResponse(JSON.stringify({ error: "Invalid input" }), { status: 400 })
+		}
+
+		const session = await getServerSession(authOptions)
+		const userId = session?.user?.id
+
+		if (!userId) {
+			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
+		}
+
+		const existingLink = await db.userLink.findUnique({
+			where: { id },
+		})
+
+		if (!existingLink || existingLink.userId !== userId) {
+			return new NextResponse(JSON.stringify({ error: "Link not found or not authorized" }), { status: 403 })
+		}
+
+		const updatedLink = await db.userLink.update({
+			where: { id },
+			data: { title, url },
+		})
+
+		return NextResponse.json(updatedLink)
+	} catch (error) {
+		console.error("Error updating link:", error)
+		return new NextResponse(JSON.stringify({ error: "Error updating link" }), { status: 500 })
+	}
+}
+
+// Handler for DELETE requests to delete an existing link
+export async function DELETE(req: NextRequest) {
+	try {
+		const id = req.nextUrl.searchParams.get("id")
+
+		if (!id || typeof id !== "string") {
+			return new NextResponse("Invalid id", { status: 400 })
+		}
+
+		// Convert id to number
+		const idNumber = parseInt(id, 10)
+		if (isNaN(idNumber)) {
+			return new NextResponse(JSON.stringify({ error: "Invalid id" }), { status: 400 })
+		}
+
+		const session = await getServerSession(authOptions)
+		const userId = session?.user?.id
+
+		if (!userId) {
+			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
+		}
+
+		const existingLink = await db.userLink.findUnique({
+			where: { id: idNumber },
+		})
+
+		if (!existingLink || existingLink.userId !== userId) {
+			return new NextResponse(JSON.stringify({ error: "Link not found or not authorized" }), { status: 403 })
+		}
+
+		await db.userLink.delete({
+			where: { id: idNumber },
+		})
+
+		return new NextResponse("Link deleted successfully", { status: 204 })
+	} catch (error) {
+		console.error("Error deleting link:", error)
+		return new NextResponse(JSON.stringify({ error: "Error deleting link" }), { status: 500 })
+	}
+}

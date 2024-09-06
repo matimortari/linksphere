@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { getServerSession } from "next-auth"
 import { Inter } from "next/font/google"
+import { GlobalContextProvider } from "../components/context/GlobalContext"
 import Providers from "../components/context/Providers"
 import Footer from "../components/Footer"
 import Navbar from "../components/Navbar"
@@ -20,11 +21,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<Providers session={session}>
-					<Navbar />
-					{children}
-					<Footer />
-				</Providers>
+				<GlobalContextProvider>
+					<Providers session={session}>
+						<Navbar />
+						{children}
+						<Footer />
+					</Providers>
+				</GlobalContextProvider>
 			</body>
 		</html>
 	)

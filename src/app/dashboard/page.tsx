@@ -29,6 +29,10 @@ export default function Dashboard() {
 		setLinks((prevLinks) => [...prevLinks, newLink])
 	}
 
+	const handleUpdateLink = (updatedLink) => {
+		setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
+	}
+
 	if (status === "loading") {
 		return <div>Loading Dashboard...</div>
 	}
@@ -63,7 +67,7 @@ export default function Dashboard() {
 						<hr />
 
 						<p className="subtitle">My Links</p>
-						<LinkList links={links} />
+						<LinkList links={links} onUpdateLink={handleUpdateLink} />
 						<div className="button-container">
 							<button className="button bg-primary text-primary-foreground" onClick={() => setIsDialogOpen(true)}>
 								Add Link
