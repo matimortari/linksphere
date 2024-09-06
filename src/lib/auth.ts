@@ -31,9 +31,7 @@ export const authOptions = {
 		strategy: "database" as SessionStrategy,
 	},
 	callbacks: {
-		async signIn(params) {
-			const { user, profile } = params
-
+		async signIn({ user, profile }) {
 			const existingUser = await db.user.findUnique({
 				where: { email: user.email },
 			})
@@ -41,12 +39,25 @@ export const authOptions = {
 			if (!existingUser) {
 				const slug = generateSlug(profile?.name ?? user.email ?? "")
 
-				await db.user.create({
+				// Create user
+				const newUser = await db.user.create({
 					data: {
 						email: user.email,
 						name: profile?.name ?? user.name,
 						image: user.image,
 						slug,
+					},
+				})
+
+				// Create default settings for the new user
+				await db.userSettings.create({
+					data: {
+						userId: newUser.id,
+						profileImage: null,
+						description: "",
+						linkBackgroundColor: "#ffffff",
+						linkTextColor: "#000000",
+						linkHoverBackgroundColor: "#eeeeee",
 					},
 				})
 			} else {

@@ -6,11 +6,13 @@ import { NextRequest, NextResponse } from "next/server"
 // Handler for GET requests to fetch user data
 export async function GET(req: NextRequest) {
 	try {
-		const slug = req.nextUrl.searchParams.get("slug")
+		const session = await getServerSession(authOptions)
 
-		if (!slug || typeof slug !== "string") {
-			return NextResponse.json({ error: "Invalid slug" }, { status: 400 })
+		if (!session || !session.user || !session.user.slug || typeof session.user.slug !== "string") {
+			return NextResponse.json({ error: "Invalid or missing slug" }, { status: 400 })
 		}
+
+		const slug = session.user.slug
 
 		const user = await db.user.findUnique({
 			where: { slug },

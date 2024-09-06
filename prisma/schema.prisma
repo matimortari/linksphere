@@ -34,17 +34,18 @@ model Session {
 }
 
 model User {
-  id            String     @id @default(cuid())
-  slug          String     @unique
+  id            String        @id @default(cuid())
+  slug          String        @unique
   name          String?
-  email         String?    @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   description   String?
-  pubic         Boolean?
+  public        Boolean?
   accounts      Account[]
   sessions      Session[]
-  Link          UserLink[]
+  links         UserLink[]
+  settings      UserSettings?
 }
 
 model UserLink {
@@ -55,4 +56,15 @@ model UserLink {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
+}
+
+model UserSettings {
+  id                       String  @id @default(cuid())
+  userId                   String  @unique
+  profileImage             String?
+  description              String?
+  linkBackgroundColor      String?
+  linkTextColor            String?
+  linkHoverBackgroundColor String?
+  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
