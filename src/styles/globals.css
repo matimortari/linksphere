@@ -110,6 +110,13 @@ nav {
 	border-radius: 0.5rem;
 }
 
+.content-container {
+	padding: 1rem;
+	border-color: var(--muted);
+	border-width: 1px;
+	border-radius: 0.5rem;
+}
+
 .hero-background {
 	background: linear-gradient(340deg,
 			rgb(41, 53, 76) 0%,

@@ -60,10 +60,7 @@ export default function Navbar() {
 			</div>
 
 			{isDialogOpen && (
-				<div
-					ref={dialogRef}
-					className="absolute top-14 z-50 flex rounded-lg border border-muted bg-background p-2 shadow-lg"
-				>
+				<div ref={dialogRef} className="content-container absolute top-14 z-50 flex shadow-lg">
 					<div className="m-2 flex flex-col justify-center gap-4 p-2 text-center text-sm font-semibold">
 						{session && (
 							<>
