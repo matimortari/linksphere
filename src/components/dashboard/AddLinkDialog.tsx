@@ -54,7 +54,7 @@ export default function AddLinkDialog({ onClose }) {
 							type="text"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-							className="rounded-lg border border-muted bg-transparent p-2"
+							className="form-container"
 							required
 						/>
 					</div>
@@ -65,12 +65,12 @@ export default function AddLinkDialog({ onClose }) {
 							type="url"
 							value={url}
 							onChange={(e) => setUrl(e.target.value)}
-							className="rounded-lg border border-muted bg-transparent p-2"
+							className="form-container"
 							required
 						/>
 					</div>
 
-					<div className="mt-4 flex justify-end space-x-2">
+					<div className="button-container justify-end">
 						<button type="button" className="button bg-destructive text-destructive-foreground" onClick={onClose}>
 							Cancel
 						</button>

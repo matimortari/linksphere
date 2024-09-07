@@ -60,7 +60,7 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 							type="text"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-							className="rounded border border-gray-300 bg-gray-100 p-2"
+							className="form-container"
 							required
 						/>
 					</div>
@@ -71,12 +71,12 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 							type="url"
 							value={url}
 							onChange={(e) => setUrl(e.target.value)}
-							className="rounded border border-gray-300 bg-gray-100 p-2"
+							className="form-container"
 							required
 						/>
 					</div>
 
-					<div className="mt-4 flex justify-end space-x-2">
+					<div className="button-container justify-end">
 						<button type="button" className="button bg-destructive text-destructive-foreground" onClick={onClose}>
 							Cancel
 						</button>

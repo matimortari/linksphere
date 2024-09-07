@@ -42,8 +42,11 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 					{contextLinks.map((link) => (
 						<li key={link.id} className="content-container flex items-center overflow-hidden">
 							<div className="flex flex-1 flex-col">
-								<section className="flex items-center gap-2">
+								<section className="flex flex-row items-center gap-2">
 									<p className="font-semibold">{link.title}</p>
+									<button className="text-muted-foreground" onClick={() => handleEditClick(link)}>
+										<Icon icon="material-symbols:ink-pen-outline" className="icon h-5 w-5" />
+									</button>
 								</section>
 
 								<section className="mt-1 flex items-center gap-2">
@@ -57,15 +60,9 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 								</section>
 							</div>
 
-							<div className="mt-12 flex flex-row items-center gap-2">
-								<button className="text-muted-foreground" onClick={() => handleEditClick(link)}>
-									<Icon icon="material-symbols:ink-pen-outline" className="h-5 w-5" />
-								</button>
-
-								<button className="text-destructive" onClick={() => handleDeleteLink(link.id)}>
-									<Icon icon="material-symbols:delete-forever-outline" className="h-5 w-5" />
-								</button>
-							</div>
+							<button className="mt-8 text-destructive" onClick={() => handleDeleteLink(link.id)}>
+								<Icon icon="material-symbols:delete-forever-outline" className="icon h-5 w-5" />
+							</button>
 						</li>
 					))}
 				</ul>

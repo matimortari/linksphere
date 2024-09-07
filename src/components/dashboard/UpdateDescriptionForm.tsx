@@ -45,9 +45,15 @@ export default function UpdateDescriptionForm() {
 					className="input flex-1 bg-transparent"
 					placeholder="Enter new description"
 				/>
-				<button type="submit" className="button bg-primary text-primary-foreground">
-					Update Description
-				</button>
+
+				<div className="button-container">
+					<button type="submit" className="button bg-primary text-primary-foreground">
+						Update
+					</button>
+					<button type="submit" className="button bg-destructive text-destructive-foreground">
+						Delete
+					</button>
+				</div>
 			</form>
 
 			<div className="px-4 pt-2 font-bold">
