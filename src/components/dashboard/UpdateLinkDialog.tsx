@@ -4,13 +4,16 @@ import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { useEffect, useRef, useState } from "react"
 
 export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
-	const { updateLink, title, setTitle, url, setUrl } = useGlobalContext()
+	const { updateLink } = useGlobalContext()
+	const [localTitle, setLocalTitle] = useState(linkData.title || "")
+	const [localUrl, setLocalUrl] = useState(linkData.url || "")
 	const [error, setError] = useState(null)
 	const dialogRef = useRef(null)
 
 	useEffect(() => {
-		setTitle(linkData.title || "")
-		setUrl(linkData.url || "")
+		// Initialize local state when linkData changes
+		setLocalTitle(linkData.title || "")
+		setLocalUrl(linkData.url || "")
 
 		const handleClickOutside = (event: MouseEvent) => {
 			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
@@ -22,22 +25,22 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside)
 		}
-	}, [linkData, onClose, setTitle, setUrl])
+	}, [linkData, onClose])
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 
-		if (!title || !url) {
+		if (!localTitle || !localUrl) {
 			setError("Both title and URL are required.")
 			return
 		}
 
 		try {
-			const updatedLink = { ...linkData, title, url }
+			const updatedLink = { ...linkData, title: localTitle, url: localUrl }
 			await updateLink(updatedLink)
 
-			setTitle("") // Clear title after update
-			setUrl("") // Clear URL after update
+			setLocalTitle("") // Clear title after update
+			setLocalUrl("") // Clear URL after update
 			setError(null)
 			onUpdateLink(updatedLink)
 			onClose()
@@ -58,8 +61,8 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 						<label className="text-sm font-medium">Title:</label>
 						<input
 							type="text"
-							value={title}
-							onChange={(e) => setTitle(e.target.value)}
+							value={localTitle}
+							onChange={(e) => setLocalTitle(e.target.value)}
 							className="form-container"
 							required
 						/>
@@ -69,8 +72,8 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 						<label className="text-sm font-medium">URL:</label>
 						<input
 							type="url"
-							value={url}
-							onChange={(e) => setUrl(e.target.value)}
+							value={localUrl}
+							onChange={(e) => setLocalUrl(e.target.value)}
 							className="form-container"
 							required
 						/>

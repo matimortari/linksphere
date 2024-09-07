@@ -17,6 +17,10 @@ export const GlobalContextProvider = ({ children }) => {
 	const [settings, setSettings] = useState(defaultSettings)
 	const [error, setError] = useState(null)
 
+	// State for managing form inputs
+	const [title, setTitle] = useState("")
+	const [url, setUrl] = useState("")
+
 	useEffect(() => {
 		const loadUserData = async () => {
 			try {
@@ -139,6 +143,10 @@ export const GlobalContextProvider = ({ children }) => {
 				addLink,
 				updateLink,
 				deleteLink,
+				title,
+				setTitle,
+				url,
+				setUrl,
 				error,
 			}}
 		>
