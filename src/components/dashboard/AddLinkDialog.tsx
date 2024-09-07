@@ -1,14 +1,10 @@
 "use client"
 
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { useEffect, useRef, useState } from "react"
 
-export default function AddLinkDialog({
-	onClose,
-	onAddLink,
-}: {
-	onClose: () => void
-	onAddLink: (link: { id: string; title: string; url: string }) => void
-}) {
+export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
+	const { addLink } = useGlobalContext()
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")
 	const [error, setError] = useState<string | null>(null)
@@ -36,24 +32,10 @@ export default function AddLinkDialog({
 		}
 
 		try {
-			const response = await fetch("/api/links", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ title, url }),
-			})
-
-			if (!response.ok) {
-				const message = await response.text()
-				throw new Error(message || "Failed to add link")
-			}
-
-			const newLink = await response.json()
+			await addLink({ title, url })
 			setTitle("")
 			setUrl("")
 			setError(null)
-			onAddLink(newLink) // Update the parent component with the new link
 			onClose()
 		} catch (err) {
 			setError("An error occurred while adding the link.")
@@ -62,35 +44,35 @@ export default function AddLinkDialog({
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-			<div ref={dialogRef} className="rounded-lg bg-background p-16 shadow-lg">
-				<h2 className="title">Add New Link</h2>
+			<div ref={dialogRef} className="w-full max-w-sm rounded-lg bg-background p-8 shadow-lg">
+				<h2 className="mb-4 text-xl font-semibold">Add New Link</h2>
 
-				{error && <p className="mb-4 text-destructive">{error}</p>}
+				{error && <p className="mb-4 text-red-600">{error}</p>}
 
 				<form onSubmit={handleSubmit}>
-					<div className="my-8 flex items-center space-x-2">
-						<label className="subtitle">Title:</label>
+					<div className="my-4 flex flex-col space-y-2">
+						<label className="text-sm font-medium">Title:</label>
 						<input
 							type="text"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-							className="form-container bg-transparent"
+							className="rounded border border-gray-300 bg-gray-100 p-2"
 							required
 						/>
 					</div>
 
-					<div className="my-8 flex items-center space-x-2">
-						<label className="subtitle">URL:</label>
+					<div className="my-4 flex flex-col space-y-2">
+						<label className="text-sm font-medium">URL:</label>
 						<input
 							type="url"
 							value={url}
 							onChange={(e) => setUrl(e.target.value)}
-							className="form-container bg-transparent"
+							className="rounded border border-gray-300 bg-gray-100 p-2"
 							required
 						/>
 					</div>
 
-					<div className="button-container justify-end">
+					<div className="mt-4 flex justify-end space-x-2">
 						<button type="button" className="button bg-destructive text-destructive-foreground" onClick={onClose}>
 							Cancel
 						</button>

@@ -6,6 +6,7 @@ import LinkList from "@/src/components/dashboard/LinkList"
 import Preview from "@/src/components/dashboard/Preview"
 import UpdateDescriptionForm from "@/src/components/dashboard/UpdateDescriptionForm"
 import UpdateSlugForm from "@/src/components/dashboard/UpdateSlugForm"
+import { UserLink } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -14,7 +15,7 @@ export default function Dashboard() {
 	const { data: session, status } = useSession()
 	const [slug, setSlug] = useState(session?.user.slug || "")
 	const [description, setDescription] = useState(session?.user.description || "")
-	const [links, setLinks] = useState(session?.user.links || [])
+	const [links, setLinks] = useState<UserLink[]>(session?.user.links || [])
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
 	useEffect(() => {
@@ -25,12 +26,16 @@ export default function Dashboard() {
 		}
 	}, [status])
 
-	const handleAddLink = (newLink) => {
+	const handleAddLink = (newLink: UserLink) => {
 		setLinks((prevLinks) => [...prevLinks, newLink])
 	}
 
-	const handleUpdateLink = (updatedLink) => {
+	const handleUpdateLink = (updatedLink: UserLink) => {
 		setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
+	}
+
+	const handleDeleteLink = (id: number) => {
+		setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id))
 	}
 
 	if (status === "loading") {
@@ -44,7 +49,7 @@ export default function Dashboard() {
 	return (
 		<div className="dashboard-container">
 			<div className="flex flex-row">
-				<Sidebar slug={slug} name={session.user.name} image={session.user.image} />
+				<Sidebar />
 
 				<main className="content-container w-full">
 					<header className="flex flex-col gap-2 pb-8">
@@ -59,25 +64,22 @@ export default function Dashboard() {
 
 					<div className="flex flex-col gap-4">
 						<p className="subtitle">My URL</p>
-						<UpdateSlugForm currentSlug={slug} setSlug={setSlug} />
+						<UpdateSlugForm />
 						<hr />
-
 						<p className="subtitle">My Header</p>
-						<UpdateDescriptionForm currentDescription={description} setDescription={setDescription} />
+						<UpdateDescriptionForm />
 						<hr />
-
 						<p className="subtitle">My Links</p>
-						<LinkList links={links} onUpdateLink={handleUpdateLink} />
+						<LinkList onUpdateLink={handleUpdateLink} onDeleteLink={handleDeleteLink} />
 						<div className="button-container">
 							<button className="button bg-primary text-primary-foreground" onClick={() => setIsDialogOpen(true)}>
 								Add Link
 							</button>
 						</div>
-						{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} onAddLink={handleAddLink} />}
+						{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}
 						<hr />
-
 						<p className="title">Preview</p>
-						<Preview slug={slug} description={description} links={links} />
+						<Preview slug={slug} />
 						<hr />
 					</div>
 				</main>

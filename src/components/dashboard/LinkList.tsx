@@ -1,17 +1,13 @@
-"use client"
-
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
+import { LinkListProps } from "@/src/lib/types"
 import { Icon } from "@iconify/react"
 import { UserLink } from "@prisma/client"
 import { useState } from "react"
 import UpdateLinkDialog from "./UpdateLinkDialog"
 
-interface LinkListProps {
-	links: UserLink[]
-	onUpdateLink: (updatedLink: UserLink) => void // Expect the onUpdateLink callback
-}
-
-export default function LinkList({ links: initialLinks, onUpdateLink }: LinkListProps) {
-	const [links, setLinks] = useState<UserLink[]>(initialLinks)
+export default function LinkList({ onUpdateLink, onDeleteLink }: LinkListProps) {
+	// Destructure onDeleteLink from props
+	const { links: contextLinks, updateLink, deleteLink } = useGlobalContext()
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	const [selectedLink, setSelectedLink] = useState<UserLink | null>(null)
 
@@ -25,16 +21,22 @@ export default function LinkList({ links: initialLinks, onUpdateLink }: LinkList
 		setSelectedLink(null)
 	}
 
-	const handleUpdateLink = (updatedLink: UserLink) => {
-		setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
-		onUpdateLink(updatedLink) // Notify the global context about the update
+	const handleUpdateLink = async (updatedLink: UserLink) => {
+		await updateLink(updatedLink)
+		onUpdateLink(updatedLink) // Handle additional logic if needed
+		handleCloseDialog()
+	}
+
+	const handleDeleteLink = async (id: number) => {
+		await deleteLink(id)
+		onDeleteLink(id) // Call the prop to handle deletion
 	}
 
 	return (
 		<div className="w-[542px] space-y-2">
-			{links.length > 0 ? (
+			{contextLinks.length > 0 ? (
 				<ul className="list-inside list-disc space-y-2">
-					{links.map((link) => (
+					{contextLinks.map((link) => (
 						<li key={link.id} className="content-container flex items-center overflow-hidden">
 							<div className="flex flex-1 flex-col">
 								<section className="flex items-center gap-2">
@@ -57,7 +59,7 @@ export default function LinkList({ links: initialLinks, onUpdateLink }: LinkList
 									<Icon icon="material-symbols:ink-pen-outline" className="h-5 w-5" />
 								</button>
 
-								<button className="text-destructive">
+								<button className="text-destructive" onClick={() => handleDeleteLink(link.id)}>
 									<Icon icon="material-symbols:delete-forever-outline" className="h-5 w-5" />
 								</button>
 							</div>

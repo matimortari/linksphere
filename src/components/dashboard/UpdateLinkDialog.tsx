@@ -1,16 +1,10 @@
-"use client"
-
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
+import { UpdateLinkDialogProps } from "@/src/lib/types"
 import { useEffect, useRef, useState } from "react"
 
-export default function UpdateLinkDialog({
-	onClose,
-	onUpdateLink,
-	linkData,
-}: {
-	onClose: () => void
-	onUpdateLink: (link: { id: number; title: string; url: string }) => void
-	linkData: { id: number; title: string; url: string }
-}) {
+export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }: UpdateLinkDialogProps) {
+	const { updateLink } = useGlobalContext()
+
 	const [title, setTitle] = useState(linkData.title)
 	const [url, setUrl] = useState(linkData.url)
 	const [error, setError] = useState<string | null>(null)
@@ -38,61 +32,50 @@ export default function UpdateLinkDialog({
 		}
 
 		try {
-			const response = await fetch(`/api/links`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ id: linkData.id, title, url }),
-			})
+			const updatedLink = { ...linkData, title, url }
+			await updateLink(updatedLink)
 
-			if (!response.ok) {
-				const message = await response.text()
-				throw new Error(message || "Failed to update link")
-			}
-
-			const updatedLink = await response.json()
 			setTitle("")
 			setUrl("")
 			setError(null)
-			onUpdateLink(updatedLink) // Update the global context with the updated link
+			onUpdateLink(updatedLink)
 			onClose()
-		} catch (err) {
+		} catch (error) {
 			setError("An error occurred while updating the link.")
 		}
 	}
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-			<div ref={dialogRef} className="rounded-lg bg-background p-16 shadow-lg">
-				<h2 className="title">Update Link</h2>
+			<div ref={dialogRef} className="w-full max-w-sm rounded-lg bg-background p-8 shadow-lg">
+				<h2 className="mb-4 text-xl font-semibold">Update Link</h2>
 
-				{error && <p className="mb-4 text-destructive">{error}</p>}
+				{error && <p className="mb-4 text-red-600">{error}</p>}
 
 				<form onSubmit={handleSubmit}>
-					<div className="my-8 flex items-center space-x-2">
-						<label className="subtitle">Title:</label>
+					<div className="my-4 flex flex-col space-y-2">
+						<label className="text-sm font-medium">Title:</label>
 						<input
 							type="text"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-							className="form-container bg-transparent"
+							className="rounded border border-gray-300 bg-gray-100 p-2"
 							required
 						/>
 					</div>
 
-					<div className="my-8 flex items-center space-x-2">
-						<label className="subtitle">URL:</label>
+					<div className="my-4 flex flex-col space-y-2">
+						<label className="text-sm font-medium">URL:</label>
 						<input
 							type="url"
 							value={url}
 							onChange={(e) => setUrl(e.target.value)}
-							className="form-container bg-transparent"
+							className="rounded border border-gray-300 bg-gray-100 p-2"
 							required
 						/>
 					</div>
 
-					<div className="button-container justify-end">
+					<div className="mt-4 flex justify-end space-x-2">
 						<button type="button" className="button bg-destructive text-destructive-foreground" onClick={onClose}>
 							Cancel
 						</button>

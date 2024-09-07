@@ -2,7 +2,6 @@
 
 import { isServer, QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { Analytics } from "@vercel/analytics/react"
 import { SessionProvider } from "next-auth/react"
 
 const queryClient = isServer
@@ -13,7 +12,6 @@ export default function Providers({ children, session }: { children: React.React
 	return (
 		<SessionProvider session={session}>
 			<QueryClientProvider client={queryClient}>
-				<Analytics />
 				{children}
 				<ReactQueryDevtools initialIsOpen={false} />
 			</QueryClientProvider>

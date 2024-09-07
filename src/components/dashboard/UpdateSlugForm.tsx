@@ -1,11 +1,14 @@
-import { useState } from "react"
+"use client"
 
-export default function UpdateSlugForm({ currentSlug, setSlug }) {
-	const [slug, updateSlug] = useState(currentSlug)
+import { useState } from "react"
+import { useGlobalContext } from "../context/GlobalContext"
+
+export default function UpdateSlugForm() {
+	const { slug, setSlug } = useGlobalContext()
 	const [error, setError] = useState("")
 	const [success, setSuccess] = useState("")
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		setError("")
 		setSuccess("")
@@ -26,7 +29,6 @@ export default function UpdateSlugForm({ currentSlug, setSlug }) {
 			}
 
 			setSuccess("Slug updated successfully!")
-			setSlug(slug)
 		} catch (error) {
 			setError((error as Error).message)
 		}
@@ -38,7 +40,7 @@ export default function UpdateSlugForm({ currentSlug, setSlug }) {
 				<span className="text-muted-foreground">ness-live.vercel.app/</span>
 				<input
 					type="text"
-					onChange={(e) => updateSlug(e.target.value)}
+					onChange={(e) => setSlug(e.target.value)}
 					value={slug}
 					className="input flex-1 bg-transparent"
 				/>

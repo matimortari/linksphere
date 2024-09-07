@@ -12,11 +12,17 @@ export async function GET(req: NextRequest) {
 			return new NextResponse("Invalid slug", { status: 400 })
 		}
 
+		const user = await db.user.findUnique({
+			where: { slug },
+		})
+
+		if (!user) {
+			return new NextResponse("User not found", { status: 404 })
+		}
+
 		const userLinks = await db.userLink.findMany({
 			where: {
-				user: {
-					slug,
-				},
+				userId: user.id,
 			},
 		})
 
@@ -99,16 +105,13 @@ export async function DELETE(req: NextRequest) {
 	try {
 		const id = req.nextUrl.searchParams.get("id")
 
-		if (!id || typeof id !== "string") {
-			return new NextResponse("Invalid id", { status: 400 })
+		if (!id || isNaN(Number(id))) {
+			return new NextResponse(JSON.stringify({ error: "Invalid ID" }), { status: 400 })
 		}
 
-		// Convert id to number
 		const idNumber = parseInt(id, 10)
-		if (isNaN(idNumber)) {
-			return new NextResponse(JSON.stringify({ error: "Invalid id" }), { status: 400 })
-		}
 
+		// Authenticate user
 		const session = await getServerSession(authOptions)
 		const userId = session?.user?.id
 
@@ -116,6 +119,7 @@ export async function DELETE(req: NextRequest) {
 			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
 		}
 
+		// Check if the link exists and belongs to the user
 		const existingLink = await db.userLink.findUnique({
 			where: { id: idNumber },
 		})
@@ -124,11 +128,13 @@ export async function DELETE(req: NextRequest) {
 			return new NextResponse(JSON.stringify({ error: "Link not found or not authorized" }), { status: 403 })
 		}
 
+		// Delete the link
 		await db.userLink.delete({
 			where: { id: idNumber },
 		})
 
-		return new NextResponse("Link deleted successfully", { status: 204 })
+		// Respond with 204 No Content
+		return new NextResponse(null, { status: 204 })
 	} catch (error) {
 		console.error("Error deleting link:", error)
 		return new NextResponse(JSON.stringify({ error: "Error deleting link" }), { status: 500 })

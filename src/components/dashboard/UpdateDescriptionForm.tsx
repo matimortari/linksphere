@@ -1,14 +1,18 @@
-import { useState } from "react"
+"use client"
 
-export default function UpdateDescriptionForm({ currentDescription, setDescription }) {
-	const [description, updateDescription] = useState(currentDescription)
-	const [error, setError] = useState("")
-	const [success, setSuccess] = useState("")
+import { FormEvent, useState } from "react"
+import { useGlobalContext } from "../context/GlobalContext"
 
-	const handleSubmit = async (e) => {
+export default function UpdateDescriptionForm() {
+	const { description, setDescription } = useGlobalContext()
+	const [localDescription, updateLocalDescription] = useState<string>(description)
+	const [error, setError] = useState<string | null>(null)
+	const [success, setSuccess] = useState<string | null>(null)
+
+	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault()
-		setError("")
-		setSuccess("")
+		setError(null)
+		setSuccess(null)
 
 		try {
 			const response = await fetch(`/api/user`, {
@@ -16,17 +20,16 @@ export default function UpdateDescriptionForm({ currentDescription, setDescripti
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ newDescription: description }),
+				body: JSON.stringify({ newDescription: localDescription }),
 			})
 
-			const data = await response.json()
-
 			if (!response.ok) {
-				throw new Error(data.error || "Failed to update header.")
+				const data = await response.json()
+				throw new Error(data.error || "Failed to update description.")
 			}
 
-			setSuccess("Header updated successfully!")
-			setDescription(description)
+			setSuccess("Description updated successfully!")
+			setDescription(localDescription)
 		} catch (error) {
 			setError((error as Error).message)
 		}
@@ -37,12 +40,13 @@ export default function UpdateDescriptionForm({ currentDescription, setDescripti
 			<form onSubmit={handleSubmit} className="form-container w-[542px]">
 				<input
 					type="text"
-					onChange={(e) => updateDescription(e.target.value)}
-					value={description}
+					onChange={(e) => updateLocalDescription(e.target.value)}
+					value={localDescription}
 					className="input flex-1 bg-transparent"
+					placeholder="Enter new description"
 				/>
 				<button type="submit" className="button bg-primary text-primary-foreground">
-					Update Header
+					Update Description
 				</button>
 			</form>
 

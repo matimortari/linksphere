@@ -3,8 +3,11 @@
 import { Icon } from "@iconify/react"
 import Image from "next/image"
 import Link from "next/link"
+import { useGlobalContext } from "./context/GlobalContext"
 
-export default function Sidebar({ slug, name, image }) {
+export default function Sidebar() {
+	const { slug, name, image } = useGlobalContext()
+
 	return (
 		<aside className="content-container mr-4 h-full w-4/12 shadow-lg">
 			<div className="flex flex-col items-center justify-center gap-2 py-2">
