@@ -8,7 +8,7 @@ import { useEffect } from "react"
 
 export default function UserPage() {
 	const { status } = useSession()
-	const { user, links, slug, setSlug } = useGlobalContext()
+	const { description, user, links, setSlug, image, slug } = useGlobalContext()
 
 	useEffect(() => {
 		if (slug) {
@@ -22,20 +22,21 @@ export default function UserPage() {
 
 	return (
 		<div className="main-container">
-			{user && (
-				<div className="mb-2 flex flex-col justify-center gap-3 text-center">
-					{user.image && (
-						<Image src={user.image} alt={`${user.slug}`} width={100} height={100} className="avatar mx-auto" />
-					)}
-					<h1 className="text-2xl font-bold">@{user.slug}</h1>
-					{user.description && <p className="text-muted-foreground">{user.description}</p>}
-				</div>
+			<div className="mb-2 flex flex-col items-center justify-center gap-3">
+				{image && <Image src={image} alt={slug} width={100} height={100} className="rounded-full" />}
+				<h1 className="text-2xl font-bold">@{slug}</h1>
+				{description && <p className="mt-2 text-muted-foreground">{description}</p>}
+			</div>
+
+			{links.length > 0 ? (
+				<ul className="list-inside list-disc space-y-4">
+					{links.map((link) => (
+						<LinkItem key={link.id} {...link} />
+					))}
+				</ul>
+			) : (
+				<p className="text-muted-foreground">No links available</p>
 			)}
-			<ul className="mt-2 space-y-4">
-				{links.map((link) => (
-					<LinkItem key={link.id} {...link} />
-				))}
-			</ul>
 		</div>
 	)
 }

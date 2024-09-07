@@ -14,7 +14,7 @@ export default function Preview() {
 
 	return (
 		<div className="rounded-3xl border border-muted p-12 shadow-lg">
-			<div className="mb-8 flex flex-col items-center text-center">
+			<div className="mb-2 flex flex-col items-center justify-center gap-3">
 				{image && <Image src={image} alt={slug} width={100} height={100} className="rounded-full" />}
 				<h1 className="text-2xl font-bold">@{slug}</h1>
 				{description && <p className="mt-2 text-muted-foreground">{description}</p>}
