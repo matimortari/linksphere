@@ -2,6 +2,7 @@
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import LinkItem from "@/src/components/LinkItem"
+import { defaultSettings } from "@/src/lib/utils"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import { useEffect } from "react"
@@ -9,16 +10,6 @@ import { useEffect } from "react"
 export default function UserPage() {
 	const { status } = useSession()
 	const { description, links, setSlug, image, slug, settings } = useGlobalContext()
-	const defaultSettings = {
-		linkBackgroundColor: "#ffffff",
-		linkTextColor: "#000000",
-		linkHoverBackgroundColor: "#eeeeee",
-		shadowColor: "#000000",
-		linkBorderRadius: "8px",
-		linkPadding: "8px",
-		headerTextColor: "#000000",
-		backgroundColor: "#ffffff",
-	}
 
 	useEffect(() => {
 		if (slug) {

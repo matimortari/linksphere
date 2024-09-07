@@ -4,7 +4,7 @@ import { DefaultSession, SessionStrategy } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { db } from "./db"
-import { generateSlug } from "./utils"
+import { defaultSettings, generateSlug } from "./utils"
 
 // Extend the default session with custom properties
 declare module "next-auth" {
@@ -14,16 +14,7 @@ declare module "next-auth" {
 			slug: string
 			description: string
 			links: UserLink[]
-			settings: {
-				backgroundColor: string
-				linkBackgroundColor: string
-				linkTextColor: string
-				linkHoverBackgroundColor: string
-				shadowColor: string
-				linkPadding: string
-				linkBorderRadius: string
-				headerTextColor: string
-			}
+			settings: typeof defaultSettings
 		}
 	}
 }
@@ -33,12 +24,10 @@ export const authOptions = {
 		GitHubProvider({
 			clientId: process.env.GITHUB_CLIENT_ID ?? "",
 			clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
-			allowDangerousEmailAccountLinking: true,
 		}),
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID ?? "",
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
-			allowDangerousEmailAccountLinking: true,
 		}),
 	],
 	adapter: PrismaAdapter(db),
@@ -66,14 +55,7 @@ export const authOptions = {
 				await db.userSettings.create({
 					data: {
 						userId: newUser.id,
-						backgroundColor: "#ffffff",
-						linkBackgroundColor: "#ffffff",
-						linkShadowColor: "#000000",
-						linkTextColor: "#000000",
-						linkHoverBackgroundColor: "#eeeeee",
-						linkPadding: "8px",
-						linkBorderRadius: "8px",
-						headerTextColor: "#000000",
+						...defaultSettings, // Use centralized default settings
 					},
 				})
 			} else {
@@ -104,16 +86,7 @@ export const authOptions = {
 					where: { userId: dbUser.id },
 				})
 
-				session.user.settings = settings || {
-					backgroundColor: "#ffffff",
-					linkBackgroundColor: "#ffffff",
-					linkTextColor: "#000000",
-					linkHoverBackgroundColor: "#eeeeee",
-					shadowColor: "",
-					linkPadding: "8px",
-					linkBorderRadius: "8px",
-					headerTextColor: "#000000",
-				}
+				session.user.settings = settings || defaultSettings
 			}
 			return session
 		},

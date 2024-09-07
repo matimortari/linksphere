@@ -1,38 +1,14 @@
 "use client"
 
+import { BORDER_RADIUS_OPTIONS, defaultSettings, PADDING_OPTIONS } from "@/src/lib/utils"
 import { useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
-const BORDER_RADIUS_OPTIONS = [
-	{ label: "Small", value: "4px" },
-	{ label: "Medium", value: "8px" },
-	{ label: "Large", value: "12px" },
-	{ label: "Extra Large", value: "16px" },
-]
-
-const PADDING_OPTIONS = [
-	{ label: "Small", value: "4px" },
-	{ label: "Medium", value: "8px" },
-	{ label: "Large", value: "12px" },
-	{ label: "Extra Large", value: "16px" },
-]
-
-const defaultSettings = {
-	linkBackgroundColor: "#ffffff",
-	linkTextColor: "#000000",
-	linkHoverBackgroundColor: "#eeeeee",
-	shadowColor: "#000000",
-	linkBorderRadius: "8px",
-	linkPadding: "8px",
-	headerTextColor: "#000000",
-	backgroundColor: "#ffffff",
-}
-
 export default function AppearanceForm() {
 	const { settings, setSettings } = useGlobalContext()
-	const [error, setError] = useState("")
-	const [success, setSuccess] = useState("")
-	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState<string>("")
+	const [success, setSuccess] = useState<string>("")
+	const [loading, setLoading] = useState<boolean>(true)
 
 	useEffect(() => {
 		const fetchSettings = async () => {
@@ -47,12 +23,12 @@ export default function AppearanceForm() {
 				if (data.settings) {
 					setSettings(data.settings)
 				} else {
-					setSettings(defaultSettings) // Set default if no settings are fetched
+					setSettings(defaultSettings)
 					throw new Error("Settings data is missing")
 				}
 			} catch (error) {
 				setError((error as Error).message)
-				setSettings(defaultSettings) // Ensure settings have default values
+				setSettings(defaultSettings)
 			} finally {
 				setLoading(false)
 			}
@@ -91,6 +67,8 @@ export default function AppearanceForm() {
 		return <div>Loading...</div>
 	}
 
+	const currentSettings = { ...defaultSettings, ...settings }
+
 	return (
 		<div className="content-container shadow-lg">
 			<form onSubmit={handleSubmit} className="flex w-full max-w-md flex-col space-y-4">
@@ -99,7 +77,7 @@ export default function AppearanceForm() {
 					<input
 						id="backgroundColor"
 						type="color"
-						value={settings.backgroundColor || defaultSettings.backgroundColor}
+						value={currentSettings.backgroundColor}
 						onChange={(e) => setSettings({ ...settings, backgroundColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
 					/>
@@ -110,7 +88,7 @@ export default function AppearanceForm() {
 					<input
 						id="linkBackgroundColor"
 						type="color"
-						value={settings.linkBackgroundColor || defaultSettings.linkBackgroundColor}
+						value={currentSettings.linkBackgroundColor}
 						onChange={(e) => setSettings({ ...settings, linkBackgroundColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
 					/>
@@ -121,7 +99,7 @@ export default function AppearanceForm() {
 					<input
 						id="linkTextColor"
 						type="color"
-						value={settings.linkTextColor || defaultSettings.linkTextColor}
+						value={currentSettings.linkTextColor}
 						onChange={(e) => setSettings({ ...settings, linkTextColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
 					/>
@@ -132,7 +110,7 @@ export default function AppearanceForm() {
 					<input
 						id="linkHoverBackgroundColor"
 						type="color"
-						value={settings.linkHoverBackgroundColor || defaultSettings.linkHoverBackgroundColor}
+						value={currentSettings.linkHoverBackgroundColor}
 						onChange={(e) => setSettings({ ...settings, linkHoverBackgroundColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
 					/>
@@ -141,10 +119,10 @@ export default function AppearanceForm() {
 				<div className="flex items-center space-x-2">
 					<span className="py-2 font-medium">Shadow Color:</span>
 					<input
-						id="shadowColor"
+						id="linkShadowColor"
 						type="color"
-						value={settings.shadowColor || defaultSettings.shadowColor}
-						onChange={(e) => setSettings({ ...settings, shadowColor: e.target.value })}
+						value={currentSettings.linkShadowColor}
+						onChange={(e) => setSettings({ ...settings, linkShadowColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
 					/>
 				</div>
@@ -157,7 +135,7 @@ export default function AppearanceForm() {
 								type="radio"
 								name="linkBorderRadius"
 								value={option.value}
-								checked={settings.linkBorderRadius === option.value}
+								checked={currentSettings.linkBorderRadius === option.value}
 								onChange={(e) => setSettings({ ...settings, linkBorderRadius: e.target.value })}
 								className="h-5 w-5"
 							/>
@@ -174,7 +152,7 @@ export default function AppearanceForm() {
 								type="radio"
 								name="linkPadding"
 								value={option.value}
-								checked={settings.linkPadding === option.value}
+								checked={currentSettings.linkPadding === option.value}
 								onChange={(e) => setSettings({ ...settings, linkPadding: e.target.value })}
 								className="h-5 w-5"
 							/>
@@ -188,7 +166,7 @@ export default function AppearanceForm() {
 					<input
 						id="headerTextColor"
 						type="color"
-						value={settings.headerTextColor || defaultSettings.headerTextColor}
+						value={currentSettings.headerTextColor}
 						onChange={(e) => setSettings({ ...settings, headerTextColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
 					/>

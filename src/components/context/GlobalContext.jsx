@@ -1,6 +1,7 @@
 "use client"
 
 import { fetchUserData, fetchUserLinks, fetchUserSettings } from "@/src/lib/actions"
+import { defaultSettings } from "@/src/lib/utils"
 import { Analytics } from "@vercel/analytics/react"
 import { createContext, useContext, useEffect, useState } from "react"
 
@@ -13,18 +14,7 @@ export const GlobalContextProvider = ({ children }) => {
 	const [image, setImage] = useState("")
 	const [description, setDescription] = useState("")
 	const [links, setLinks] = useState([])
-	const [title, setTitle] = useState("")
-	const [url, setUrl] = useState("")
-	const [settings, setSettings] = useState({
-		backgroundColor: "#ffffff", // Main page/preview container background color
-		linkBackgroundColor: "#ffffff", // Background color for link container
-		linkTextColor: "#000000", // Text color inside link container
-		linkHoverBackgroundColor: "#eeeeee", // Background color for link container on hover
-		linkShadowColor: "#000000", // Shadow color for link container
-		linkBorderRadius: "4px", // Border radius for link container
-		linkPadding: "4px", // Padding for link container
-		headerTextColor: "#000000", // Text color in header
-	})
+	const [settings, setSettings] = useState(defaultSettings)
 	const [error, setError] = useState(null)
 
 	useEffect(() => {
@@ -39,7 +29,7 @@ export const GlobalContextProvider = ({ children }) => {
 				setUser(userData)
 
 				setLinks(await fetchUserLinks(slug))
-				setSettings(await fetchUserSettings())
+				setSettings((await fetchUserSettings()) || defaultSettings)
 			} catch (error) {
 				console.error("Error loading user data:", error)
 				setError("Failed to load user data.")
@@ -117,7 +107,7 @@ export const GlobalContextProvider = ({ children }) => {
 
 			if (response.ok) {
 				const updatedSettings = await response.json()
-				setSettings(updatedSettings.updatedSettings)
+				setSettings(updatedSettings)
 			} else {
 				const error = await response.json()
 				throw new Error(error.error)
@@ -143,10 +133,6 @@ export const GlobalContextProvider = ({ children }) => {
 				setDescription,
 				links,
 				setLinks,
-				title,
-				setTitle,
-				url,
-				setUrl,
 				settings,
 				setSettings,
 				updateSettings,

@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
 
-export function generateSlug(name) {
+export function generateSlug(name: string) {
 	const baseSlug = (name || Math.random().toString(36).substring(2, 10))
 		.toLowerCase()
 		.replace(/[^a-z0-9]+/g, "-")
@@ -14,4 +14,40 @@ export function generateSlug(name) {
 
 	const randomSuffix = Math.random().toString(36).substring(2, 6)
 	return `${baseSlug}-${randomSuffix}`
+}
+
+export const BORDER_RADIUS_OPTIONS = [
+	{ label: "None", value: "0px" },
+	{ label: "Small", value: "0.5rem" },
+	{ label: "Medium", value: "1rem" },
+	{ label: "Large", value: "5rem" },
+]
+
+export const PADDING_OPTIONS = [
+	{ label: "Small", value: "0.25rem" },
+	{ label: "Medium", value: "0.5rem" },
+	{ label: "Large", value: "1rem" },
+	{ label: "Extra Large", value: "1.25rem" },
+]
+
+export const defaultSettings = {
+	backgroundColor: "#ffffff",
+	headerTextColor: "#000000",
+	linkBackgroundColor: "#ffffff",
+	linkTextColor: "#000000",
+	linkHoverBackgroundColor: "#eeeeee",
+	linkShadowColor: "#000000",
+	linkBorderRadius: "0.5rem",
+	linkPadding: "0.5rem",
+}
+
+export function hexToRgb(hex: string) {
+	hex = hex.replace(/^#/, "")
+
+	const bigint = parseInt(hex, 16)
+	const r = (bigint >> 16) & 255
+	const g = (bigint >> 8) & 255
+	const b = bigint & 255
+
+	return `rgba(${r}, ${g}, ${b}, 0.1)`
 }

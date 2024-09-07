@@ -1,5 +1,6 @@
 "use client"
 
+import { defaultSettings } from "@/src/lib/utils"
 import Image from "next/image"
 import { useEffect } from "react"
 import LinkItem from "../LinkItem"
@@ -7,16 +8,6 @@ import { useGlobalContext } from "../context/GlobalContext"
 
 export default function Preview() {
 	const { description, links, setSlug, image, slug, settings } = useGlobalContext()
-	const defaultSettings = {
-		linkBackgroundColor: "#ffffff",
-		linkTextColor: "#000000",
-		linkHoverBackgroundColor: "#eeeeee",
-		shadowColor: "#000000",
-		linkBorderRadius: "8px",
-		linkPadding: "8px",
-		headerTextColor: "#000000",
-		backgroundColor: "#ffffff",
-	}
 
 	useEffect(() => {
 		if (slug) {
