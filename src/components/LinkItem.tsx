@@ -14,7 +14,9 @@ export default function LinkItem({ url, title }) {
 					className="min-w-[35vw] max-w-full rounded-3xl px-8 py-4 text-center"
 					style={{
 						backgroundColor: isHovered ? settings.linkHoverBackgroundColor : settings.linkBackgroundColor,
-						color: settings.linkTextColor,
+						border: `1px solid ${settings.shadowColor}`,
+						borderRadius: settings.linkBorderRadius,
+						padding: settings.linkPadding,
 						transition: "background-color 0.3s ease",
 					}}
 					onMouseEnter={() => setIsHovered(true)}

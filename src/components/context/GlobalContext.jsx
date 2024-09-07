@@ -16,9 +16,14 @@ export const GlobalContextProvider = ({ children }) => {
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")
 	const [settings, setSettings] = useState({
-		linkBackgroundColor: "#ffffff",
-		linkTextColor: "#000000",
-		linkHoverBackgroundColor: "#eeeeee",
+		backgroundColor: "#ffffff", // Main page/preview container background color
+		linkBackgroundColor: "#ffffff", // Background color for link container
+		linkTextColor: "#000000", // Text color inside link container
+		linkHoverBackgroundColor: "#eeeeee", // Background color for link container on hover
+		linkShadowColor: "#000000", // Shadow color for link container
+		linkBorderRadius: "4px", // Border radius for link container
+		linkPadding: "4px", // Padding for link container
+		headerTextColor: "#000000", // Text color in header
 	})
 	const [error, setError] = useState(null)
 
@@ -102,31 +107,53 @@ export const GlobalContextProvider = ({ children }) => {
 		}
 	}
 
+	const updateSettings = async (newSettings) => {
+		try {
+			const response = await fetch("/api/preferences", {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(newSettings),
+			})
+
+			if (response.ok) {
+				const updatedSettings = await response.json()
+				setSettings(updatedSettings.updatedSettings)
+			} else {
+				const error = await response.json()
+				throw new Error(error.error)
+			}
+		} catch (error) {
+			console.error("Error updating settings:", error)
+			setError("Failed to update settings.")
+		}
+	}
+
 	return (
 		<GlobalContext.Provider
 			value={{
-				slug,
-				description,
-				links,
-				setSlug,
-				setDescription,
-				setLinks,
-				name,
-				image,
-				setName,
-				setImage,
-				settings,
-				setSettings,
-				updateLink,
-				deleteLink,
-				addLink,
 				user,
 				setUser,
-				error,
+				slug,
+				setSlug,
+				name,
+				setName,
+				image,
+				setImage,
+				description,
+				setDescription,
+				links,
+				setLinks,
 				title,
 				setTitle,
 				url,
 				setUrl,
+				settings,
+				setSettings,
+				updateSettings,
+				addLink,
+				updateLink,
+				deleteLink,
+				error,
 			}}
 		>
 			{children}

@@ -59,10 +59,15 @@ model UserLink {
 }
 
 model UserSettings {
-  id                       String  @id @default(cuid())
-  userId                   String  @unique
-  linkBackgroundColor      String?
-  linkTextColor            String?
-  linkHoverBackgroundColor String?
-  user                     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                       Int    @id @default(autoincrement())
+  userId                   String @unique
+  backgroundColor          String @default("#ffffff") // main page/preview container background color
+  headerTextColor          String @default("#000000") // color for text in header
+  linkBackgroundColor      String @default("#ffffff") // background color for link container
+  linkShadowColor          String @default("#000000") // shadow color for link container
+  linkTextColor            String @default("#000000") // color for text inside link container
+  linkHoverBackgroundColor String @default("#eeeeee") // background color for link container on hover
+  linkBorderRadius         String @default("4px") // border radius for link container (5 values)
+  linkPadding              String @default("4px") // padding for link container (4 values)
+  user                     User   @relation(fields: [userId], references: [id])
 }
