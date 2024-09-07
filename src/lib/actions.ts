@@ -1,5 +1,3 @@
-import { User, UserLink } from "@prisma/client"
-
 export function generateSlug(name) {
 	const baseSlug = name
 		? name
@@ -14,18 +12,18 @@ export function generateSlug(name) {
 	return `${baseSlug}-${randomString}`
 }
 
-export async function fetchLinks(slug: string): Promise<UserLink[]> {
-	const response = await fetch(`/api/links?slug=${slug}`)
+export async function fetchUserData() {
+	const response = await fetch("/api/user")
 	if (!response.ok) {
-		throw new Error("Failed to fetch links")
+		throw new Error("Failed to fetch user data")
 	}
 	return response.json()
 }
 
-export async function fetchUser(slug: string): Promise<User> {
-	const response = await fetch(`/api/user?slug=${slug}`)
+export async function fetchUserLinks(slug) {
+	const response = await fetch(`/api/links?slug=${slug}`)
 	if (!response.ok) {
-		throw new Error("Failed to fetch user data")
+		throw new Error("Failed to fetch user links")
 	}
 	return response.json()
 }
@@ -33,17 +31,18 @@ export async function fetchUser(slug: string): Promise<User> {
 export async function fetchUserSettings() {
 	try {
 		const response = await fetch(`/api/preferences`)
-		const data = await response.json()
-
 		if (!response.ok) {
+			const data = await response.json()
 			throw new Error(data.error || "Failed to fetch settings")
 		}
-
-		if (data.settings) {
-			return data.settings
-		} else {
-			throw new Error("Settings data is missing")
-		}
+		const data = await response.json()
+		return (
+			data.settings || {
+				linkBackgroundColor: "#ffffff",
+				linkTextColor: "#000000",
+				linkHoverBackgroundColor: "#eeeeee",
+			}
+		)
 	} catch (error) {
 		console.error("Error fetching user settings:", error)
 		return {

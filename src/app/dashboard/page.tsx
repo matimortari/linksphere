@@ -14,9 +14,13 @@ import { useEffect, useState } from "react"
 export default function Dashboard() {
 	const { data: session, status } = useSession()
 	const [slug, setSlug] = useState(session?.user.slug || "")
-	const [description, setDescription] = useState(session?.user.description || "")
 	const [links, setLinks] = useState<UserLink[]>(session?.user.links || [])
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
+	const [settings, setSettings] = useState({
+		linkBackgroundColor: "#ffffff",
+		linkTextColor: "#000000",
+		linkHoverBackgroundColor: "#eeeeee",
+	})
 
 	useEffect(() => {
 		if (status === "loading") return
@@ -25,10 +29,6 @@ export default function Dashboard() {
 			redirect("/login")
 		}
 	}, [status])
-
-	const handleAddLink = (newLink: UserLink) => {
-		setLinks((prevLinks) => [...prevLinks, newLink])
-	}
 
 	const handleUpdateLink = (updatedLink: UserLink) => {
 		setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
@@ -66,9 +66,11 @@ export default function Dashboard() {
 						<p className="subtitle">My URL</p>
 						<UpdateSlugForm />
 						<hr />
+
 						<p className="subtitle">My Header</p>
 						<UpdateDescriptionForm />
 						<hr />
+
 						<p className="subtitle">My Links</p>
 						<LinkList onUpdateLink={handleUpdateLink} onDeleteLink={handleDeleteLink} />
 						<div className="button-container">
@@ -78,8 +80,9 @@ export default function Dashboard() {
 						</div>
 						{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}
 						<hr />
+
 						<p className="title">Preview</p>
-						<Preview slug={slug} />
+						<Preview slug={slug} settings={settings} />
 						<hr />
 					</div>
 				</main>

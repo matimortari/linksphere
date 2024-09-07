@@ -1,12 +1,12 @@
+"use client"
+
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
-import { UpdateLinkDialogProps } from "@/src/lib/types"
 import { useEffect, useRef, useState } from "react"
 
-export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }: UpdateLinkDialogProps) {
+export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 	const { updateLink } = useGlobalContext()
-
-	const [title, setTitle] = useState(linkData.title)
-	const [url, setUrl] = useState(linkData.url)
+	const [title, setTitle] = useState(linkData.title || "")
+	const [url, setUrl] = useState(linkData.url || "")
 	const [error, setError] = useState<string | null>(null)
 	const dialogRef = useRef<HTMLDivElement>(null)
 

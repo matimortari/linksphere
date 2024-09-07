@@ -3,16 +3,16 @@
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { useEffect, useRef, useState } from "react"
 
-export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
+export default function AddLinkDialog({ onClose }) {
 	const { addLink } = useGlobalContext()
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")
-	const [error, setError] = useState<string | null>(null)
-	const dialogRef = useRef<HTMLDivElement>(null)
+	const [error, setError] = useState(null)
+	const dialogRef = useRef(null)
 
 	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
+		const handleClickOutside = (event) => {
+			if (dialogRef.current && !dialogRef.current.contains(event.target)) {
 				onClose()
 			}
 		}
@@ -23,7 +23,7 @@ export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 		}
 	}, [onClose])
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		if (!title || !url) {
@@ -47,7 +47,7 @@ export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 			<div ref={dialogRef} className="w-full max-w-sm rounded-lg bg-background p-8 shadow-lg">
 				<h2 className="mb-4 text-xl font-semibold">Add New Link</h2>
 
-				{error && <p className="mb-4 text-red-600">{error}</p>}
+				{error && <p className="mb-4 text-destructive">{error}</p>}
 
 				<form onSubmit={handleSubmit}>
 					<div className="my-4 flex flex-col space-y-2">
@@ -56,7 +56,7 @@ export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 							type="text"
 							value={title}
 							onChange={(e) => setTitle(e.target.value)}
-							className="rounded border border-gray-300 bg-gray-100 p-2"
+							className="rounded-lg border border-muted bg-transparent p-2"
 							required
 						/>
 					</div>
@@ -67,7 +67,7 @@ export default function AddLinkDialog({ onClose }: { onClose: () => void }) {
 							type="url"
 							value={url}
 							onChange={(e) => setUrl(e.target.value)}
-							className="rounded border border-gray-300 bg-gray-100 p-2"
+							className="rounded-lg border border-muted bg-transparent p-2"
 							required
 						/>
 					</div>

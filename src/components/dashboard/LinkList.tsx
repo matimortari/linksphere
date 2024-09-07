@@ -1,35 +1,39 @@
+"use client"
+
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
-import { LinkListProps } from "@/src/lib/types"
 import { Icon } from "@iconify/react"
 import { UserLink } from "@prisma/client"
 import { useState } from "react"
 import UpdateLinkDialog from "./UpdateLinkDialog"
 
-export default function LinkList({ onUpdateLink, onDeleteLink }: LinkListProps) {
-	// Destructure onDeleteLink from props
-	const { links: contextLinks, updateLink, deleteLink } = useGlobalContext()
+export default function LinkList({ onUpdateLink, onDeleteLink }) {
+	const { links: contextLinks, deleteLink, updateLink } = useGlobalContext()
+
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
-	const [selectedLink, setSelectedLink] = useState<UserLink | null>(null)
+	const [currentLink, setCurrentLink] = useState<UserLink | null>(null)
 
 	const handleEditClick = (link: UserLink) => {
-		setSelectedLink(link)
+		setCurrentLink(link)
 		setIsDialogOpen(true)
 	}
 
-	const handleCloseDialog = () => {
-		setIsDialogOpen(false)
-		setSelectedLink(null)
-	}
-
 	const handleUpdateLink = async (updatedLink: UserLink) => {
-		await updateLink(updatedLink)
-		onUpdateLink(updatedLink) // Handle additional logic if needed
-		handleCloseDialog()
+		try {
+			await updateLink(updatedLink)
+			onUpdateLink(updatedLink)
+			setIsDialogOpen(false)
+		} catch (error) {
+			console.error("Error updating link:", error)
+		}
 	}
 
 	const handleDeleteLink = async (id: number) => {
-		await deleteLink(id)
-		onDeleteLink(id) // Call the prop to handle deletion
+		try {
+			await deleteLink(id)
+			onDeleteLink(id) // Call the prop to handle deletion
+		} catch (error) {
+			console.error("Error deleting link:", error)
+		}
 	}
 
 	return (
@@ -70,8 +74,12 @@ export default function LinkList({ onUpdateLink, onDeleteLink }: LinkListProps) 
 				<p className="text-muted-foreground">No links available</p>
 			)}
 
-			{isDialogOpen && selectedLink && (
-				<UpdateLinkDialog onClose={handleCloseDialog} onUpdateLink={handleUpdateLink} linkData={selectedLink} />
+			{isDialogOpen && currentLink && (
+				<UpdateLinkDialog
+					onClose={() => setIsDialogOpen(false)}
+					onUpdateLink={handleUpdateLink}
+					linkData={currentLink}
+				/>
 			)}
 		</div>
 	)

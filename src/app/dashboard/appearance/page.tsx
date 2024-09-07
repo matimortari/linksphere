@@ -1,6 +1,8 @@
 "use client"
 
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import AppearanceForm from "@/src/components/dashboard/AppearanceForm"
+import Preview from "@/src/components/dashboard/Preview"
 import Sidebar from "@/src/components/Sidebar"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
@@ -8,14 +10,17 @@ import { useEffect } from "react"
 
 export default function Appearance() {
 	const { data: session, status } = useSession()
+	const { slug, setSlug, settings, setSettings } = useGlobalContext()
 
 	useEffect(() => {
 		if (status === "loading") return
 
 		if (status === "unauthenticated") {
 			redirect("/login")
+		} else if (session?.user) {
+			setSlug(session.user.slug || "")
 		}
-	}, [status])
+	}, [status, session, setSlug])
 
 	if (status === "loading") {
 		return <div>Loading Dashboard...</div>
@@ -42,17 +47,10 @@ export default function Appearance() {
 						<AppearanceForm />
 						<hr />
 
-						<p className="subtitle">TBA</p>
-						<hr />
-
-						<p className="subtitle">TBA</p>
-						<hr />
-
-						<p className="subtitle">TBA</p>
+						<p className="title">Preview</p>
+						<Preview />
 						<hr />
 					</div>
-
-					<section className="flex flex-col"></section>
 				</main>
 			</div>
 		</div>

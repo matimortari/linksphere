@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react"
+import { useGlobalContext } from "../context/GlobalContext"
 
 export default function AppearanceForm() {
-	const [settings, setSettings] = useState({
-		linkBackgroundColor: "#ffffff",
-		linkTextColor: "#000000",
-		linkHoverBackgroundColor: "#eeeeee",
-	})
-	const [error, setError] = useState("")
-	const [success, setSuccess] = useState("")
-	const [loading, setLoading] = useState(true)
+	const { settings, setSettings } = useGlobalContext()
+	const [error, setError] = useState<string>("")
+	const [success, setSuccess] = useState<string>("")
+	const [loading, setLoading] = useState<boolean>(true)
 
 	useEffect(() => {
 		const fetchSettings = async () => {
@@ -33,9 +30,9 @@ export default function AppearanceForm() {
 		}
 
 		fetchSettings()
-	}, [])
+	}, [setSettings])
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 		setError("")
 		setSuccess("")
@@ -46,11 +43,7 @@ export default function AppearanceForm() {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({
-					linkBackgroundColor: settings.linkBackgroundColor,
-					linkTextColor: settings.linkTextColor,
-					linkHoverBackgroundColor: settings.linkHoverBackgroundColor,
-				}),
+				body: JSON.stringify(settings),
 			})
 
 			const data = await response.json()

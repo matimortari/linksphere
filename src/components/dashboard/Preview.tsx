@@ -1,11 +1,10 @@
-import { useGlobalContext } from "@/src/components/context/GlobalContext"
-import { PreviewProps } from "@/src/lib/types"
 import Image from "next/image"
 import { useEffect } from "react"
 import LinkItem from "../LinkItem"
+import { useGlobalContext } from "../context/GlobalContext"
 
-export default function Preview({ slug }: PreviewProps) {
-	const { description, links, setSlug, name, image } = useGlobalContext()
+export default function Preview() {
+	const { description, links, setSlug, image, settings, slug } = useGlobalContext()
 
 	useEffect(() => {
 		if (slug) {
@@ -14,13 +13,12 @@ export default function Preview({ slug }: PreviewProps) {
 	}, [slug, setSlug])
 
 	return (
-		<div className="rounded-3xl border border-muted p-12 shadow-lg">
+		<div className="rounded-3xl border border-muted bg-white p-12 shadow-lg">
 			<div className="mb-8 flex flex-col items-center text-center">
 				{image && (
 					<Image src={image} alt={`Profile picture of ${slug}`} width={100} height={100} className="rounded-full" />
 				)}
 				<h1 className="text-2xl font-bold">@{slug}</h1>
-				{name && <p className="text-lg font-semibold">{name}</p>}
 				{description && <p className="mt-2 text-muted-foreground">{description}</p>}
 			</div>
 
