@@ -4,7 +4,7 @@ import LinkItem from "../LinkItem"
 import { useGlobalContext } from "../context/GlobalContext"
 
 export default function Preview() {
-	const { description, links, setSlug, image, settings, slug } = useGlobalContext()
+	const { description, links, setSlug, image, slug } = useGlobalContext()
 
 	useEffect(() => {
 		if (slug) {

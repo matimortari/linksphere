@@ -6,6 +6,7 @@ import GoogleProvider from "next-auth/providers/google"
 import { generateSlug } from "./actions"
 import { db } from "./db"
 
+// Extend the default session with custom properties
 declare module "next-auth" {
 	interface Session {
 		user: DefaultSession["user"] & {
@@ -41,7 +42,6 @@ export const authOptions = {
 			if (!existingUser) {
 				const slug = generateSlug(profile?.name ?? user.email ?? "")
 
-				// Create user
 				const newUser = await db.user.create({
 					data: {
 						email: user.email,
@@ -51,7 +51,6 @@ export const authOptions = {
 					},
 				})
 
-				// Create default settings for the new user
 				await db.userSettings.create({
 					data: {
 						userId: newUser.id,
@@ -79,7 +78,6 @@ export const authOptions = {
 				session.user.slug = dbUser.slug
 				session.user.description = dbUser.description
 
-				// Fetch user's links and add them to the session
 				const links = await db.userLink.findMany({
 					where: { userId: dbUser.id },
 				})

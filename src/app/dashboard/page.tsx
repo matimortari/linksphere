@@ -1,6 +1,7 @@
 "use client"
 
 import Sidebar from "@/src/components/Sidebar"
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import AddLinkDialog from "@/src/components/dashboard/AddLinkDialog"
 import LinkList from "@/src/components/dashboard/LinkList"
 import Preview from "@/src/components/dashboard/Preview"
@@ -13,14 +14,8 @@ import { useEffect, useState } from "react"
 
 export default function Dashboard() {
 	const { data: session, status } = useSession()
-	const [slug, setSlug] = useState(session?.user.slug || "")
-	const [links, setLinks] = useState<UserLink[]>(session?.user.links || [])
+	const { links, setLinks } = useGlobalContext()
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
-	const [settings, setSettings] = useState({
-		linkBackgroundColor: "#ffffff",
-		linkTextColor: "#000000",
-		linkHoverBackgroundColor: "#eeeeee",
-	})
 
 	useEffect(() => {
 		if (status === "loading") return
@@ -82,7 +77,7 @@ export default function Dashboard() {
 						<hr />
 
 						<p className="title">Preview</p>
-						<Preview slug={slug} settings={settings} />
+						<Preview />
 						<hr />
 					</div>
 				</main>

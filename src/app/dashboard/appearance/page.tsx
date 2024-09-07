@@ -1,6 +1,5 @@
 "use client"
 
-import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import AppearanceForm from "@/src/components/dashboard/AppearanceForm"
 import Preview from "@/src/components/dashboard/Preview"
 import Sidebar from "@/src/components/Sidebar"
@@ -10,17 +9,14 @@ import { useEffect } from "react"
 
 export default function Appearance() {
 	const { data: session, status } = useSession()
-	const { slug, setSlug, settings, setSettings } = useGlobalContext()
 
 	useEffect(() => {
 		if (status === "loading") return
 
 		if (status === "unauthenticated") {
 			redirect("/login")
-		} else if (session?.user) {
-			setSlug(session.user.slug || "")
 		}
-	}, [status, session, setSlug])
+	}, [status])
 
 	if (status === "loading") {
 		return <div>Loading Dashboard...</div>

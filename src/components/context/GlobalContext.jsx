@@ -1,6 +1,7 @@
 "use client"
 
 import { fetchUserData, fetchUserLinks, fetchUserSettings } from "@/src/lib/actions"
+import { Analytics } from "@vercel/analytics/react"
 import { createContext, useContext, useEffect, useState } from "react"
 
 const GlobalContext = createContext(null)
@@ -116,6 +117,7 @@ export const GlobalContextProvider = ({ children }) => {
 			}}
 		>
 			{children}
+			<Analytics />
 		</GlobalContext.Provider>
 	)
 }

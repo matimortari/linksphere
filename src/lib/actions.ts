@@ -1,3 +1,4 @@
+// Generate a random slug for a new user
 export function generateSlug(name) {
 	const baseSlug = name
 		? name
@@ -12,6 +13,7 @@ export function generateSlug(name) {
 	return `${baseSlug}-${randomString}`
 }
 
+// Fetch user data from the server
 export async function fetchUserData() {
 	const response = await fetch("/api/user")
 	if (!response.ok) {
@@ -20,6 +22,7 @@ export async function fetchUserData() {
 	return response.json()
 }
 
+// Fetch user links from the server
 export async function fetchUserLinks(slug) {
 	const response = await fetch(`/api/links?slug=${slug}`)
 	if (!response.ok) {
@@ -28,6 +31,7 @@ export async function fetchUserLinks(slug) {
 	return response.json()
 }
 
+// Fetch user settings from the server
 export async function fetchUserSettings() {
 	try {
 		const response = await fetch(`/api/preferences`)
