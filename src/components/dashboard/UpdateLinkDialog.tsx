@@ -4,13 +4,14 @@ import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { useEffect, useRef, useState } from "react"
 
 export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
-	const { updateLink } = useGlobalContext()
-	const [title, setTitle] = useState(linkData.title || "")
-	const [url, setUrl] = useState(linkData.url || "")
-	const [error, setError] = useState<string | null>(null)
-	const dialogRef = useRef<HTMLDivElement>(null)
+	const { updateLink, title, setTitle, url, setUrl } = useGlobalContext()
+	const [error, setError] = useState(null)
+	const dialogRef = useRef(null)
 
 	useEffect(() => {
+		setTitle(linkData.title || "")
+		setUrl(linkData.url || "")
+
 		const handleClickOutside = (event: MouseEvent) => {
 			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
 				onClose()
@@ -21,7 +22,7 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside)
 		}
-	}, [onClose])
+	}, [linkData, onClose, setTitle, setUrl])
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -35,8 +36,8 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 			const updatedLink = { ...linkData, title, url }
 			await updateLink(updatedLink)
 
-			setTitle("")
-			setUrl("")
+			setTitle("") // Clear title after update
+			setUrl("") // Clear URL after update
 			setError(null)
 			onUpdateLink(updatedLink)
 			onClose()

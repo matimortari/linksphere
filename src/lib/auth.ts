@@ -3,8 +3,8 @@ import { UserLink } from "@prisma/client"
 import { DefaultSession, SessionStrategy } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
-import { generateSlug } from "./actions"
 import { db } from "./db"
+import { generateSlug } from "./utils"
 
 // Extend the default session with custom properties
 declare module "next-auth" {

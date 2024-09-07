@@ -8,9 +8,8 @@ import UpdateLinkDialog from "./UpdateLinkDialog"
 
 export default function LinkList({ onUpdateLink, onDeleteLink }) {
 	const { links: contextLinks, deleteLink, updateLink } = useGlobalContext()
-
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
-	const [currentLink, setCurrentLink] = useState<UserLink | null>(null)
+	const [currentLink, setCurrentLink] = useState(null)
 
 	const handleEditClick = (link: UserLink) => {
 		setCurrentLink(link)
@@ -30,7 +29,7 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 	const handleDeleteLink = async (id: number) => {
 		try {
 			await deleteLink(id)
-			onDeleteLink(id) // Call the prop to handle deletion
+			onDeleteLink(id)
 		} catch (error) {
 			console.error("Error deleting link:", error)
 		}

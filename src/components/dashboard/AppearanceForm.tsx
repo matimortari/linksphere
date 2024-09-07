@@ -3,9 +3,9 @@ import { useGlobalContext } from "../context/GlobalContext"
 
 export default function AppearanceForm() {
 	const { settings, setSettings } = useGlobalContext()
-	const [error, setError] = useState<string>("")
-	const [success, setSuccess] = useState<string>("")
-	const [loading, setLoading] = useState<boolean>(true)
+	const [error, setError] = useState("")
+	const [success, setSuccess] = useState("")
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		const fetchSettings = async () => {
@@ -14,7 +14,7 @@ export default function AppearanceForm() {
 				const data = await response.json()
 
 				if (!response.ok) {
-					throw new Error(data.error || "Failed to fetch settings")
+					throw new Error(data.error)
 				}
 
 				if (data.settings) {
@@ -49,7 +49,7 @@ export default function AppearanceForm() {
 			const data = await response.json()
 
 			if (!response.ok) {
-				throw new Error(data.error || "Failed to update settings")
+				throw new Error(data.error)
 			}
 
 			setSuccess("Settings updated successfully!")

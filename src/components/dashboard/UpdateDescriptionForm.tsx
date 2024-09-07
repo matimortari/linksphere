@@ -5,9 +5,9 @@ import { useGlobalContext } from "../context/GlobalContext"
 
 export default function UpdateDescriptionForm() {
 	const { description, setDescription } = useGlobalContext()
-	const [localDescription, updateLocalDescription] = useState<string>(description)
-	const [error, setError] = useState<string | null>(null)
-	const [success, setSuccess] = useState<string | null>(null)
+	const [localDescription, updateLocalDescription] = useState(description)
+	const [error, setError] = useState(null)
+	const [success, setSuccess] = useState(null)
 
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault()
@@ -25,7 +25,7 @@ export default function UpdateDescriptionForm() {
 
 			if (!response.ok) {
 				const data = await response.json()
-				throw new Error(data.error || "Failed to update description.")
+				throw new Error(data.error)
 			}
 
 			setSuccess("Description updated successfully!")
