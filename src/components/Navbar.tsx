@@ -1,5 +1,6 @@
 "use client"
 
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { Icon } from "@iconify/react"
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
@@ -7,6 +8,7 @@ import { useEffect, useRef, useState } from "react"
 
 export default function Navbar() {
 	const { data: session } = useSession()
+	const { slug } = useGlobalContext()
 	const [theme, setTheme] = useState("light")
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	const dialogRef = useRef<HTMLDivElement>(null)
@@ -64,7 +66,7 @@ export default function Navbar() {
 					<div className="m-2 flex flex-col justify-center gap-4 p-2 text-center text-sm font-semibold">
 						{session && (
 							<>
-								<Link href={`/${session.user.slug}`} className="button w-full text-center">
+								<Link href={`/${slug}`} className="button w-full text-center">
 									My Profile
 								</Link>
 								<Link href="/dashboard" className="button w-full text-center">

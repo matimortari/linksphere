@@ -18,6 +18,7 @@ export const GlobalContextProvider = ({ children }) => {
 		linkTextColor: "#000000",
 		linkHoverBackgroundColor: "#eeeeee",
 	})
+	const [error, setError] = useState(null)
 
 	useEffect(() => {
 		const loadUserData = async () => {
@@ -33,6 +34,7 @@ export const GlobalContextProvider = ({ children }) => {
 				setSettings(await fetchUserSettings())
 			} catch (error) {
 				console.error("Error loading user data:", error)
+				setError("Failed to load user data.")
 			}
 		}
 
@@ -56,6 +58,7 @@ export const GlobalContextProvider = ({ children }) => {
 			}
 		} catch (error) {
 			console.error("Error adding link:", error)
+			setError("Failed to add link.")
 		}
 	}
 
@@ -76,6 +79,7 @@ export const GlobalContextProvider = ({ children }) => {
 			setLinks((prevLinks) => prevLinks.map((l) => (l.id === updatedLink.id ? link : l)))
 		} catch (error) {
 			console.error("Error updating link:", error)
+			setError("Failed to update link.")
 		}
 	}
 
@@ -91,6 +95,7 @@ export const GlobalContextProvider = ({ children }) => {
 			}
 		} catch (error) {
 			console.error("Error deleting link:", error)
+			setError("Failed to delete link.")
 		}
 	}
 
@@ -114,6 +119,7 @@ export const GlobalContextProvider = ({ children }) => {
 				addLink,
 				user,
 				setUser,
+				error,
 			}}
 		>
 			{children}
