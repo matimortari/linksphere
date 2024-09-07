@@ -4,9 +4,7 @@ import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { useEffect, useRef, useState } from "react"
 
 export default function AddLinkDialog({ onClose }) {
-	const { addLink } = useGlobalContext()
-	const [title, setTitle] = useState("")
-	const [url, setUrl] = useState("")
+	const { addLink, title, setTitle, url, setUrl } = useGlobalContext()
 	const [error, setError] = useState(null)
 	const dialogRef = useRef(null)
 

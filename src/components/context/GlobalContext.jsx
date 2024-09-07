@@ -13,6 +13,8 @@ export const GlobalContextProvider = ({ children }) => {
 	const [image, setImage] = useState("")
 	const [description, setDescription] = useState("")
 	const [links, setLinks] = useState([])
+	const [title, setTitle] = useState("")
+	const [url, setUrl] = useState("")
 	const [settings, setSettings] = useState({
 		linkBackgroundColor: "#ffffff",
 		linkTextColor: "#000000",
@@ -30,6 +32,7 @@ export const GlobalContextProvider = ({ children }) => {
 				setName(name)
 				setImage(image)
 				setUser(userData)
+
 				setLinks(await fetchUserLinks(slug))
 				setSettings(await fetchUserSettings())
 			} catch (error) {
@@ -120,6 +123,10 @@ export const GlobalContextProvider = ({ children }) => {
 				user,
 				setUser,
 				error,
+				title,
+				setTitle,
+				url,
+				setUrl,
 			}}
 		>
 			{children}
