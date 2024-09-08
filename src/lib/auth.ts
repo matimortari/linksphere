@@ -24,10 +24,12 @@ export const authOptions = {
 		GitHubProvider({
 			clientId: process.env.GITHUB_CLIENT_ID ?? "",
 			clientSecret: process.env.GITHUB_CLIENT_SECRET ?? "",
+			allowDangerousEmailAccountLinking: true,
 		}),
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID ?? "",
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
+			allowDangerousEmailAccountLinking: true,
 		}),
 	],
 	adapter: PrismaAdapter(db),
@@ -39,10 +41,8 @@ export const authOptions = {
 			const existingUser = await db.user.findUnique({
 				where: { email: user.email },
 			})
-
 			if (!existingUser) {
 				const slug = generateSlug(profile?.name ?? user.email ?? "")
-
 				const newUser = await db.user.create({
 					data: {
 						email: user.email,
@@ -51,11 +51,10 @@ export const authOptions = {
 						slug,
 					},
 				})
-
 				await db.userSettings.create({
 					data: {
 						userId: newUser.id,
-						...defaultSettings, // Use centralized default settings
+						...defaultSettings,
 					},
 				})
 			} else {
@@ -67,25 +66,22 @@ export const authOptions = {
 					},
 				})
 			}
-
 			return true
 		},
+
 		async session({ session, user }) {
 			session.user.id = user.id
 			const dbUser = await db.user.findUnique({ where: { id: user.id } })
 			if (dbUser) {
 				session.user.slug = dbUser.slug
 				session.user.description = dbUser.description
-
 				const links = await db.userLink.findMany({
 					where: { userId: dbUser.id },
 				})
 				session.user.links = links
-
 				const settings = await db.userSettings.findUnique({
 					where: { userId: dbUser.id },
 				})
-
 				session.user.settings = settings || defaultSettings
 			}
 			return session

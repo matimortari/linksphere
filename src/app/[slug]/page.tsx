@@ -1,36 +1,52 @@
-"use client"
-
-import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import LinkItem from "@/src/components/LinkItem"
+import { db } from "@/src/lib/db"
 import { defaultSettings } from "@/src/lib/utils"
-import { useSession } from "next-auth/react"
+import { UserLink } from "@prisma/client"
 import Image from "next/image"
-import { useEffect } from "react"
 
-export default function UserPage() {
-	const { status } = useSession()
-	const { description, links, setSlug, image, slug, settings } = useGlobalContext()
+type UserWithSettings = {
+	id: string
+	slug: string
+	name: string
+	email: string
+	emailVerified: Date | null
+	image: string
+	description: string | null
+	public: boolean
+	links: UserLink[]
+	settings?: typeof defaultSettings
+}
 
-	useEffect(() => {
-		if (slug) {
-			setSlug(slug)
-		}
-	}, [slug, setSlug])
+export default async function UserPage({ params }: { params: { slug: string } }) {
+	const { slug } = params
 
-	if (status === "loading") {
-		return <div>Loading...</div>
+	const user = (await db.user.findUnique({
+		where: { slug },
+		include: {
+			links: true,
+			settings: true,
+		},
+	})) as UserWithSettings | null
+
+	if (!user) {
+		return <div>User not found</div>
 	}
+
+	const { description, links, image, settings } = user
+
+	// Fallback to default settings if userSettings is not available
+	const effectiveSettings = settings || defaultSettings
 
 	return (
 		<div
 			className="main-container"
-			style={{ backgroundColor: settings.backgroundColor || defaultSettings.backgroundColor }}
+			style={{ backgroundColor: effectiveSettings.backgroundColor || defaultSettings.backgroundColor }}
 		>
 			<div className="mb-2 flex flex-col items-center justify-center gap-3">
 				{image && <Image src={image} alt={slug} width={100} height={100} className="rounded-full" />}
 				<h1 className="text-2xl font-bold">@{slug}</h1>
 				{description && (
-					<p className="mt-2" style={{ color: settings.headerTextColor || defaultSettings.headerTextColor }}>
+					<p className="mt-2" style={{ color: effectiveSettings.headerTextColor || defaultSettings.headerTextColor }}>
 						{description}
 					</p>
 				)}
@@ -39,7 +55,7 @@ export default function UserPage() {
 			{links.length > 0 ? (
 				<ul className="list-inside list-disc space-y-4">
 					{links.map((link) => (
-						<LinkItem key={link.id} {...link} settings={settings} />
+						<LinkItem key={link.id} url={link.url} title={link.title} />
 					))}
 				</ul>
 			) : (

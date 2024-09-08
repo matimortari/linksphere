@@ -12,8 +12,18 @@ export function generateSlug(name: string) {
 		.replace(/^-+|-+$/g, "")
 		.slice(0, 20)
 
-	const randomSuffix = Math.random().toString(36).substring(2, 6)
-	return `${baseSlug}-${randomSuffix}`
+	return `${baseSlug}-${Math.random().toString(36).substring(2, 6)}`
+}
+
+export function hexToRgb(hex: string) {
+	hex = hex.replace(/^#/, "")
+
+	const bigint = parseInt(hex, 16)
+	const r = (bigint >> 16) & 255
+	const g = (bigint >> 8) & 255
+	const b = bigint & 255
+
+	return `rgba(${r}, ${g}, ${b}, 0.1)`
 }
 
 export const BORDER_RADIUS_OPTIONS = [
@@ -39,15 +49,4 @@ export const defaultSettings = {
 	linkShadowColor: "#000000",
 	linkBorderRadius: "0.5rem",
 	linkPadding: "0.5rem",
-}
-
-export function hexToRgb(hex: string) {
-	hex = hex.replace(/^#/, "")
-
-	const bigint = parseInt(hex, 16)
-	const r = (bigint >> 16) & 255
-	const g = (bigint >> 8) & 255
-	const b = bigint & 255
-
-	return `rgba(${r}, ${g}, ${b}, 0.1)`
 }

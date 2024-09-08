@@ -10,7 +10,7 @@ export default function LinkItem({ url, title }) {
 
 	return (
 		<li className="flex w-full flex-col items-center justify-center">
-			<a href={url} className="flex w-full justify-center text-foreground">
+			<a href={url} className="flex justify-center text-foreground">
 				<div
 					className="min-w-[35vw] max-w-full rounded-3xl px-8 py-4 text-center"
 					style={{

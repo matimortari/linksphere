@@ -4,10 +4,10 @@ import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
 
 // Handler for GET requests to fetch user settings
-export async function GET(req) {
+export async function GET() {
 	const session = await getServerSession(authOptions)
 
-	if (!session || !session.user) {
+	if (!session?.user) {
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 	}
 
@@ -16,11 +16,9 @@ export async function GET(req) {
 			where: { userId: session.user.id },
 		})
 
-		if (settings) {
-			return NextResponse.json({ settings }, { status: 200 })
-		} else {
-			return NextResponse.json({ error: "Settings not found" }, { status: 404 })
-		}
+		return settings
+			? NextResponse.json({ settings }, { status: 200 })
+			: NextResponse.json({ error: "Settings not found" }, { status: 404 })
 	} catch (error) {
 		console.error("Error fetching settings:", error)
 		return NextResponse.json({ error: "Failed to fetch settings" }, { status: 500 })
@@ -31,34 +29,16 @@ export async function GET(req) {
 export async function PUT(req) {
 	const session = await getServerSession(authOptions)
 
-	if (!session || !session.user) {
+	if (!session?.user) {
 		return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
 	}
 
 	try {
-		const {
-			backgroundColor,
-			linkBackgroundColor,
-			linkTextColor,
-			linkHoverBackgroundColor,
-			linkShadowColor,
-			linkBorderRadius,
-			linkPadding,
-			headerTextColor,
-		} = await req.json()
+		const settingsData = await req.json()
 
 		const updatedSettings = await db.userSettings.update({
 			where: { userId: session.user.id },
-			data: {
-				backgroundColor,
-				linkBackgroundColor,
-				linkTextColor,
-				linkHoverBackgroundColor,
-				linkShadowColor,
-				linkBorderRadius,
-				linkPadding,
-				headerTextColor,
-			},
+			data: settingsData,
 		})
 
 		return NextResponse.json({ message: "Settings updated successfully", settings: updatedSettings }, { status: 200 })

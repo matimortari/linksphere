@@ -3,21 +3,12 @@
 import Sidebar from "@/src/components/Sidebar"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
-import { useEffect } from "react"
 
 export default function Preferences() {
 	const { data: session, status } = useSession()
 
-	useEffect(() => {
-		if (status === "loading") return
-
-		if (status === "unauthenticated") {
-			redirect("/login")
-		}
-	}, [status])
-
-	if (status === "loading") {
-		return <div>Loading Dashboard...</div>
+	if (status === "unauthenticated" || !session?.user) {
+		redirect("/login")
 	}
 
 	if (!session?.user) {

@@ -10,31 +10,23 @@ import UpdateSlugForm from "@/src/components/dashboard/UpdateSlugForm"
 import { UserLink } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 
 export default function Dashboard() {
 	const { data: session, status } = useSession()
 	const { links, setLinks } = useGlobalContext()
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
-	useEffect(() => {
-		if (status === "loading") return
-
-		if (status === "unauthenticated") {
-			redirect("/login")
-		}
-	}, [status])
+	if (status === "unauthenticated" || !session?.user) {
+		redirect("/login")
+	}
 
 	const handleUpdateLink = (updatedLink: UserLink) => {
 		setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
 	}
 
-	const handleDeleteLink = (id: number) => {
-		setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id))
-	}
-
-	if (status === "loading") {
-		return <div>Loading Dashboard...</div>
+	const handleDeleteLink = (linkId: number) => {
+		setLinks((prevLinks) => prevLinks.filter((link) => link.id !== linkId))
 	}
 
 	if (!session?.user) {

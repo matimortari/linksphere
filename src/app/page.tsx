@@ -3,23 +3,16 @@
 import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { redirect } from "next/navigation"
-import { useEffect } from "react"
 import { CardCarousel } from "../components/CardCarousel"
 
 export default function Home() {
 	const { data: session, status } = useSession()
 
-	useEffect(() => {
-		if (status === "loading") {
-			return
-		}
+	if (status === "authenticated" && session?.user?.slug) {
+		redirect(`/${session.user.slug}`)
+	}
 
-		if (status === "authenticated" && session?.user?.slug) {
-			redirect(`/${session.user.slug}`)
-		}
-	}, [status, session])
-
-	if (!session?.user) {
+	if (!session?.user && status === "unauthenticated") {
 		return (
 			<div className="main-container">
 				<div className="flex flex-row">
