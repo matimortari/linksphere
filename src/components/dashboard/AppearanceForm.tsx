@@ -1,6 +1,6 @@
 "use client"
 
-import { fetchUserSettings, handleSubmit } from "@/src/lib/actions"
+import { fetchUserSettings, handleFormSubmit } from "@/src/lib/actions"
 import {
 	BORDER_RADIUS_OPTIONS,
 	PADDING_OPTIONS,
@@ -47,11 +47,11 @@ export default function AppearanceForm() {
 	const [success, setSuccess] = useState<string>("")
 
 	useEffect(() => {
-		fetchUserSettings()
+		fetchUserSettings().then(setSettings)
 	}, [setSettings])
 
 	const onSubmit = (e: React.FormEvent) => {
-		handleSubmit(e, settings, setSettings, setError, setSuccess)
+		handleFormSubmit(e, "/api/preferences", settings, setSuccess, setError, () => setSettings(settings))
 	}
 
 	const handleReset = () => {

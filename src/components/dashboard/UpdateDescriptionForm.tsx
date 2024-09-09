@@ -1,38 +1,24 @@
 "use client"
 
+import { handleFormSubmit } from "@/src/lib/actions"
 import { FormEvent, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
 export default function UpdateDescriptionForm() {
 	const { description, setDescription } = useGlobalContext()
 	const [localDescription, updateLocalDescription] = useState(description)
-	const [error, setError] = useState(null)
-	const [success, setSuccess] = useState(null)
+	const [error, setError] = useState<string | null>(null)
+	const [success, setSuccess] = useState<string | null>(null)
 
-	const handleSubmit = async (e: FormEvent) => {
-		e.preventDefault()
-		setError(null)
-		setSuccess(null)
-
-		try {
-			const response = await fetch(`/api/user`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ newDescription: localDescription }),
-			})
-
-			if (!response.ok) {
-				const data = await response.json()
-				throw new Error(data.error)
-			}
-
-			setSuccess("Description updated successfully!")
-			setDescription(localDescription)
-		} catch (error) {
-			setError((error as Error).message)
-		}
+	const handleSubmit = (e: FormEvent) => {
+		handleFormSubmit(
+			e,
+			"/api/user",
+			{ newDescription: localDescription },
+			setSuccess,
+			setError,
+			() => setDescription(localDescription) // Update global context after successful submission
+		)
 	}
 
 	return (

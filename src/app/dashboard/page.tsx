@@ -2,7 +2,6 @@
 
 import Sidebar from "@/src/components/Sidebar"
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
-import AddLinkDialog from "@/src/components/dashboard/AddLinkDialog"
 import LinkList from "@/src/components/dashboard/LinkList"
 import Preview from "@/src/components/dashboard/Preview"
 import UpdateDescriptionForm from "@/src/components/dashboard/UpdateDescriptionForm"
@@ -38,8 +37,8 @@ export default function Dashboard() {
 			<div className="flex flex-col md:flex-row">
 				<Sidebar />
 
-				<main className="content-container w-full md:w-9/12">
-					<header className="flex flex-col gap-2 pb-8">
+				<main className="dashboard-container w-full md:w-9/12">
+					<header className="flex flex-col gap-2 pb-4">
 						<h1 className="title">Dashboard</h1>
 						<span className="text-muted-foreground">
 							Welcome back, <span className="font-bold text-primary">{session.user.name}!</span>
@@ -47,7 +46,7 @@ export default function Dashboard() {
 						<hr />
 					</header>
 
-					<div className="flex flex-col gap-4">
+					<div className="flex flex-col gap-2">
 						<p className="subtitle">My URL</p>
 						<UpdateSlugForm />
 						<hr />
@@ -58,15 +57,9 @@ export default function Dashboard() {
 
 						<p className="subtitle">My Links</p>
 						<LinkList onUpdateLink={handleUpdateLink} onDeleteLink={handleDeleteLink} />
-						<div className="button-container">
-							<button className="button bg-primary text-primary-foreground" onClick={() => setIsDialogOpen(true)}>
-								Add Link
-							</button>
-						</div>
-						{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}
 						<hr />
 
-						<p className="title">Preview</p>
+						<p className="subtitle">Preview</p>
 						<Preview />
 						<hr />
 					</div>

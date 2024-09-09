@@ -4,6 +4,7 @@ import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { Icon } from "@iconify/react"
 import { UserLink } from "@prisma/client"
 import { useState } from "react"
+import AddLinkDialog from "./AddLinkDialog"
 import UpdateLinkDialog from "./UpdateLinkDialog"
 
 export default function LinkList({ onUpdateLink, onDeleteLink }) {
@@ -77,6 +78,13 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 					linkData={currentLink}
 				/>
 			)}
+
+			<div className="button-container">
+				<button onClick={() => setIsDialogOpen(true)} className="button bg-primary text-primary-foreground">
+					Add Link
+				</button>
+			</div>
+			{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}
 		</div>
 	)
 }

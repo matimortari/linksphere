@@ -1,37 +1,16 @@
 "use client"
 
+import { handleFormSubmit } from "@/src/lib/actions"
 import { useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
 export default function UpdateSlugForm() {
 	const { slug, setSlug } = useGlobalContext()
-	const [error, setError] = useState("")
-	const [success, setSuccess] = useState("")
+	const [error, setError] = useState<string | null>("")
+	const [success, setSuccess] = useState<string | null>("")
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault()
-		setError("")
-		setSuccess("")
-
-		try {
-			const response = await fetch(`/api/user`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ newSlug: slug }),
-			})
-
-			const data = await response.json()
-
-			if (!response.ok) {
-				throw new Error(data.error)
-			}
-
-			setSuccess("Slug updated successfully!")
-		} catch (error) {
-			setError((error as Error).message)
-		}
+	const handleSubmit = (e: React.FormEvent) => {
+		handleFormSubmit(e, "/api/user", { newSlug: slug }, setSuccess, setError)
 	}
 
 	return (

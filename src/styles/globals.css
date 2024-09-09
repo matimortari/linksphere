@@ -4,7 +4,7 @@
 
 @layer base {
 	body {
-		@apply bg-primary text-foreground;
+		@apply bg-card text-foreground;
 	}
 
 	hr {
@@ -91,12 +91,11 @@ nav {
 }
 
 .dashboard-container {
-	background-color: var(--background);
 	min-height: 100vh;
-	margin-top: 4rem;
-	margin-bottom: 1rem;
-	margin-left: 1rem;
-	margin-right: 1rem;
+	background-color: var(--background);
+	padding: 1rem;
+	border-color: var(--muted);
+	border-width: 1px;
 	border-radius: 0.5rem;
 }
 
@@ -138,8 +137,6 @@ nav {
 .button:hover {
 	opacity: 0.8;
 }
-
-
 
 .avatar {
 	box-shadow: 1px 0px 4px 0px var(--muted);

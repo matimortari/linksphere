@@ -16,14 +16,14 @@ export default function Analytics() {
 			<div className="flex flex-col md:flex-row">
 				<Sidebar />
 
-				<main className="content-container w-full md:w-9/12">
-					<header className="flex flex-col gap-2 pb-8">
+				<main className="dashboard-container w-full md:w-9/12">
+					<header className="flex flex-col gap-2 pb-4">
 						<h1 className="title">Analytics</h1>
-						<span className="text-muted-foreground">View your profile analytics here.</span>
+						<span className="text-muted-foreground">View your profile analytics.</span>
 						<hr />
 					</header>
 
-					<div className="flex flex-col gap-4">
+					<div className="flex flex-col gap-2">
 						<p className="subtitle">TBA</p>
 						<hr />
 
