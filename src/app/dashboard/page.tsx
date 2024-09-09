@@ -34,18 +34,16 @@ export default function Dashboard() {
 	}
 
 	return (
-		<div className="dashboard-container">
+		<div className="main-container">
 			<div className="flex flex-col md:flex-row">
 				<Sidebar />
 
-				<main className="content-container w-full">
+				<main className="content-container w-full md:w-9/12">
 					<header className="flex flex-col gap-2 pb-8">
 						<h1 className="title">Dashboard</h1>
-						<div className="flex flex-row">
-							<span className="text-muted-foreground">
-								Welcome back, <span className="font-bold text-primary">{session.user.name}!</span>
-							</span>
-						</div>
+						<span className="text-muted-foreground">
+							Welcome back, <span className="font-bold text-primary">{session.user.name}!</span>
+						</span>
 						<hr />
 					</header>
 

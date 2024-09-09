@@ -18,14 +18,14 @@ export default function Appearance() {
 	}
 
 	return (
-		<div className="dashboard-container">
+		<div className="main-container">
 			<div className="flex flex-col md:flex-row">
 				<Sidebar />
 
-				<main className="content-container w-full">
+				<main className="content-container w-full md:w-9/12">
 					<header className="flex flex-col gap-2 pb-8">
 						<h1 className="title">Appearance</h1>
-						<p className="text-muted-foreground">Update your profile appearance here.</p>
+						<span className="text-muted-foreground">Update your profile appearance here.</span>
 						<hr />
 					</header>
 

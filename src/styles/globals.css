@@ -4,7 +4,7 @@
 
 @layer base {
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-primary text-foreground;
 	}
 
 	hr {
@@ -82,21 +82,26 @@ nav {
 }
 
 .main-container {
-	height: 100%;
-	padding-top: 3rem;
-	padding-bottom: 1rem;
-	padding-left: 1rem;
-	padding-right: 1rem;
+	min-height: 100vh;
+	margin-top: 4rem;
+	margin-bottom: 1rem;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	border-radius: 0.5rem;
 }
 
 .dashboard-container {
-	padding-top: 4rem;
-	padding-bottom: 1rem;
-	padding-left: 1rem;
-	padding-right: 1rem;
+	background-color: var(--background);
+	min-height: 100vh;
+	margin-top: 4rem;
+	margin-bottom: 1rem;
+	margin-left: 1rem;
+	margin-right: 1rem;
+	border-radius: 0.5rem;
 }
 
 .content-container {
+	background-color: var(--background);
 	padding: 1rem;
 	border-color: var(--muted);
 	border-width: 1px;

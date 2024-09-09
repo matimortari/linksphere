@@ -16,14 +16,14 @@ export default function Preferences() {
 	}
 
 	return (
-		<div className="dashboard-container">
+		<div className="main-container">
 			<div className="flex flex-col md:flex-row">
 				<Sidebar />
 
-				<main className="content-container w-full">
+				<main className="content-container w-full md:w-9/12">
 					<header className="flex flex-col gap-2 pb-8">
 						<h1 className="title">Settings</h1>
-						<p className="text-muted-foreground">Update your account settings here.</p>
+						<span className="text-muted-foreground">Update your account settings here.</span>
 						<hr />
 					</header>
 

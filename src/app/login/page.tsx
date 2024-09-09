@@ -12,24 +12,22 @@ export default function Login() {
 	}
 
 	return (
-		<div className="main-container">
-			<div className="flex items-center justify-center">
-				<div className="flex flex-col items-center justify-center gap-2 rounded-lg px-8 py-4 text-center shadow-md">
-					<strong className="p-4 text-5xl">Sign In</strong>
-					<p className="mt-2 text-base text-muted-foreground">Sign in with your preferred provider.</p>
+		<div className="main-container bg-background">
+			<div className="flex flex-col items-center justify-center gap-2 p-8">
+				<strong className="p-4 text-5xl">Sign In</strong>
+				<p className="mt-2 text-base text-muted-foreground">Sign in with your preferred provider.</p>
 
-					<hr className="my-6 w-full border-muted" />
+				<hr className="my-6 w-full border-muted" />
 
-					<button className="button flex flex-row bg-google text-accent-foreground" onClick={() => signIn("google")}>
-						<Icon icon="simple-icons:google" className="icon" />
-						Sign In With Google
-					</button>
+				<button className="button flex flex-row bg-google text-accent-foreground" onClick={() => signIn("google")}>
+					<Icon icon="simple-icons:google" className="icon" />
+					Sign In With Google
+				</button>
 
-					<button className="button flex flex-row bg-github text-accent-foreground" onClick={() => signIn("github")}>
-						<Icon icon="simple-icons:github" className="icon" />
-						Sign In With GitHub
-					</button>
-				</div>
+				<button className="button flex flex-row bg-github text-accent-foreground" onClick={() => signIn("github")}>
+					<Icon icon="simple-icons:github" className="icon" />
+					Sign In With GitHub
+				</button>
 			</div>
 		</div>
 	)

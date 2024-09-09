@@ -14,30 +14,27 @@ export default function Home() {
 
 	if (!session?.user && status === "unauthenticated") {
 		return (
-			<div className="main-container">
-				<div className="flex flex-row">
-					<section className="w-1/2 p-8">
-						<h1 className="mb-4 text-5xl font-bold text-foreground">Welcome to NeSS!</h1>
-						<p className="mb-4 text-xl text-muted-foreground">
-							Share your links, social profiles, <br />
-							contact info & more in one page.
-						</p>
+			<div className="main-container flex flex-col bg-background md:flex-row">
+				<section className="flex w-full flex-col items-center p-6 md:w-1/2 md:items-start">
+					<h1 className="mb-4 text-3xl font-bold text-foreground md:text-5xl">Welcome to NeSS!</h1>
+					<p className="mb-4 text-xl text-muted-foreground">
+						Share your links, social profiles, <br />
+						contact info & more in one page.
+					</p>
+					<form className="form-container flex flex-col md:flex-row">
+						<span className="text-muted-foreground">ness-live.vercel.app/</span>
+						<input type="text" placeholder="your_name" className="w-full bg-transparent" />
+						<Link href="/login" className="button bg-primary text-primary-foreground">
+							Sign In
+						</Link>
+					</form>
+				</section>
 
-						<form className="form-container">
-							<span className="text-muted-foreground">ness-live.vercel.app/</span>
-							<input type="text" placeholder="your_name" className="bg-transparent" />
-							<Link href="/login" className="button bg-primary text-primary-foreground">
-								Sign In
-							</Link>
-						</form>
-					</section>
-
-					<section className="w-1/2 p-8">
-						<div className="flex w-full items-center justify-center">
-							<CardCarousel />
-						</div>
-					</section>
-				</div>
+				<section className="w-full p-6 md:w-1/2">
+					<div className="flex items-center justify-center">
+						<CardCarousel />
+					</div>
+				</section>
 			</div>
 		)
 	}
