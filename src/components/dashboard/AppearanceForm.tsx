@@ -1,6 +1,12 @@
 "use client"
 
-import { BORDER_RADIUS_OPTIONS, defaultSettings, PADDING_OPTIONS } from "@/src/lib/utils"
+import {
+	BORDER_RADIUS_OPTIONS,
+	PADDING_OPTIONS,
+	SLUG_TEXT_SIZE_OPTIONS,
+	SLUG_TEXT_WEIGHT_OPTIONS,
+	defaultSettings,
+} from "@/src/lib/utils"
 import { useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
@@ -81,6 +87,51 @@ export default function AppearanceForm() {
 						onChange={(e) => setSettings({ ...settings, backgroundColor: e.target.value })}
 						className="h-8 w-16 rounded-lg border border-muted"
 					/>
+				</div>
+
+				<div className="flex items-center space-x-2">
+					<span className="py-2 font-medium">Slug Text Color:</span>
+					<input
+						id="slugTextColor"
+						type="color"
+						value={currentSettings.slugTextColor}
+						onChange={(e) => setSettings({ ...settings, slugTextColor: e.target.value })}
+						className="h-8 w-16 rounded-lg border border-muted"
+					/>
+				</div>
+
+				<div className="flex flex-col space-y-2">
+					<span className="py-2 font-medium">Slug Text Size:</span>
+					{SLUG_TEXT_SIZE_OPTIONS.map((option) => (
+						<label key={option.value} className="flex items-center space-x-2">
+							<input
+								type="radio"
+								name="slugTextSize"
+								value={option.value}
+								checked={currentSettings.slugTextSize === option.value}
+								onChange={(e) => setSettings({ ...settings, slugTextSize: e.target.value })}
+								className="h-5 w-5"
+							/>
+							<span>{option.label}</span>
+						</label>
+					))}
+				</div>
+
+				<div className="flex flex-col space-y-2">
+					<span className="py-2 font-medium">Slug Text Weight:</span>
+					{SLUG_TEXT_WEIGHT_OPTIONS.map((option) => (
+						<label key={option.value} className="flex items-center space-x-2">
+							<input
+								type="radio"
+								name="slugTextWeight"
+								value={option.value}
+								checked={currentSettings.slugTextWeight === option.value}
+								onChange={(e) => setSettings({ ...settings, slugTextWeight: e.target.value })}
+								className="h-5 w-5"
+							/>
+							<span>{option.label}</span>
+						</label>
+					))}
 				</div>
 
 				<div className="flex items-center space-x-2">

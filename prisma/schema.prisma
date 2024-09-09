@@ -62,6 +62,9 @@ model UserSettings {
   id                       Int    @id @default(autoincrement())
   userId                   String @unique
   backgroundColor          String @default("#ffffff") // main page/preview container background color
+  slugTextColor            String @default("#000000") // color for slug text
+  slugTextWeight           String @default("bold") // weight for slug text
+  slugTextSize             String @default("24px") // size for slug text
   headerTextColor          String @default("#000000") // color for text in header
   linkBackgroundColor      String @default("#ffffff") // background color for link container
   linkShadowColor          String @default("#000000") // shadow color for link container

@@ -29,8 +29,27 @@ export const PADDING_OPTIONS = [
 	{ label: "Extra Large", value: "1.25rem" },
 ]
 
+export const SLUG_TEXT_SIZE_OPTIONS = [
+	{ label: "Small", value: "1rem" },
+	{ label: "Medium", value: "2rem" },
+	{ label: "Large", value: "3rem" },
+	{ label: "Extra Large", value: "4rem" },
+]
+
+export const SLUG_TEXT_WEIGHT_OPTIONS = [
+	{ label: "Light", value: "light" },
+	{ label: "Regular", value: "normal" },
+	{ label: "Semi-Bold", value: "semibold" },
+	{ label: "Bold", value: "bold" },
+	{ label: "Normal", value: "normal" },
+	{ label: "Bold", value: "bold" },
+]
+
 export const defaultSettings = {
 	backgroundColor: "#ffffff",
+	slugTextColor: "#000000",
+	slugTextWeight: "bold",
+	slugTextSize: "2rem",
 	headerTextColor: "#000000",
 	linkBackgroundColor: "#ffffff",
 	linkTextColor: "#000000",

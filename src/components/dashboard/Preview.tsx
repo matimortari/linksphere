@@ -22,8 +22,15 @@ export default function Preview() {
 		>
 			<div className="mb-2 flex flex-col items-center justify-center gap-3">
 				{image && <Image src={image} alt={slug} width={100} height={100} className="rounded-full" />}
-				<h1 className="text-2xl font-bold">@{slug}</h1>
-
+				<h1
+					style={{
+						color: settings.slugTextColor,
+						fontWeight: settings.slugTextWeight,
+						fontSize: settings.slugTextSize,
+					}}
+				>
+					@{slug}
+				</h1>
 				{description && (
 					<p className="mt-2" style={{ color: settings.headerTextColor || defaultSettings.headerTextColor }}>
 						{description}

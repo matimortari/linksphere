@@ -9,7 +9,7 @@ export default function Home() {
 	const { data: session, status } = useSession()
 
 	if (status === "authenticated" && session?.user?.slug) {
-		redirect(`/${session.user.slug}`)
+		redirect("/dashboard")
 	}
 
 	if (!session?.user && status === "unauthenticated") {
