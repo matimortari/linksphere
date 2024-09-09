@@ -41,44 +41,44 @@ export default function Navbar() {
 
 	return (
 		<nav className="flex items-center justify-end bg-transparent p-2">
-			<div className="flex items-center gap-2">
-				<button onClick={toggleTheme} className="button flex h-10 w-10 items-center justify-center bg-background">
+			<div className="button-container">
+				<button onClick={toggleTheme} className="button h-10 w-10 bg-background">
 					<Icon
 						icon={theme === "light" ? "material-symbols:light-mode-rounded" : "material-symbols:dark-mode-rounded"}
 					/>
 				</button>
 
 				{!session && (
-					<Link href="/login" className="button flex h-10 w-10 items-center justify-center">
+					<Link href="/login" className="button h-10 w-10 bg-background">
 						<Icon icon="material-symbols:login" />
 					</Link>
 				)}
 
 				{session && (
-					<button onClick={toggleDialog} className="button flex h-10 w-10 items-center justify-center bg-background">
+					<button onClick={toggleDialog} className="button h-10 w-10 bg-background">
 						<Icon icon="material-symbols:menu-rounded" />
 					</button>
 				)}
 			</div>
 
 			{isDialogOpen && (
-				<div ref={dialogRef} className="content-container absolute top-14 z-50 flex bg-background shadow-lg">
-					<div className="m-2 flex flex-col justify-center gap-4 p-2 text-center text-sm font-semibold">
+				<div ref={dialogRef} className="content-container absolute top-14 z-50 flex shadow-lg">
+					<div className="m-2 flex flex-col justify-center gap-2 p-2 text-center text-sm font-semibold">
 						{session && (
 							<>
-								<Link href={`/${slug}`} className="button w-full text-center">
+								<Link href={`/${slug}`} className="button">
 									My Profile
 								</Link>
-								<Link href="/dashboard" className="button w-full text-center">
+								<Link href="/dashboard" className="button">
 									Dashboard
 								</Link>
-								<button onClick={handleSignOut} className="button w-full text-center">
+								<button onClick={handleSignOut} className="button">
 									Sign Out
 								</button>
 							</>
 						)}
 						{!session && (
-							<Link href="/login" className="button w-full text-center">
+							<Link href="/login" className="button">
 								<Icon icon="material-symbols:logout" />
 							</Link>
 						)}

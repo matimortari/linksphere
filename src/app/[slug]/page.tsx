@@ -45,7 +45,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 					</p>
 				)}
 				{links.length > 0 ? (
-					<ul className="list-inside list-disc space-y-4">
+					<ul className="space-y-4">
 						{links.map((link) => (
 							<LinkItem key={link.id} url={link.url} title={link.title} settings={settings} />
 						))}

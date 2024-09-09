@@ -21,9 +21,10 @@ export default function Home() {
 						Share your links, social profiles, <br />
 						contact info & more in one page.
 					</p>
-					<form className="form-container flex flex-col md:flex-row">
+
+					<form className="form-container w-[542px]">
 						<span className="text-muted-foreground">ness-live.vercel.app/</span>
-						<input type="text" placeholder="your_name" className="w-full bg-transparent" />
+						<input type="text" placeholder="your_name" className="input flex-1 bg-transparent" />
 						<Link href="/login" className="button bg-primary text-primary-foreground">
 							Sign In
 						</Link>

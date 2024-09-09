@@ -23,7 +23,7 @@ export default function UpdateSlugForm() {
 					value={slug}
 					className="input flex-1 bg-transparent"
 				/>
-				<button type="submit" className="button ml-4 rounded bg-primary px-4 py-2 text-primary-foreground">
+				<button type="submit" className="button bg-primary text-primary-foreground">
 					Update URL
 				</button>
 			</form>

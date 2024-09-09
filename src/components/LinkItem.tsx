@@ -9,7 +9,7 @@ export default function LinkItem({ url, title, settings }) {
 		<li className="flex w-full flex-col items-center justify-center">
 			<a href={url} className="flex justify-center text-foreground">
 				<div
-					className="min-w-[35vw] max-w-full rounded-3xl px-8 py-4 text-center"
+					className="min-w-[35vw] text-center"
 					style={{
 						backgroundColor: isHovered ? settings.linkHoverBackgroundColor : settings.linkBackgroundColor,
 						boxShadow: `0 4px 6px ${settings.linkShadowColor}`,

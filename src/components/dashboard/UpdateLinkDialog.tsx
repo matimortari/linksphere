@@ -5,15 +5,14 @@ import { useEffect, useRef, useState } from "react"
 
 export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 	const { updateLink } = useGlobalContext()
-	const [localTitle, setLocalTitle] = useState(linkData.title || "")
-	const [localUrl, setLocalUrl] = useState(linkData.url || "")
+	const [localTitle, setLocalTitle] = useState(linkData.title)
+	const [localUrl, setLocalUrl] = useState(linkData.url)
 	const [error, setError] = useState(null)
 	const dialogRef = useRef(null)
 
 	useEffect(() => {
-		// Initialize local state when linkData changes
-		setLocalTitle(linkData.title || "")
-		setLocalUrl(linkData.url || "")
+		setLocalTitle(linkData.title)
+		setLocalUrl(linkData.url)
 
 		const handleClickOutside = (event: MouseEvent) => {
 			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
@@ -38,9 +37,8 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 		try {
 			const updatedLink = { ...linkData, title: localTitle, url: localUrl }
 			await updateLink(updatedLink)
-
-			setLocalTitle("") // Clear title after update
-			setLocalUrl("") // Clear URL after update
+			setLocalTitle("")
+			setLocalUrl("")
 			setError(null)
 			onUpdateLink(updatedLink)
 			onClose()
@@ -54,7 +52,7 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 			<div ref={dialogRef} className="w-full max-w-sm rounded-lg bg-background p-8 shadow-lg">
 				<h2 className="mb-4 text-xl font-semibold">Update Link</h2>
 
-				{error && <p className="mb-4 text-red-600">{error}</p>}
+				{error && <p className="mb-4 text-destructive">{error}</p>}
 
 				<form onSubmit={handleSubmit}>
 					<div className="my-4 flex flex-col space-y-2">

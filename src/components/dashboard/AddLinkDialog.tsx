@@ -9,8 +9,8 @@ export default function AddLinkDialog({ onClose }) {
 	const dialogRef = useRef(null)
 
 	useEffect(() => {
-		const handleClickOutside = (event) => {
-			if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
 				onClose()
 			}
 		}
@@ -21,7 +21,7 @@ export default function AddLinkDialog({ onClose }) {
 		}
 	}, [onClose])
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 
 		if (!title || !url) {

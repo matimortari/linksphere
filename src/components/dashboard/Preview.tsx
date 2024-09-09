@@ -1,6 +1,5 @@
 "use client"
 
-import { defaultSettings } from "@/src/lib/utils"
 import Image from "next/image"
 import { useEffect } from "react"
 import LinkItem from "../LinkItem"
@@ -16,10 +15,7 @@ export default function Preview() {
 	}, [slug, setSlug])
 
 	return (
-		<div
-			className="rounded-3xl border border-muted p-12 shadow-lg"
-			style={{ backgroundColor: settings.backgroundColor || defaultSettings.backgroundColor }}
-		>
+		<div className="rounded-lg border border-muted p-12" style={{ backgroundColor: settings.backgroundColor }}>
 			<div className="my-2 flex flex-col items-center justify-center gap-3">
 				{image && <Image src={image} alt={slug} width={100} height={100} className="rounded-full" />}
 				<h1
@@ -32,21 +28,20 @@ export default function Preview() {
 					@{slug}
 				</h1>
 				{description && (
-					<p className="my-2" style={{ color: settings.headerTextColor || defaultSettings.headerTextColor }}>
+					<p className="my-2" style={{ color: settings.headerTextColor }}>
 						{description}
 					</p>
 				)}
+				{links.length > 0 ? (
+					<ul className="space-y-4">
+						{links.map((link) => (
+							<LinkItem key={link.id} url={link.url} title={link.title} settings={settings} />
+						))}
+					</ul>
+				) : (
+					<p className="text-muted-foreground">No links available</p>
+				)}
 			</div>
-
-			{links.length > 0 ? (
-				<ul className="list-inside list-disc space-y-4">
-					{links.map((link) => (
-						<LinkItem key={link.id} {...link} settings={settings} />
-					))}
-				</ul>
-			) : (
-				<p className="text-muted-foreground">No links available</p>
-			)}
 		</div>
 	)
 }
