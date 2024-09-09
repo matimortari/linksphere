@@ -62,7 +62,7 @@ export async function handleFormSubmit(
 			throw new Error(data.error)
 		}
 
-		setSuccess("Operation completed successfully!")
+		setSuccess("Updated successfully!")
 		if (onSuccess) onSuccess()
 	} catch (error) {
 		setError((error as Error).message)

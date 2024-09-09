@@ -17,7 +17,7 @@ export default function Preview() {
 	return (
 		<div className="rounded-lg border border-muted p-12" style={{ backgroundColor: settings.backgroundColor }}>
 			<div className="my-2 flex flex-col items-center justify-center gap-3">
-				{image && <Image src={image} alt={slug} width={100} height={100} className="rounded-full" />}
+				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar" />}
 				<h1
 					style={{
 						color: settings.slugTextColor,

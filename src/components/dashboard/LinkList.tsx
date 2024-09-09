@@ -37,14 +37,14 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 	}
 
 	return (
-		<div className="w-[542px] space-y-2">
+		<div className="w-full space-y-2">
 			{contextLinks.length > 0 ? (
 				<ul className="list-inside list-disc space-y-2">
 					{contextLinks.map((link) => (
 						<li key={link.id} className="content-container flex items-center overflow-hidden">
 							<div className="flex flex-1 flex-col">
 								<section className="flex flex-row items-center gap-2">
-									<p className="font-semibold">{link.title}</p>
+									<p className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold">{link.title}</p>
 									<button className="text-muted-foreground" onClick={() => handleEditClick(link)}>
 										<Icon icon="material-symbols:ink-pen-outline" className="icon h-5 w-5" />
 									</button>
@@ -53,8 +53,7 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 								<section className="mt-1 flex items-center gap-2">
 									<a
 										href={link.url}
-										className="overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground"
-										style={{ maxWidth: "400px" }}
+										className="max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground md:max-w-[500px]"
 									>
 										{link.url}
 									</a>

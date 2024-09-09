@@ -22,7 +22,7 @@ export default function Home() {
 						contact info & more in one page.
 					</p>
 
-					<form className="form-container w-[542px]">
+					<form className="form-container w-full">
 						<span className="text-muted-foreground">ness-live.vercel.app/</span>
 						<input type="text" placeholder="your_name" className="input flex-1 bg-transparent" />
 						<Link href="/login" className="button bg-primary text-primary-foreground">

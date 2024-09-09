@@ -144,6 +144,8 @@ nav {
 }
 
 .avatar {
+	background: var(--muted);
+	border: 3px solid var(--background);
 	box-shadow: 1px 0px 4px 0px var(--muted);
 	border-radius: 100%;
 }

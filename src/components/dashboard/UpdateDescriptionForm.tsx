@@ -11,24 +11,19 @@ export default function UpdateDescriptionForm() {
 	const [success, setSuccess] = useState<string | null>(null)
 
 	const handleSubmit = (e: FormEvent) => {
-		handleFormSubmit(
-			e,
-			"/api/user",
-			{ newDescription: localDescription },
-			setSuccess,
-			setError,
-			() => setDescription(localDescription) // Update global context after successful submission
+		handleFormSubmit(e, "/api/user", { newDescription: localDescription }, setSuccess, setError, () =>
+			setDescription(localDescription)
 		)
 	}
 
 	return (
 		<div>
-			<form onSubmit={handleSubmit} className="form-container w-[542px]">
+			<form onSubmit={handleSubmit} className="form-container w-full">
 				<input
 					type="text"
 					onChange={(e) => updateLocalDescription(e.target.value)}
 					value={localDescription}
-					className="input flex-1 bg-transparent"
+					className="input max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground"
 					placeholder="Enter new description"
 				/>
 
@@ -42,7 +37,7 @@ export default function UpdateDescriptionForm() {
 				</div>
 			</form>
 
-			<div className="px-4 pt-2 font-bold">
+			<div className="font-bold">
 				{error && <p className="text-destructive">{error}</p>}
 				{success && <p className="text-accent">{success}</p>}
 			</div>
