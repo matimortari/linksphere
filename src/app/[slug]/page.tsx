@@ -29,7 +29,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 	return (
 		<div>
 			<div className="main-container min-h-screen" style={{ backgroundColor: settings.backgroundColor }}>
-				<div className="mb-2 flex flex-col items-center justify-center gap-3">
+				<div className="my-2 flex flex-col items-center justify-center gap-3">
 					{image && <Image src={image} alt={slug} width={100} height={100} className="rounded-full" />}
 					<h1
 						style={{
@@ -41,7 +41,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 						@{slug}
 					</h1>
 					{description && (
-						<p className="mt-2" style={{ color: settings.headerTextColor }}>
+						<p className="my-2" style={{ color: settings.headerTextColor }}>
 							{description}
 						</p>
 					)}

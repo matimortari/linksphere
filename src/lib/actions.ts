@@ -34,3 +34,35 @@ export async function fetchUserSettings() {
 		return defaultSettings
 	}
 }
+
+export const handleSubmit = async (
+	e: React.FormEvent,
+	settings: any,
+	setSettings: (settings: any) => void,
+	setError: (error: string) => void,
+	setSuccess: (success: string) => void
+) => {
+	e.preventDefault()
+	setError("")
+	setSuccess("")
+
+	try {
+		const response = await fetch(`/api/preferences`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(settings),
+		})
+
+		const data = await response.json()
+
+		if (!response.ok) {
+			throw new Error(data.error)
+		}
+
+		setSuccess("Settings updated successfully!")
+	} catch (error) {
+		setError((error as Error).message)
+	}
+}

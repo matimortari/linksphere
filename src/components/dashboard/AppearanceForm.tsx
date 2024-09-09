@@ -1,5 +1,6 @@
 "use client"
 
+import { fetchUserSettings, handleSubmit } from "@/src/lib/actions"
 import {
 	BORDER_RADIUS_OPTIONS,
 	PADDING_OPTIONS,
@@ -7,231 +8,167 @@ import {
 	SLUG_TEXT_WEIGHT_OPTIONS,
 	defaultSettings,
 } from "@/src/lib/utils"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
+
+const ColorInput = ({ id, label, value, onChange }) => (
+	<div className="mb-4 flex items-center space-x-2">
+		<input id={id} type="color" value={value} onChange={onChange} className="h-8 w-8 rounded" />
+		<label htmlFor={id} className="font-medium">
+			{label}
+		</label>
+	</div>
+)
+
+const RadioOptions = ({ options, name, value, onChange, label }) => (
+	<div className="mb-4">
+		<p className="mb-2 font-medium">{label}</p>
+		<div className="space-y-1">
+			{options.map((option) => (
+				<label key={option.value} className="flex items-center space-x-2 text-sm">
+					<input
+						type="radio"
+						name={name}
+						value={option.value}
+						checked={value === option.value}
+						onChange={onChange}
+						className="mr-2"
+					/>
+					<span>{option.label}</span>
+				</label>
+			))}
+		</div>
+	</div>
+)
 
 export default function AppearanceForm() {
 	const { settings, setSettings } = useGlobalContext()
 	const [error, setError] = useState<string>("")
 	const [success, setSuccess] = useState<string>("")
-	const [loading, setLoading] = useState<boolean>(true)
 
 	useEffect(() => {
-		const fetchSettings = async () => {
-			try {
-				const response = await fetch(`/api/preferences`)
-				const data = await response.json()
-
-				if (!response.ok) {
-					throw new Error(data.error)
-				}
-
-				if (data.settings) {
-					setSettings(data.settings)
-				} else {
-					setSettings(defaultSettings)
-					throw new Error("Settings data is missing")
-				}
-			} catch (error) {
-				setError((error as Error).message)
-				setSettings(defaultSettings)
-			} finally {
-				setLoading(false)
-			}
-		}
-
-		fetchSettings()
+		fetchUserSettings()
 	}, [setSettings])
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault()
-		setError("")
-		setSuccess("")
-
-		try {
-			const response = await fetch(`/api/preferences`, {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(settings),
-			})
-
-			const data = await response.json()
-
-			if (!response.ok) {
-				throw new Error(data.error)
-			}
-
-			setSuccess("Settings updated successfully!")
-		} catch (error) {
-			setError((error as Error).message)
-		}
+	const onSubmit = (e: React.FormEvent) => {
+		handleSubmit(e, settings, setSettings, setError, setSuccess)
 	}
 
-	if (loading) {
-		return <div>Loading...</div>
+	const handleReset = () => {
+		setSettings(defaultSettings)
 	}
 
 	const currentSettings = { ...defaultSettings, ...settings }
 
+	const handleColorChange = (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSettings({ ...settings, [key]: e.target.value })
+	}
+
+	const handleRadioChange = (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSettings({ ...settings, [key]: e.target.value })
+	}
+
 	return (
-		<div className="content-container shadow-lg">
-			<form onSubmit={handleSubmit} className="flex w-full max-w-md flex-col space-y-4">
-				<div className="flex items-center space-x-2">
-					<span className="py-2 font-medium">Background Color:</span>
-					<input
+		<>
+			<form onSubmit={onSubmit} className="flex flex-wrap">
+				<div className="flex w-full flex-col md:w-1/2">
+					<ColorInput
 						id="backgroundColor"
-						type="color"
+						label="Main Background Color"
 						value={currentSettings.backgroundColor}
-						onChange={(e) => setSettings({ ...settings, backgroundColor: e.target.value })}
-						className="h-8 w-16 rounded-lg border border-muted"
+						onChange={handleColorChange("backgroundColor")}
 					/>
-				</div>
 
-				<div className="flex items-center space-x-2">
-					<span className="py-2 font-medium">Slug Text Color:</span>
-					<input
+					<ColorInput
 						id="slugTextColor"
-						type="color"
+						label="Username Text Color"
 						value={currentSettings.slugTextColor}
-						onChange={(e) => setSettings({ ...settings, slugTextColor: e.target.value })}
-						className="h-8 w-16 rounded-lg border border-muted"
+						onChange={handleColorChange("slugTextColor")}
 					/>
-				</div>
 
-				<div className="flex flex-col space-y-2">
-					<span className="py-2 font-medium">Slug Text Size:</span>
-					{SLUG_TEXT_SIZE_OPTIONS.map((option) => (
-						<label key={option.value} className="flex items-center space-x-2">
-							<input
-								type="radio"
-								name="slugTextSize"
-								value={option.value}
-								checked={currentSettings.slugTextSize === option.value}
-								onChange={(e) => setSettings({ ...settings, slugTextSize: e.target.value })}
-								className="h-5 w-5"
-							/>
-							<span>{option.label}</span>
-						</label>
-					))}
-				</div>
-
-				<div className="flex flex-col space-y-2">
-					<span className="py-2 font-medium">Slug Text Weight:</span>
-					{SLUG_TEXT_WEIGHT_OPTIONS.map((option) => (
-						<label key={option.value} className="flex items-center space-x-2">
-							<input
-								type="radio"
-								name="slugTextWeight"
-								value={option.value}
-								checked={currentSettings.slugTextWeight === option.value}
-								onChange={(e) => setSettings({ ...settings, slugTextWeight: e.target.value })}
-								className="h-5 w-5"
-							/>
-							<span>{option.label}</span>
-						</label>
-					))}
-				</div>
-
-				<div className="flex items-center space-x-2">
-					<span className="py-2 font-medium">Link Background Color:</span>
-					<input
-						id="linkBackgroundColor"
-						type="color"
-						value={currentSettings.linkBackgroundColor}
-						onChange={(e) => setSettings({ ...settings, linkBackgroundColor: e.target.value })}
-						className="h-8 w-16 rounded-lg border border-muted"
-					/>
-				</div>
-
-				<div className="flex items-center space-x-2">
-					<span className="py-2 font-medium">Link Text Color:</span>
-					<input
-						id="linkTextColor"
-						type="color"
-						value={currentSettings.linkTextColor}
-						onChange={(e) => setSettings({ ...settings, linkTextColor: e.target.value })}
-						className="h-8 w-16 rounded-lg border border-muted"
-					/>
-				</div>
-
-				<div className="flex items-center space-x-2">
-					<span className="py-2 font-medium">Link Hover Background Color:</span>
-					<input
-						id="linkHoverBackgroundColor"
-						type="color"
-						value={currentSettings.linkHoverBackgroundColor}
-						onChange={(e) => setSettings({ ...settings, linkHoverBackgroundColor: e.target.value })}
-						className="h-8 w-16 rounded-lg border border-muted"
-					/>
-				</div>
-
-				<div className="flex items-center space-x-2">
-					<span className="py-2 font-medium">Shadow Color:</span>
-					<input
-						id="linkShadowColor"
-						type="color"
-						value={currentSettings.linkShadowColor}
-						onChange={(e) => setSettings({ ...settings, linkShadowColor: e.target.value })}
-						className="h-8 w-16 rounded-lg border border-muted"
-					/>
-				</div>
-
-				<div className="flex flex-col space-y-2">
-					<span className="py-2 font-medium">Link Border Radius:</span>
-					{BORDER_RADIUS_OPTIONS.map((option) => (
-						<label key={option.value} className="flex items-center space-x-2">
-							<input
-								type="radio"
-								name="linkBorderRadius"
-								value={option.value}
-								checked={currentSettings.linkBorderRadius === option.value}
-								onChange={(e) => setSettings({ ...settings, linkBorderRadius: e.target.value })}
-								className="h-5 w-5"
-							/>
-							<span>{option.label}</span>
-						</label>
-					))}
-				</div>
-
-				<div className="flex flex-col space-y-2">
-					<span className="py-2 font-medium">Link Padding:</span>
-					{PADDING_OPTIONS.map((option) => (
-						<label key={option.value} className="flex items-center space-x-2">
-							<input
-								type="radio"
-								name="linkPadding"
-								value={option.value}
-								checked={currentSettings.linkPadding === option.value}
-								onChange={(e) => setSettings({ ...settings, linkPadding: e.target.value })}
-								className="h-5 w-5"
-							/>
-							<span>{option.label}</span>
-						</label>
-					))}
-				</div>
-
-				<div className="flex items-center space-x-2">
-					<span className="py-2 font-medium">Header Text Color:</span>
-					<input
+					<ColorInput
 						id="headerTextColor"
-						type="color"
+						label="Header Text Color"
 						value={currentSettings.headerTextColor}
-						onChange={(e) => setSettings({ ...settings, headerTextColor: e.target.value })}
-						className="h-8 w-16 rounded-lg border border-muted"
+						onChange={handleColorChange("headerTextColor")}
+					/>
+
+					<RadioOptions
+						name="slugTextSize"
+						label="Username Text Size"
+						options={SLUG_TEXT_SIZE_OPTIONS}
+						value={currentSettings.slugTextSize}
+						onChange={handleRadioChange("slugTextSize")}
+					/>
+
+					<RadioOptions
+						name="slugTextWeight"
+						label="Username Text Weight"
+						options={SLUG_TEXT_WEIGHT_OPTIONS}
+						value={currentSettings.slugTextWeight}
+						onChange={handleRadioChange("slugTextWeight")}
 					/>
 				</div>
 
-				<button type="submit" className="button bg-primary text-primary-foreground">
-					Update Settings
-				</button>
+				<div className="flex w-full flex-col md:w-1/2">
+					<ColorInput
+						id="linkBackgroundColor"
+						label="Link Background Color"
+						value={currentSettings.linkBackgroundColor}
+						onChange={handleColorChange("linkBackgroundColor")}
+					/>
+					<ColorInput
+						id="linkTextColor"
+						label="Link Text Color"
+						value={currentSettings.linkTextColor}
+						onChange={handleColorChange("linkTextColor")}
+					/>
+
+					<ColorInput
+						id="linkHoverBackgroundColor"
+						label="Button Hover Background Color"
+						value={currentSettings.linkHoverBackgroundColor}
+						onChange={handleColorChange("linkHoverBackgroundColor")}
+					/>
+
+					<ColorInput
+						id="linkShadowColor"
+						label="Button Shadow Color"
+						value={currentSettings.linkShadowColor}
+						onChange={handleColorChange("linkShadowColor")}
+					/>
+
+					<RadioOptions
+						name="linkBorderRadius"
+						label="Button Border Radius"
+						options={BORDER_RADIUS_OPTIONS}
+						value={currentSettings.linkBorderRadius}
+						onChange={handleRadioChange("linkBorderRadius")}
+					/>
+
+					<RadioOptions
+						name="linkPadding"
+						label="Button Padding"
+						options={PADDING_OPTIONS}
+						value={currentSettings.linkPadding}
+						onChange={handleRadioChange("linkPadding")}
+					/>
+				</div>
+
+				<div className="button-container justify-end">
+					<button type="submit" className="button bg-primary text-primary-foreground">
+						Update Settings
+					</button>
+					<button type="button" onClick={handleReset} className="button bg-destructive text-destructive-foreground">
+						Reset to Default
+					</button>
+				</div>
 			</form>
 
-			<div className="p-4 font-bold">
+			<div className="font-bold">
 				{error && <p className="text-destructive">{error}</p>}
 				{success && <p className="text-accent">{success}</p>}
 			</div>
-		</div>
+		</>
 	)
 }

@@ -13,7 +13,7 @@ export default function Analytics() {
 
 	return (
 		<div className="dashboard-container">
-			<div className="flex flex-row">
+			<div className="flex flex-col md:flex-row">
 				<Sidebar />
 
 				<main className="content-container w-full">

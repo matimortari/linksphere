@@ -19,7 +19,7 @@ export default function Appearance() {
 
 	return (
 		<div className="dashboard-container">
-			<div className="flex flex-row">
+			<div className="flex flex-col md:flex-row">
 				<Sidebar />
 
 				<main className="content-container w-full">
@@ -30,7 +30,6 @@ export default function Appearance() {
 					</header>
 
 					<div className="flex flex-col gap-4">
-						<p className="subtitle">Update Appearance</p>
 						<AppearanceForm />
 						<hr />
 

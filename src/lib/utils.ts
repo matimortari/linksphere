@@ -15,6 +15,23 @@ export function generateSlug(name: string) {
 	return `${baseSlug}-${Math.random().toString(36).substring(2, 6)}`
 }
 
+export const SLUG_TEXT_SIZE_OPTIONS = [
+	{ label: "Small", value: "1rem" },
+	{ label: "Medium", value: "1.5rem" },
+	{ label: "Large", value: "2rem" },
+	{ label: "Extra Large", value: "2.5rem" },
+]
+
+export const SLUG_TEXT_WEIGHT_OPTIONS = [
+	{ label: "Extralight", value: "200" },
+	{ label: "Light", value: "300" },
+	{ label: "Normal", value: "400" },
+	{ label: "Medium", value: "500" },
+	{ label: "Semibold", value: "600" },
+	{ label: "Bold", value: "700" },
+	{ label: "Extrabold", value: "800" },
+]
+
 export const BORDER_RADIUS_OPTIONS = [
 	{ label: "None", value: "0px" },
 	{ label: "Small", value: "0.5rem" },
@@ -29,32 +46,16 @@ export const PADDING_OPTIONS = [
 	{ label: "Extra Large", value: "1.25rem" },
 ]
 
-export const SLUG_TEXT_SIZE_OPTIONS = [
-	{ label: "Small", value: "1rem" },
-	{ label: "Medium", value: "2rem" },
-	{ label: "Large", value: "3rem" },
-	{ label: "Extra Large", value: "4rem" },
-]
-
-export const SLUG_TEXT_WEIGHT_OPTIONS = [
-	{ label: "Light", value: "light" },
-	{ label: "Regular", value: "normal" },
-	{ label: "Semi-Bold", value: "semibold" },
-	{ label: "Bold", value: "bold" },
-	{ label: "Normal", value: "normal" },
-	{ label: "Bold", value: "bold" },
-]
-
 export const defaultSettings = {
-	backgroundColor: "#ffffff",
-	slugTextColor: "#000000",
-	slugTextWeight: "bold",
-	slugTextSize: "2rem",
-	headerTextColor: "#000000",
+	backgroundColor: "#e7e5e5",
+	slugTextColor: "#1e1e1e",
+	slugTextWeight: "500",
+	slugTextSize: "1rem",
+	headerTextColor: "#1e1e1e",
 	linkBackgroundColor: "#ffffff",
-	linkTextColor: "#000000",
+	linkTextColor: "#1e1e1e",
 	linkHoverBackgroundColor: "#eeeeee",
-	linkShadowColor: "#000000",
+	linkShadowColor: "#e7e5e5",
 	linkBorderRadius: "0.5rem",
 	linkPadding: "0.5rem",
 }

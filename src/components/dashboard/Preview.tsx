@@ -20,7 +20,7 @@ export default function Preview() {
 			className="rounded-3xl border border-muted p-12 shadow-lg"
 			style={{ backgroundColor: settings.backgroundColor || defaultSettings.backgroundColor }}
 		>
-			<div className="mb-2 flex flex-col items-center justify-center gap-3">
+			<div className="my-2 flex flex-col items-center justify-center gap-3">
 				{image && <Image src={image} alt={slug} width={100} height={100} className="rounded-full" />}
 				<h1
 					style={{
@@ -32,7 +32,7 @@ export default function Preview() {
 					@{slug}
 				</h1>
 				{description && (
-					<p className="mt-2" style={{ color: settings.headerTextColor || defaultSettings.headerTextColor }}>
+					<p className="my-2" style={{ color: settings.headerTextColor || defaultSettings.headerTextColor }}>
 						{description}
 					</p>
 				)}
