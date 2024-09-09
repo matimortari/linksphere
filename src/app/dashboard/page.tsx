@@ -9,12 +9,10 @@ import UpdateSlugForm from "@/src/components/dashboard/UpdateSlugForm"
 import { UserLink } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
-import { useState } from "react"
 
 export default function Dashboard() {
 	const { data: session, status } = useSession()
 	const { links, setLinks } = useGlobalContext()
-	const [isDialogOpen, setIsDialogOpen] = useState(false)
 
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
@@ -37,7 +35,7 @@ export default function Dashboard() {
 			<div className="flex flex-col md:flex-row">
 				<Sidebar />
 
-				<main className="dashboard-container w-full md:w-9/12">
+				<main className="dashboard-container w-full md:w-9/12 md:max-w-full">
 					<header className="flex flex-col gap-2 pb-4">
 						<h1 className="title">Dashboard</h1>
 						<span className="text-muted-foreground">

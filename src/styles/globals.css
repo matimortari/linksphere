@@ -65,7 +65,9 @@
 html,
 body {
 	height: 100%;
-	margin: 0;
+	width: 100%;
+
+	overflow-x: hidden;
 }
 
 main {
@@ -74,7 +76,7 @@ main {
 }
 
 nav {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;

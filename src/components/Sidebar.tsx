@@ -9,7 +9,7 @@ export default function Sidebar() {
 	const { slug, name, image } = useGlobalContext()
 
 	return (
-		<aside className="content-container h-full w-full shadow-lg md:mr-4 md:w-3/12">
+		<aside className="content-container h-full w-full shadow-lg md:mr-4 md:w-3/12 md:max-w-full">
 			<div className="flex flex-col items-center justify-center gap-2 py-4">
 				{image && <Image src={image} alt={name} width={40} height={40} className="avatar" />}
 				<p className="text-base font-semibold md:text-lg">{name}</p>

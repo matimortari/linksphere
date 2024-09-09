@@ -34,10 +34,10 @@ model Session {
 }
 
 model User {
-  id            String        @id @default(cuid())
-  slug          String        @unique
+  id            String         @id @default(cuid())
+  slug          String         @unique
   name          String?
-  email         String?       @unique
+  email         String?        @unique
   emailVerified DateTime?
   image         String?
   description   String?
@@ -45,7 +45,18 @@ model User {
   accounts      Account[]
   sessions      Session[]
   links         UserLink[]
+  buttons       SocialButton[]
   settings      UserSettings?
+}
+
+model SocialButton {
+  id        Int      @id @default(autoincrement())
+  url       String
+  icon      String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model UserLink {
@@ -61,16 +72,16 @@ model UserLink {
 model UserSettings {
   id                       Int    @id @default(autoincrement())
   userId                   String @unique
-  backgroundColor          String @default("#e7e5e5") // main page/preview container background color
-  slugTextColor            String @default("#1e1e1e") // color for slug text
-  slugTextWeight           String @default("500") // weight for slug text
-  slugTextSize             String @default("1rem") // size for slug text
-  headerTextColor          String @default("#1e1e1e") // color for text in header
-  linkBackgroundColor      String @default("#ffffff") // background color for link container
-  linkShadowColor          String @default("#e7e5e5") // shadow color for link container
-  linkTextColor            String @default("#1e1e1e") // color for text inside link container
-  linkHoverBackgroundColor String @default("#eeeeee") // background color for link container on hover
-  linkBorderRadius         String @default("0.5rem") // border radius for link container (5 values)
-  linkPadding              String @default("0.5rem") // padding for link container (4 values)
+  backgroundColor          String @default("#e7e5e5") // Main page/preview container background color
+  slugTextColor            String @default("#1e1e1e") // Color for slug text
+  slugTextWeight           String @default("500") // Weight for slug text
+  slugTextSize             String @default("1rem") // Size for slug text
+  headerTextColor          String @default("#1e1e1e") // Color for text in header
+  linkBackgroundColor      String @default("#ffffff") // Background color for link container
+  linkShadowColor          String @default("#e7e5e5") // Shadow color for link container
+  linkTextColor            String @default("#1e1e1e") // Color for text inside link container
+  linkHoverBackgroundColor String @default("#eeeeee") // Background color for link container on hover
+  linkBorderRadius         String @default("0.5rem") // Border radius for link container
+  linkPadding              String @default("0.5rem") // Padding for link container
   user                     User   @relation(fields: [userId], references: [id])
 }
