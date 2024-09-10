@@ -11,7 +11,7 @@ export default function Navbar() {
 	const { slug } = useGlobalContext()
 	const [theme, setTheme] = useState("light")
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
-	const dialogRef = useRef<HTMLDivElement>(null)
+	const dialogRef = useRef(null)
 
 	const toggleTheme = () => setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"))
 
@@ -40,30 +40,30 @@ export default function Navbar() {
 	}, [])
 
 	return (
-		<nav className="flex items-center justify-end bg-transparent px-4 py-2 md:px-8">
+		<nav className="absolute top-0 flex w-full items-center justify-end bg-transparent p-4">
 			<div className="button-container">
-				<button onClick={toggleTheme} className="button h-10 w-10 bg-background">
+				<button onClick={toggleTheme} className="button h-10 w-10 bg-card">
 					<Icon
 						icon={theme === "light" ? "material-symbols:light-mode-rounded" : "material-symbols:dark-mode-rounded"}
 					/>
 				</button>
 
 				{!session && (
-					<Link href="/login" className="button h-10 w-10 bg-background">
+					<Link href="/login" className="button h-10 w-10 bg-card">
 						<Icon icon="material-symbols:login" />
 					</Link>
 				)}
 
 				{session && (
-					<button onClick={toggleDialog} className="button h-10 w-10 bg-background">
+					<button onClick={toggleDialog} className="button h-10 w-10 bg-card">
 						<Icon icon="material-symbols:menu-rounded" />
 					</button>
 				)}
 			</div>
 
 			{isDialogOpen && (
-				<div ref={dialogRef} className="content-container absolute top-14 z-50 flex shadow-lg">
-					<div className="m-2 flex flex-col justify-center gap-2 p-2 text-center text-sm font-semibold">
+				<div ref={dialogRef} className="content-container absolute top-16 flex">
+					<div className="flex flex-col justify-center gap-2 p-2 text-sm font-semibold">
 						{session && (
 							<>
 								<Link href={`/${slug}`} className="button">

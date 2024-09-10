@@ -17,7 +17,7 @@ export default function Preferences() {
 
 	return (
 		<div className="main-container">
-			<div className="flex flex-col md:flex-row">
+			<div className="flex flex-col bg-background md:flex-row">
 				<Sidebar />
 
 				<main className="dashboard-container w-full md:w-9/12">

@@ -14,9 +14,9 @@ export default function Home() {
 
 	if (!session?.user && status === "unauthenticated") {
 		return (
-			<div className="main-container flex flex-col bg-background md:flex-row">
-				<section className="flex w-full flex-col items-center p-6 md:w-1/2 md:items-start">
-					<h1 className="mb-4 text-3xl font-bold text-foreground md:text-5xl">Welcome to NeSS!</h1>
+			<div className="main-container flex flex-col md:flex-row">
+				<section className="flex w-full flex-col items-center p-10 md:w-1/2 md:items-start">
+					<h1 className="text-3xl font-bold text-foreground md:text-5xl">Welcome to NeSS!</h1>
 					<p className="mb-4 text-xl text-muted-foreground">
 						Share your links, social profiles, <br />
 						contact info & more in one page.
@@ -31,7 +31,7 @@ export default function Home() {
 					</form>
 				</section>
 
-				<section className="w-full p-6 md:w-1/2">
+				<section className="w-full p-10 md:w-1/2">
 					<div className="flex items-center justify-center">
 						<CardCarousel />
 					</div>

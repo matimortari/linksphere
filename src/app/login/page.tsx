@@ -12,7 +12,7 @@ export default function Login() {
 	}
 
 	return (
-		<div className="main-container bg-background">
+		<div className="main-container">
 			<div className="flex flex-col items-center justify-center gap-2 p-8">
 				<strong className="p-4 text-5xl">Sign In</strong>
 				<p className="mt-2 text-base text-muted-foreground">Sign in with your preferred provider.</p>

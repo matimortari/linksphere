@@ -6,8 +6,8 @@ import { useGlobalContext } from "../context/GlobalContext"
 
 export default function UpdateSlugForm() {
 	const { slug, setSlug } = useGlobalContext()
-	const [error, setError] = useState<string | null>("")
-	const [success, setSuccess] = useState<string | null>("")
+	const [error, setError] = useState("")
+	const [success, setSuccess] = useState("")
 
 	const handleSubmit = (e: React.FormEvent) => {
 		handleFormSubmit(e, "/api/user", { newSlug: slug }, setSuccess, setError)

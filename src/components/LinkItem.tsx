@@ -6,8 +6,8 @@ export default function LinkItem({ url, title, settings }) {
 	const [isHovered, setIsHovered] = useState(false)
 
 	return (
-		<li className="flex w-full flex-col items-center justify-center">
-			<a href={url} className="flex justify-center text-foreground">
+		<li className="flex flex-col items-center justify-center">
+			<a href={url}>
 				<div
 					className="min-w-[35vw] text-center"
 					style={{
@@ -20,7 +20,7 @@ export default function LinkItem({ url, title, settings }) {
 					onMouseEnter={() => setIsHovered(true)}
 					onMouseLeave={() => setIsHovered(false)}
 				>
-					<p className="text-base font-medium" style={{ color: settings.linkTextColor }}>
+					<p className="font-medium" style={{ color: settings.linkTextColor }}>
 						{title}
 					</p>
 				</div>

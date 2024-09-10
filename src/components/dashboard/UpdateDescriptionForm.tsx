@@ -7,8 +7,8 @@ import { useGlobalContext } from "../context/GlobalContext"
 export default function UpdateDescriptionForm() {
 	const { description, setDescription } = useGlobalContext()
 	const [localDescription, updateLocalDescription] = useState(description)
-	const [error, setError] = useState<string | null>(null)
-	const [success, setSuccess] = useState<string | null>(null)
+	const [error, setError] = useState(null)
+	const [success, setSuccess] = useState(null)
 
 	const handleSubmit = (e: FormEvent) => {
 		handleFormSubmit(e, "/api/user", { newDescription: localDescription }, setSuccess, setError, () =>

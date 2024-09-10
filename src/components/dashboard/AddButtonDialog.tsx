@@ -6,11 +6,11 @@ import { Icon } from "@iconify/react"
 import { useEffect, useRef, useState } from "react"
 
 export default function AddButtonDialog({ onClose }) {
-	const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null)
+	const { addButton } = useGlobalContext()
+	const [selectedPlatform, setSelectedPlatform] = useState(null)
 	const [url, setUrl] = useState("")
-	const [error, setError] = useState<string | null>(null)
-	const dialogRef = useRef<HTMLDivElement>(null)
-	const { addButton } = useGlobalContext() // Access the addButton function
+	const [error, setError] = useState(null)
+	const dialogRef = useRef(null)
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {

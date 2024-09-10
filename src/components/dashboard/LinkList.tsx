@@ -11,7 +11,7 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 	const { links: contextLinks, deleteLink, updateLink } = useGlobalContext()
 	const [isAddLinkDialogOpen, setIsAddLinkDialogOpen] = useState(false)
 	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
-	const [currentLink, setCurrentLink] = useState<UserLink | null>(null)
+	const [currentLink, setCurrentLink] = useState(null)
 
 	const handleEditClick = (link: UserLink) => {
 		setCurrentLink(link)
@@ -39,8 +39,8 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 
 	return (
 		<div className="w-full space-y-2">
-			{contextLinks.length > 0 ? (
-				<ul className="list-inside list-disc space-y-2">
+			{contextLinks && contextLinks.length > 0 ? (
+				<ul className="space-y-2">
 					{contextLinks.map((link) => (
 						<li key={link.id} className="content-container flex items-center overflow-hidden">
 							<div className="flex flex-1 flex-col">
@@ -68,7 +68,7 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 					))}
 				</ul>
 			) : (
-				<p className="text-muted-foreground">No links available</p>
+				<p className="text-muted-foreground">No links yet</p>
 			)}
 
 			{isUpdateDialogOpen && currentLink && (

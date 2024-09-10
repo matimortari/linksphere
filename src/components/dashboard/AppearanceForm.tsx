@@ -43,8 +43,8 @@ const RadioOptions = ({ options, name, value, onChange, label }) => (
 
 export default function AppearanceForm() {
 	const { settings, setSettings } = useGlobalContext()
-	const [error, setError] = useState<string>("")
-	const [success, setSuccess] = useState<string>("")
+	const [error, setError] = useState("")
+	const [success, setSuccess] = useState("")
 
 	useEffect(() => {
 		fetchUserSettings().then(setSettings)
@@ -152,6 +152,34 @@ export default function AppearanceForm() {
 						options={PADDING_OPTIONS}
 						value={currentSettings.linkPadding}
 						onChange={handleRadioChange("linkPadding")}
+					/>
+
+					<ColorInput
+						id="buttonBackgroundColor"
+						label="Social Button Background Color"
+						value={currentSettings.buttonBackgroundColor}
+						onChange={handleColorChange("buttonBackgroundColor")}
+					/>
+
+					<ColorInput
+						id="buttonIconColor"
+						label="Social Button Icon Color"
+						value={currentSettings.buttonIconColor}
+						onChange={handleColorChange("buttonIconColor")}
+					/>
+
+					<ColorInput
+						id="buttonHoverBackgroundColor"
+						label="Social Button Hover Background Color"
+						value={currentSettings.buttonHoverBackgroundColor}
+						onChange={handleColorChange("buttonHoverBackgroundColor")}
+					/>
+
+					<ColorInput
+						id="buttonShadowColor"
+						label="Social Button Shadow Color"
+						value={currentSettings.buttonShadowColor}
+						onChange={handleColorChange("buttonShadowColor")}
 					/>
 				</div>
 
