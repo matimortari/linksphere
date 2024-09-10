@@ -9,19 +9,20 @@ import UpdateLinkDialog from "./UpdateLinkDialog"
 
 export default function LinkList({ onUpdateLink, onDeleteLink }) {
 	const { links: contextLinks, deleteLink, updateLink } = useGlobalContext()
-	const [isDialogOpen, setIsDialogOpen] = useState(false)
-	const [currentLink, setCurrentLink] = useState(null)
+	const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
+	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
+	const [currentLink, setCurrentLink] = useState<UserLink | null>(null)
 
 	const handleEditClick = (link: UserLink) => {
 		setCurrentLink(link)
-		setIsDialogOpen(true)
+		setIsUpdateDialogOpen(true)
 	}
 
 	const handleUpdateLink = async (updatedLink: UserLink) => {
 		try {
 			await updateLink(updatedLink)
 			onUpdateLink(updatedLink)
-			setIsDialogOpen(false)
+			setIsUpdateDialogOpen(false)
 		} catch (error) {
 			console.error("Error updating link:", error)
 		}
@@ -70,20 +71,21 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 				<p className="text-muted-foreground">No links available</p>
 			)}
 
-			{isDialogOpen && currentLink && (
+			{isUpdateDialogOpen && currentLink && (
 				<UpdateLinkDialog
-					onClose={() => setIsDialogOpen(false)}
+					onClose={() => setIsUpdateDialogOpen(false)}
 					onUpdateLink={handleUpdateLink}
 					linkData={currentLink}
 				/>
 			)}
 
+			{isAddDialogOpen && <AddLinkDialog onClose={() => setIsAddDialogOpen(false)} />}
+
 			<div className="button-container">
-				<button onClick={() => setIsDialogOpen(true)} className="button bg-primary text-primary-foreground">
+				<button onClick={() => setIsAddDialogOpen(true)} className="button bg-primary text-primary-foreground">
 					Add Link
 				</button>
 			</div>
-			{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}
 		</div>
 	)
 }
