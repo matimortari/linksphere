@@ -36,9 +36,6 @@ export default function Preferences() {
 
 						<p className="subtitle">TBA</p>
 						<hr />
-
-						<p className="subtitle">TBA</p>
-						<hr />
 					</div>
 				</main>
 			</div>

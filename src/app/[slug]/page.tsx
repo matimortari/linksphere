@@ -1,12 +1,12 @@
 import LinkItem from "@/src/components/LinkItem"
 import SocialButton from "@/src/components/SocialButton"
+import { trackPageVisit } from "@/src/lib/actions"
 import { db } from "@/src/lib/db"
 import Image from "next/image"
 
 export default async function UserPage({ params }: { params: { slug: string } }) {
 	const { slug } = params
 
-	// Fetch user data based on the slug using Prisma
 	const user = await db.user.findUnique({
 		where: { slug },
 		include: {
@@ -15,6 +15,8 @@ export default async function UserPage({ params }: { params: { slug: string } })
 			settings: true,
 		},
 	})
+
+	await trackPageVisit(slug)
 
 	if (!user) {
 		return (

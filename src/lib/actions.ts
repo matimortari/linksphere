@@ -1,3 +1,4 @@
+import { db } from "./db"
 import { defaultSettings } from "./utils"
 
 export async function fetchUserData() {
@@ -75,4 +76,24 @@ export async function handleFormSubmit(
 	} catch (error) {
 		setError((error as Error).message)
 	}
+}
+
+export async function trackPageVisit(slug: string) {
+	const user = await db.user.findUnique({
+		where: { slug },
+		include: { UserStats: true },
+	})
+
+	if (!user) return
+
+	const stats =
+		user.UserStats[0] ||
+		(await db.userStats.create({
+			data: { userId: user.id, views: 0, clicks: 0 },
+		}))
+
+	await db.userStats.update({
+		where: { id: stats.id },
+		data: { views: stats.views + 1 },
+	})
 }
