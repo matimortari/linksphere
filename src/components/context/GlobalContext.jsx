@@ -1,6 +1,6 @@
 "use client"
 
-import { fetchUserData, fetchUserLinks, fetchUserSettings } from "@/src/lib/actions"
+import { fetchUserButtons, fetchUserData, fetchUserLinks, fetchUserSettings } from "@/src/lib/actions"
 import { defaultSettings } from "@/src/lib/utils"
 import { Analytics } from "@vercel/analytics/react"
 import { createContext, useContext, useEffect, useState } from "react"
@@ -13,6 +13,7 @@ export const GlobalContextProvider = ({ children }) => {
 	const [name, setName] = useState("")
 	const [image, setImage] = useState("")
 	const [description, setDescription] = useState("")
+	const [buttons, setButtons] = useState([]) // Social buttons state
 	const [links, setLinks] = useState([])
 	const [settings, setSettings] = useState(defaultSettings)
 	const [error, setError] = useState(null)
@@ -32,7 +33,10 @@ export const GlobalContextProvider = ({ children }) => {
 				setImage(image)
 				setUser(userData)
 
+				// Fetch links and buttons
 				setLinks(await fetchUserLinks(slug))
+				setButtons(await fetchUserButtons(slug)) // Fetch social buttons
+
 				setSettings((await fetchUserSettings()) || defaultSettings)
 			} catch (error) {
 				console.error("Error loading user data:", error)
@@ -101,6 +105,64 @@ export const GlobalContextProvider = ({ children }) => {
 		}
 	}
 
+	const addButton = async (newButton) => {
+		try {
+			const response = await fetch("/api/buttons", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(newButton),
+			})
+
+			if (response.ok) {
+				const button = await response.json()
+				setButtons((prevButtons) => [...prevButtons, button])
+			} else {
+				const error = await response.json()
+				throw new Error(error.error)
+			}
+		} catch (error) {
+			console.error("Error adding button:", error)
+			setError("Failed to add button.")
+		}
+	}
+
+	const updateButton = async (updatedButton) => {
+		try {
+			const response = await fetch("/api/buttons", {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(updatedButton),
+			})
+
+			if (!response.ok) {
+				const error = await response.json()
+				throw new Error(error.error)
+			}
+
+			const button = await response.json()
+			setButtons((prevButtons) => prevButtons.map((b) => (b.id === updatedButton.id ? button : b)))
+		} catch (error) {
+			console.error("Error updating button:", error)
+			setError("Failed to update button.")
+		}
+	}
+
+	const deleteButton = async (id) => {
+		try {
+			const response = await fetch(`/api/buttons?id=${id}`, { method: "DELETE" })
+
+			if (response.status === 204) {
+				setButtons((prevButtons) => prevButtons.filter((button) => button.id !== id))
+			} else {
+				const error = await response.json()
+				throw new Error(error.error)
+			}
+		} catch (error) {
+			console.error("Error deleting button:", error)
+			setError("Failed to delete button.")
+		}
+	}
+
 	const updateSettings = async (newSettings) => {
 		try {
 			const response = await fetch("/api/preferences", {
@@ -137,12 +199,17 @@ export const GlobalContextProvider = ({ children }) => {
 				setDescription,
 				links,
 				setLinks,
+				buttons,
+				setButtons,
 				settings,
 				setSettings,
 				updateSettings,
 				addLink,
 				updateLink,
 				deleteLink,
+				addButton,
+				updateButton,
+				deleteButton,
 				title,
 				setTitle,
 				url,

@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { UserLink } from "@prisma/client"
+import { SocialButton, UserLink } from "@prisma/client"
 import { DefaultSession, SessionStrategy } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
@@ -14,6 +14,7 @@ declare module "next-auth" {
 			slug: string
 			description: string
 			links: UserLink[]
+			buttons: SocialButton[]
 			settings: typeof defaultSettings
 		}
 	}
@@ -39,6 +40,7 @@ export const authOptions = {
 			const existingUser = await db.user.findUnique({
 				where: { email: user.email },
 			})
+
 			if (!existingUser) {
 				const slug = generateSlug(profile?.name ?? user.email ?? "")
 				const newUser = await db.user.create({
@@ -49,6 +51,8 @@ export const authOptions = {
 						slug,
 					},
 				})
+
+				// Create default settings for the new user
 				await db.userSettings.create({
 					data: {
 						userId: newUser.id,
@@ -56,6 +60,7 @@ export const authOptions = {
 					},
 				})
 			} else {
+				// Update the existing user (if needed)
 				await db.user.update({
 					where: { email: user.email },
 					data: {
@@ -64,24 +69,37 @@ export const authOptions = {
 					},
 				})
 			}
+
 			return true
 		},
 
 		async session({ session, user }) {
 			session.user.id = user.id
 			const dbUser = await db.user.findUnique({ where: { id: user.id } })
+
 			if (dbUser) {
 				session.user.slug = dbUser.slug
 				session.user.description = dbUser.description
+
+				// Retrieve user's links
 				const links = await db.userLink.findMany({
 					where: { userId: dbUser.id },
 				})
 				session.user.links = links
+
+				// Retrieve user's social buttons
+				const socialButtons = await db.socialButton.findMany({
+					where: { userId: dbUser.id },
+				})
+				session.user.buttons = socialButtons
+
+				// Retrieve user's settings
 				const settings = await db.userSettings.findUnique({
 					where: { userId: dbUser.id },
 				})
 				session.user.settings = settings || defaultSettings
 			}
+
 			return session
 		},
 	},

@@ -1,4 +1,5 @@
 import LinkItem from "@/src/components/LinkItem"
+import SocialButton from "@/src/components/SocialButton"
 import { db } from "@/src/lib/db"
 import Image from "next/image"
 
@@ -10,6 +11,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 		where: { slug },
 		include: {
 			links: true,
+			buttons: true,
 			settings: true,
 		},
 	})
@@ -24,11 +26,11 @@ export default async function UserPage({ params }: { params: { slug: string } })
 		)
 	}
 
-	const { description, links, image, settings } = user
+	const { description, links, image, buttons, settings } = user
 
 	return (
 		<div className="min-h-screen p-12" style={{ backgroundColor: settings.backgroundColor }}>
-			<div className="my-2 flex flex-col items-center justify-center gap-3">
+			<div className="flex flex-col items-center justify-center gap-3">
 				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar" />}
 				<h1
 					style={{
@@ -39,11 +41,19 @@ export default async function UserPage({ params }: { params: { slug: string } })
 				>
 					@{slug}
 				</h1>
-				{description && (
-					<p className="my-2" style={{ color: settings.headerTextColor }}>
-						{description}
-					</p>
+
+				{description && <p style={{ color: settings.headerTextColor }}>{description}</p>}
+
+				{buttons.length > 0 ? (
+					<ul className="my-2 flex flex-row gap-2">
+						{buttons.map((link) => (
+							<SocialButton key={link.id} url={link.url} settings={settings} icon={"xxx"} />
+						))}
+					</ul>
+				) : (
+					<hr />
 				)}
+
 				{links.length > 0 ? (
 					<ul className="space-y-4">
 						{links.map((link) => (

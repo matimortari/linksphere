@@ -16,6 +16,14 @@ export async function fetchUserLinks(slug: string) {
 	return response.json()
 }
 
+export async function fetchUserButtons(slug: string) {
+	const response = await fetch(`/api/buttons?slug=${slug}`)
+	if (!response.ok) {
+		throw new Error("Failed to fetch user buttons")
+	}
+	return response.json()
+}
+
 export async function fetchUserSettings() {
 	try {
 		const response = await fetch("/api/preferences")
