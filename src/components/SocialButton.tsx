@@ -3,12 +3,26 @@
 import { Icon } from "@iconify/react"
 import { useState } from "react"
 
-export default function SocialButton({ url, icon, settings }) {
+export default function SocialButton({ url, icon, settings, buttonId }) {
 	const [isHovered, setIsHovered] = useState(false)
+
+	const handleButtonClick = async () => {
+		try {
+			await fetch("/api/analytics", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ id: buttonId, type: "button" }), // Include both ID and type
+			})
+		} catch (error) {
+			console.error("Failed to increment click count:", error)
+		}
+	}
 
 	return (
 		<li className="flex flex-row items-center justify-center">
-			<a href={url}>
+			<a href={url} onClick={handleButtonClick}>
 				<div
 					className="flex h-10 w-10 items-center justify-center rounded-full"
 					style={{

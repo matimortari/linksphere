@@ -35,7 +35,13 @@ export default function Preview() {
 				{buttons.length > 0 ? (
 					<ul className="my-2 flex flex-row gap-2">
 						{buttons.map((button) => (
-							<SocialButton key={button.id} url={button.url} icon={button.icon} settings={settings} />
+							<SocialButton
+								key={button.id}
+								url={button.url}
+								icon={button.icon}
+								settings={settings}
+								buttonId={button.id}
+							/>
 						))}
 					</ul>
 				) : (
@@ -45,7 +51,7 @@ export default function Preview() {
 				{links.length > 0 ? (
 					<ul className="space-y-4">
 						{links.map((link) => (
-							<LinkItem key={link.id} url={link.url} title={link.title} settings={settings} />
+							<LinkItem key={link.id} url={link.url} title={link.title} settings={settings} linkId={link.id} />
 						))}
 					</ul>
 				) : (

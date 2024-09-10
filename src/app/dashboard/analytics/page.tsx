@@ -1,5 +1,6 @@
 "use client"
 
+import LinkClickList from "@/src/components/dashboard/LinkClickList"
 import Sidebar from "@/src/components/Sidebar"
 import { useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
@@ -10,14 +11,23 @@ interface UserStats {
 	clicks: number
 }
 
+interface LinkStats {
+	id: number
+	title: string
+	url: string
+	clicks: number
+}
+
 interface ApiResponse {
 	success: boolean
 	stats: UserStats
+	links: LinkStats[]
 }
 
 export default function Analytics() {
 	const { data: session, status } = useSession()
 	const [stats, setStats] = useState<UserStats | null>(null)
+	const [links, setLinks] = useState<LinkStats[]>([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState<string | null>(null)
 	const router = useRouter()
@@ -32,6 +42,7 @@ export default function Analytics() {
 			return
 		}
 
+		// Fetch the analytics data, including the user stats and links with click counts
 		fetch("/api/analytics")
 			.then((response) => {
 				if (!response.ok) {
@@ -42,6 +53,7 @@ export default function Analytics() {
 			.then((data: ApiResponse) => {
 				if (data.success) {
 					setStats(data.stats)
+					setLinks(data.links)
 				} else {
 					setError("Failed to fetch analytics data")
 				}
@@ -111,8 +123,13 @@ export default function Analytics() {
 					<div className="flex flex-col gap-2">
 						<p className="subtitle">Total Page Views: {stats?.views ?? 0}</p>
 						<hr />
+
 						<p className="subtitle">Total Clicks: {stats?.clicks ?? 0}</p>
 						<hr />
+
+						<p className="subtitle">Clicks By Link</p>
+						<hr />
+						<LinkClickList />
 					</div>
 				</main>
 			</div>

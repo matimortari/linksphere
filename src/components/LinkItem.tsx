@@ -2,12 +2,26 @@
 
 import { useState } from "react"
 
-export default function LinkItem({ url, title, settings }) {
+export default function LinkItem({ url, title, settings, linkId }) {
 	const [isHovered, setIsHovered] = useState(false)
+
+	const handleLinkClick = async () => {
+		try {
+			await fetch("/api/analytics", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ id: linkId, type: "link" }), // Include both ID and type
+			})
+		} catch (error) {
+			console.error("Failed to increment click count:", error)
+		}
+	}
 
 	return (
 		<li className="flex flex-col items-center justify-center">
-			<a href={url}>
+			<a href={url} target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>
 				<div
 					className="min-w-[35vw] text-center"
 					style={{
