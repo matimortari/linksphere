@@ -13,7 +13,7 @@ export const GlobalContextProvider = ({ children }) => {
 	const [name, setName] = useState("")
 	const [image, setImage] = useState("")
 	const [description, setDescription] = useState("")
-	const [buttons, setButtons] = useState([]) // Social buttons state
+	const [buttons, setButtons] = useState([])
 	const [links, setLinks] = useState([])
 	const [settings, setSettings] = useState(defaultSettings)
 	const [error, setError] = useState(null)
@@ -29,9 +29,8 @@ export const GlobalContextProvider = ({ children }) => {
 				setImage(image)
 				setUser(userData)
 
-				// Fetch links and buttons
 				setLinks(await fetchUserLinks(slug))
-				setButtons(await fetchUserButtons(slug)) // Fetch social buttons
+				setButtons(await fetchUserButtons(slug))
 
 				setSettings((await fetchUserSettings()) || defaultSettings)
 			} catch (error) {

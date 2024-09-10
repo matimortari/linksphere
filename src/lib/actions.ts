@@ -97,17 +97,3 @@ export async function trackPageVisit(slug: string) {
 		data: { views: stats.views + 1 },
 	})
 }
-
-// export const handleLinkClick = async () => {
-// 	try {
-// 		await fetch("/api/analytics", {
-// 			method: "POST",
-// 			headers: {
-// 				"Content-Type": "application/json",
-// 			},
-// 			body: JSON.stringify({ linkId }),
-// 		})
-// 	} catch (error) {
-// 		console.error("Failed to increment click count:", error)
-// 	}
-// }

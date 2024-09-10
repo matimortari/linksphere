@@ -34,9 +34,7 @@ export default function AddButtonDialog({ onClose }) {
 		}
 
 		try {
-			// Call the addButton function with the correct data format
 			await addButton({ platform: selectedPlatform, url, icon: SOCIAL_ICONS[selectedPlatform] })
-			// Clear form and close dialog
 			setSelectedPlatform(null)
 			setUrl("")
 			setError(null)

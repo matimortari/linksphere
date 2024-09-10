@@ -3,7 +3,6 @@ import { db } from "@/src/lib/db"
 import { getServerSession } from "next-auth"
 import { NextRequest, NextResponse } from "next/server"
 
-// Handler for GET requests to fetch user data
 export async function GET(req: NextRequest) {
 	try {
 		const session = await getServerSession(authOptions)
@@ -29,7 +28,6 @@ export async function GET(req: NextRequest) {
 	}
 }
 
-// Handler for PUT requests to update user slug or description
 export async function PUT(req: NextRequest) {
 	try {
 		const session = await getServerSession(authOptions)

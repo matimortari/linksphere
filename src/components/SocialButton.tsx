@@ -13,7 +13,7 @@ export default function SocialButton({ url, icon, settings, buttonId }) {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ id: buttonId, type: "button" }), // Include both ID and type
+				body: JSON.stringify({ id: buttonId, type: "button" }),
 			})
 		} catch (error) {
 			console.error("Failed to increment click count:", error)

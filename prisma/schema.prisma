@@ -7,6 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum SupportBanner {
+  NONE
+  LGBTQ_RIGHTS
+  ANTI_RACISM
+  MENTAL_HEALTH
+  CLIMATE_ACTION
+}
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -74,24 +82,26 @@ model SocialButton {
 }
 
 model UserSettings {
-  id                         Int    @id @default(autoincrement())
-  userId                     String @unique
-  backgroundColor            String @default("#e7e5e5") // Main page/preview container background color
-  slugTextColor              String @default("#1e1e1e") // Color for slug text
-  slugTextWeight             String @default("500") // Weight for slug text
-  slugTextSize               String @default("1rem") // Size for slug text
-  headerTextColor            String @default("#1e1e1e") // Color for text in header
-  buttonBackgroundColor      String @default("#ffffff") // Background color for button container
-  buttonShadowColor          String @default("#e7e5e5") // Shadow color for button container
-  buttonIconColor            String @default("#1e1e1e") // Color for icon inside button container
-  buttonHoverBackgroundColor String @default("#eeeeee") // Background color for button container on hover
-  linkBackgroundColor        String @default("#ffffff") // Background color for link container
-  linkShadowColor            String @default("#e7e5e5") // Shadow color for link container
-  linkTextColor              String @default("#1e1e1e") // Color for text inside link container
-  linkHoverBackgroundColor   String @default("#eeeeee") // Background color for link container on hover
-  linkBorderRadius           String @default("0.5rem") // Border radius for link container
-  linkPadding                String @default("0.5rem") // Padding for link container
-  user                       User   @relation(fields: [userId], references: [id])
+  id                         Int           @id @default(autoincrement())
+  userId                     String        @unique
+  backgroundColor            String        @default("#e7e5e5") // Main page/preview container background color
+  slugTextColor              String        @default("#1e1e1e") // Color for slug text
+  slugTextWeight             String        @default("500") // Weight for slug text
+  slugTextSize               String        @default("1rem") // Size for slug text
+  headerTextColor            String        @default("#1e1e1e") // Color for text in header
+  buttonBackgroundColor      String        @default("#ffffff") // Background color for button container
+  buttonShadowColor          String        @default("#e7e5e5") // Shadow color for button container
+  buttonIconColor            String        @default("#1e1e1e") // Color for icon inside button container
+  buttonHoverBackgroundColor String        @default("#eeeeee") // Background color for button container on hover
+  linkBackgroundColor        String        @default("#ffffff") // Background color for link container
+  linkShadowColor            String        @default("#e7e5e5") // Shadow color for link container
+  linkTextColor              String        @default("#1e1e1e") // Color for text inside link container
+  linkHoverBackgroundColor   String        @default("#eeeeee") // Background color for link container on hover
+  linkBorderRadius           String        @default("0.5rem") // Border radius for link container
+  linkPadding                String        @default("0.5rem") // Padding for link container
+  supportBanner              SupportBanner @default(NONE) // Banner type to display
+  sensitiveContent           Boolean       @default(false) // Show sensitive content
+  user                       User          @relation(fields: [userId], references: [id])
 }
 
 model UserStats {

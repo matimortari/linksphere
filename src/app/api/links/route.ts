@@ -3,7 +3,6 @@ import { db } from "@/src/lib/db"
 import { getServerSession } from "next-auth"
 import { NextRequest, NextResponse } from "next/server"
 
-// Handler for GET requests to fetch user links
 export async function GET(req: NextRequest) {
 	try {
 		const slug = req.nextUrl.searchParams.get("slug")
@@ -33,7 +32,6 @@ export async function GET(req: NextRequest) {
 	}
 }
 
-// Handler for POST requests to add a new link
 export async function POST(req: NextRequest) {
 	try {
 		const { title, url } = await req.json()
@@ -64,7 +62,6 @@ export async function POST(req: NextRequest) {
 	}
 }
 
-// Handler for PUT requests to update an existing link
 export async function PUT(req: NextRequest) {
 	try {
 		const { id, title, url } = await req.json()
@@ -100,7 +97,6 @@ export async function PUT(req: NextRequest) {
 	}
 }
 
-// Handler for DELETE requests to delete an existing link
 export async function DELETE(req: NextRequest) {
 	try {
 		const id = req.nextUrl.searchParams.get("id")
@@ -111,7 +107,6 @@ export async function DELETE(req: NextRequest) {
 
 		const idNumber = parseInt(id, 10)
 
-		// Authenticate user
 		const session = await getServerSession(authOptions)
 		const userId = session?.user?.id
 
@@ -119,7 +114,6 @@ export async function DELETE(req: NextRequest) {
 			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
 		}
 
-		// Check if the link exists and belongs to the user
 		const existingLink = await db.userLink.findUnique({
 			where: { id: idNumber },
 		})
@@ -128,12 +122,10 @@ export async function DELETE(req: NextRequest) {
 			return new NextResponse(JSON.stringify({ error: "Link not found or not authorized" }), { status: 403 })
 		}
 
-		// Delete the link
 		await db.userLink.delete({
 			where: { id: idNumber },
 		})
 
-		// Respond with 204 No Content
 		return new NextResponse(null, { status: 204 })
 	} catch (error) {
 		console.error("Error deleting link:", error)

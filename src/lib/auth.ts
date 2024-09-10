@@ -52,7 +52,6 @@ export const authOptions = {
 					},
 				})
 
-				// Create default settings for the new user
 				await db.userSettings.create({
 					data: {
 						userId: newUser.id,
@@ -60,7 +59,6 @@ export const authOptions = {
 					},
 				})
 			} else {
-				// Update the existing user (if needed)
 				await db.user.update({
 					where: { email: user.email },
 					data: {
@@ -81,19 +79,16 @@ export const authOptions = {
 				session.user.slug = dbUser.slug
 				session.user.description = dbUser.description
 
-				// Retrieve user's links
 				const links = await db.userLink.findMany({
 					where: { userId: dbUser.id },
 				})
 				session.user.links = links
 
-				// Retrieve user's social buttons
 				const socialButtons = await db.socialButton.findMany({
 					where: { userId: dbUser.id },
 				})
 				session.user.buttons = socialButtons
 
-				// Retrieve user's settings
 				const settings = await db.userSettings.findUnique({
 					where: { userId: dbUser.id },
 				})

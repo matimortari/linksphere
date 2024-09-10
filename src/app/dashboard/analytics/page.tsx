@@ -42,7 +42,6 @@ export default function Analytics() {
 			return
 		}
 
-		// Fetch the analytics data, including the user stats and links with click counts
 		fetch("/api/analytics")
 			.then((response) => {
 				if (!response.ok) {
@@ -121,15 +120,17 @@ export default function Analytics() {
 						<hr />
 					</header>
 					<div className="flex flex-col gap-2">
-						<p className="subtitle">Total Page Views: {stats?.views ?? 0}</p>
+						<p className="subtitle">Total Page Views</p>
+						<p className="subtitle">{stats?.views ?? 0}</p>
 						<hr />
 
-						<p className="subtitle">Total Clicks: {stats?.clicks ?? 0}</p>
+						<p className="subtitle">Total Clicks</p>
+						<p className="subtitle">{stats?.clicks ?? 0}</p>
 						<hr />
 
 						<p className="subtitle">Clicks By Link</p>
-						<hr />
 						<LinkClickList />
+						<hr />
 					</div>
 				</main>
 			</div>

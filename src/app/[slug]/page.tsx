@@ -1,5 +1,6 @@
 import LinkItem from "@/src/components/LinkItem"
 import SocialButton from "@/src/components/SocialButton"
+import SupportBanner from "@/src/components/SupportBanner"
 import { trackPageVisit } from "@/src/lib/actions"
 import { db } from "@/src/lib/db"
 import Image from "next/image"
@@ -33,6 +34,8 @@ export default async function UserPage({ params }: { params: { slug: string } })
 	return (
 		<div className="min-h-screen p-12" style={{ backgroundColor: settings.backgroundColor }}>
 			<div className="flex flex-col items-center justify-center gap-3">
+				{settings.supportBanner !== "NONE" && <SupportBanner bannerType={settings.supportBanner} />}
+
 				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar" />}
 				<h1
 					style={{

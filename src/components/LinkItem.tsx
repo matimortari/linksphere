@@ -12,7 +12,7 @@ export default function LinkItem({ url, title, settings, linkId }) {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ id: linkId, type: "link" }), // Include both ID and type
+				body: JSON.stringify({ id: linkId, type: "link" }),
 			})
 		} catch (error) {
 			console.error("Failed to increment click count:", error)
