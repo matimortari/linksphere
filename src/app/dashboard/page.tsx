@@ -2,6 +2,7 @@
 
 import Sidebar from "@/src/components/Sidebar"
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
+import ButtonList from "@/src/components/dashboard/ButtonList"
 import LinkList from "@/src/components/dashboard/LinkList"
 import Preview from "@/src/components/dashboard/Preview"
 import UpdateDescriptionForm from "@/src/components/dashboard/UpdateDescriptionForm"
@@ -12,7 +13,7 @@ import { redirect } from "next/navigation"
 
 export default function Dashboard() {
 	const { data: session, status } = useSession()
-	const { links, setLinks } = useGlobalContext()
+	const { links, socialButtons, setLinks, setSocialButtons } = useGlobalContext()
 
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
@@ -24,6 +25,10 @@ export default function Dashboard() {
 
 	const handleDeleteLink = (linkId: number) => {
 		setLinks((prevLinks) => prevLinks.filter((link) => link.id !== linkId))
+	}
+
+	const handleDeleteButton = (buttonId: number) => {
+		setSocialButtons((prevButtons) => prevButtons.filter((button) => button.id !== buttonId))
 	}
 
 	if (!session?.user) {
@@ -55,6 +60,10 @@ export default function Dashboard() {
 
 						<p className="subtitle">My Links</p>
 						<LinkList onUpdateLink={handleUpdateLink} onDeleteLink={handleDeleteLink} />
+						<hr />
+
+						<p className="subtitle">My Social Buttons</p>
+						<ButtonList onDeleteButton={handleDeleteButton} />
 						<hr />
 
 						<p className="subtitle">Preview</p>

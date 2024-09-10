@@ -19,7 +19,7 @@ export default function SocialButton({ url, icon, settings }) {
 					onMouseEnter={() => setIsHovered(true)}
 					onMouseLeave={() => setIsHovered(false)}
 				>
-					<Icon icon={icon} className="text-2xl" />
+					{icon && <Icon icon={icon} className="h-5 w-5" />}
 				</div>
 			</a>
 		</li>

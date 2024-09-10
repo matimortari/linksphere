@@ -46,8 +46,8 @@ export default async function UserPage({ params }: { params: { slug: string } })
 
 				{buttons.length > 0 ? (
 					<ul className="my-2 flex flex-row gap-2">
-						{buttons.map((link) => (
-							<SocialButton key={link.id} url={link.url} settings={settings} icon={"xxx"} />
+						{buttons.map((button) => (
+							<SocialButton key={button.id} url={button.url} icon={button.icon} settings={settings} />
 						))}
 					</ul>
 				) : (

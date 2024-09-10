@@ -13,7 +13,8 @@ export default function Preview() {
 		if (slug) {
 			setSlug(slug)
 		}
-	}, [slug, setSlug])
+		console.log(buttons)
+	}, [slug, setSlug, buttons])
 
 	return (
 		<div className="rounded-lg border border-muted p-12" style={{ backgroundColor: settings.backgroundColor }}>
@@ -33,8 +34,8 @@ export default function Preview() {
 
 				{buttons.length > 0 ? (
 					<ul className="my-2 flex flex-row gap-2">
-						{buttons.map((link) => (
-							<SocialButton key={link.id} url={link.url} settings={settings} icon={"xxx"} />
+						{buttons.map((button) => (
+							<SocialButton key={button.id} url={button.url} icon={button.icon} settings={settings} />
 						))}
 					</ul>
 				) : (

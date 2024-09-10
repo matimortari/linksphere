@@ -46,6 +46,36 @@ export const PADDING_OPTIONS = [
 	{ label: "Extra Large", value: "1.25rem" },
 ]
 
+export const SOCIAL_ICONS: { [key: string]: string } = {
+	instagram: "simple-icons:instagram",
+	email: "simple-icons:gmail",
+	facebook: "simple-icons:facebook",
+	youtube: "simple-icons:youtube",
+	x: "simple-icons:x",
+	tiktok: "simple-icons:tiktok",
+	whatsapp: "simple-icons:whatsapp",
+	snapchat: "simple-icons:snapchat",
+	amazon: "simple-icons:amazon",
+	googleplay: "simple-icons:googleplay",
+	appstore: "simple-icons:appstore",
+	applemusic: "simple-icons:applemusic",
+	applepodcasts: "simple-icons:applepodcasts",
+	bandcamp: "simple-icons:bandcamp",
+	spotify: "simple-icons:spotify",
+	bluesky: "simple-icons:bluesky",
+	discord: "simple-icons:discord",
+	etsy: "simple-icons:etsy",
+	github: "simple-icons:github",
+	linkedin: "simple-icons:linkedin",
+	mastodon: "simple-icons:mastodon",
+	patreon: "simple-icons:patreon",
+	pinterest: "simple-icons:pinterest",
+	signal: "simple-icons:signal",
+	soundcloud: "simple-icons:soundcloud",
+	telegram: "simple-icons:telegram",
+	twitch: "simple-icons:twitch",
+}
+
 export const defaultSettings = {
 	backgroundColor: "#e7e5e5",
 	slugTextColor: "#1e1e1e",

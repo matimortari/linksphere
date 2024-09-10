@@ -18,10 +18,6 @@ export const GlobalContextProvider = ({ children }) => {
 	const [settings, setSettings] = useState(defaultSettings)
 	const [error, setError] = useState(null)
 
-	// State for managing form inputs
-	const [title, setTitle] = useState("")
-	const [url, setUrl] = useState("")
-
 	useEffect(() => {
 		const loadUserData = async () => {
 			try {
@@ -126,27 +122,6 @@ export const GlobalContextProvider = ({ children }) => {
 		}
 	}
 
-	const updateButton = async (updatedButton) => {
-		try {
-			const response = await fetch("/api/buttons", {
-				method: "PUT",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(updatedButton),
-			})
-
-			if (!response.ok) {
-				const error = await response.json()
-				throw new Error(error.error)
-			}
-
-			const button = await response.json()
-			setButtons((prevButtons) => prevButtons.map((b) => (b.id === updatedButton.id ? button : b)))
-		} catch (error) {
-			console.error("Error updating button:", error)
-			setError("Failed to update button.")
-		}
-	}
-
 	const deleteButton = async (id) => {
 		try {
 			const response = await fetch(`/api/buttons?id=${id}`, { method: "DELETE" })
@@ -208,12 +183,7 @@ export const GlobalContextProvider = ({ children }) => {
 				updateLink,
 				deleteLink,
 				addButton,
-				updateButton,
 				deleteButton,
-				title,
-				setTitle,
-				url,
-				setUrl,
 				error,
 			}}
 		>

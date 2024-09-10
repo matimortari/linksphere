@@ -9,7 +9,7 @@ import UpdateLinkDialog from "./UpdateLinkDialog"
 
 export default function LinkList({ onUpdateLink, onDeleteLink }) {
 	const { links: contextLinks, deleteLink, updateLink } = useGlobalContext()
-	const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
+	const [isAddLinkDialogOpen, setIsAddLinkDialogOpen] = useState(false)
 	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
 	const [currentLink, setCurrentLink] = useState<UserLink | null>(null)
 
@@ -79,10 +79,10 @@ export default function LinkList({ onUpdateLink, onDeleteLink }) {
 				/>
 			)}
 
-			{isAddDialogOpen && <AddLinkDialog onClose={() => setIsAddDialogOpen(false)} />}
+			{isAddLinkDialogOpen && <AddLinkDialog onClose={() => setIsAddLinkDialogOpen(false)} />}
 
 			<div className="button-container">
-				<button onClick={() => setIsAddDialogOpen(true)} className="button bg-primary text-primary-foreground">
+				<button onClick={() => setIsAddLinkDialogOpen(true)} className="button bg-primary text-primary-foreground">
 					Add Link
 				</button>
 			</div>
