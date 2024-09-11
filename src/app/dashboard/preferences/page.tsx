@@ -9,8 +9,8 @@ import { useState } from "react"
 
 export default function Preferences() {
 	const { data: session, status } = useSession()
-	const [sensitiveContent, setSensitiveContent] = useState(false)
 	const [selectedOption, setSelectedOption] = useState("")
+	const [isDeleting, setIsDeleting] = useState(false)
 
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
@@ -20,8 +20,32 @@ export default function Preferences() {
 		return null
 	}
 
-	const handleOptionChange = (event) => {
+	const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		setSelectedOption(event.target.value)
+	}
+
+	const handleDeleteAccount = async () => {
+		const confirmed = window.confirm("Are you sure you want to delete your account? This action cannot be undone.")
+
+		if (!confirmed) {
+			return
+		}
+
+		try {
+			const response = await fetch("/api/user", {
+				method: "DELETE",
+			})
+
+			if (!response.ok) {
+				const errorData = await response.json()
+				throw new Error(errorData.error || "Failed to delete the account")
+			}
+
+			alert("Your account has been successfully deleted.")
+		} catch (error) {
+			console.error("Error deleting account:", error)
+			alert(`Error deleting account: ${error.message}`)
+		}
 	}
 
 	return (
@@ -46,17 +70,6 @@ export default function Preferences() {
 						</select>
 						<hr />
 
-						<p className="subtitle">Sensitive Content</p>
-						<label className="flex items-center space-x-2">
-							<span>Show sensitive content</span>
-							<input
-								type="checkbox"
-								checked={sensitiveContent}
-								onChange={() => setSensitiveContent(!sensitiveContent)}
-							/>
-						</label>
-						<hr />
-
 						<p className="subtitle">Analytics Integrations</p>
 						<AnalyticsForm />
 						<hr />
@@ -66,7 +79,15 @@ export default function Preferences() {
 						<hr />
 
 						<p className="subtitle">Delete Account</p>
-						<button className="button bg-destructive text-destructive-foreground">Delete Account</button>
+						<div className="button-container mt-2">
+							<button
+								className="button bg-destructive text-destructive-foreground"
+								onClick={handleDeleteAccount}
+								disabled={isDeleting}
+							>
+								{isDeleting ? "Deleting..." : "Delete Account"}
+							</button>
+						</div>
 						<hr />
 					</div>
 				</main>

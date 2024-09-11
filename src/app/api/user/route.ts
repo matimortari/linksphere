@@ -63,3 +63,34 @@ export async function PUT(req: NextRequest) {
 		return NextResponse.json({ error: "Error updating user data" }, { status: 500 })
 	}
 }
+
+export async function DELETE(req: NextRequest) {
+	try {
+		const session = await getServerSession(authOptions)
+
+		// Check if the session and user are valid
+		if (!session || !session.user) {
+			console.error("Unauthorized request - no session or user found", { session })
+			return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+		}
+
+		// Log the session details for debugging
+		console.log("Session data:", session)
+
+		// Attempt to delete the user
+		const user = await db.user.delete({
+			where: { id: session.user.id },
+		})
+
+		// Log successful deletion
+		console.log("User deleted successfully:", user)
+
+		return NextResponse.json({ message: "User deleted successfully", user })
+	} catch (error: any) {
+		// Log detailed error info for troubleshooting
+		console.error("Error deleting user:", error.message, error)
+
+		// Return a more descriptive error to help with debugging
+		return NextResponse.json({ error: "Error deleting user data", details: error.message }, { status: 500 })
+	}
+}

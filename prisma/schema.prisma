@@ -66,7 +66,7 @@ model UserLink {
   clicks    Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model SocialButton {
@@ -78,30 +78,30 @@ model SocialButton {
   clicks    Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserSettings {
   id                         Int           @id @default(autoincrement())
   userId                     String        @unique
-  backgroundColor            String        @default("#e7e5e5") // Main page/preview container background color
-  slugTextColor              String        @default("#1e1e1e") // Color for slug text
-  slugTextWeight             String        @default("500") // Weight for slug text
-  slugTextSize               String        @default("1rem") // Size for slug text
-  headerTextColor            String        @default("#1e1e1e") // Color for text in header
-  buttonBackgroundColor      String        @default("#ffffff") // Background color for button container
-  buttonShadowColor          String        @default("#e7e5e5") // Shadow color for button container
-  buttonIconColor            String        @default("#1e1e1e") // Color for icon inside button container
-  buttonHoverBackgroundColor String        @default("#eeeeee") // Background color for button container on hover
-  linkBackgroundColor        String        @default("#ffffff") // Background color for link container
-  linkShadowColor            String        @default("#e7e5e5") // Shadow color for link container
-  linkTextColor              String        @default("#1e1e1e") // Color for text inside link container
-  linkHoverBackgroundColor   String        @default("#eeeeee") // Background color for link container on hover
-  linkBorderRadius           String        @default("0.5rem") // Border radius for link container
-  linkPadding                String        @default("0.5rem") // Padding for link container
-  supportBanner              SupportBanner @default(NONE) // Banner type to display
-  sensitiveContent           Boolean       @default(false) // Show sensitive content
-  user                       User          @relation(fields: [userId], references: [id])
+  backgroundColor            String        @default("#e7e5e5")
+  slugTextColor              String        @default("#1e1e1e")
+  slugTextWeight             String        @default("500")
+  slugTextSize               String        @default("1rem")
+  headerTextColor            String        @default("#1e1e1e")
+  buttonBackgroundColor      String        @default("#ffffff")
+  buttonShadowColor          String        @default("#e7e5e5")
+  buttonIconColor            String        @default("#1e1e1e")
+  buttonHoverBackgroundColor String        @default("#eeeeee")
+  linkBackgroundColor        String        @default("#ffffff")
+  linkShadowColor            String        @default("#e7e5e5")
+  linkTextColor              String        @default("#1e1e1e")
+  linkHoverBackgroundColor   String        @default("#eeeeee")
+  linkBorderRadius           String        @default("0.5rem")
+  linkPadding                String        @default("0.5rem")
+  supportBanner              SupportBanner @default(NONE)
+  analyticsPaused            Boolean       @default(false)
+  user                       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserStats {
@@ -111,5 +111,5 @@ model UserStats {
   clicks    Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
