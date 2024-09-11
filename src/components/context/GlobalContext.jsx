@@ -15,6 +15,8 @@ export const GlobalContextProvider = ({ children }) => {
 	const [description, setDescription] = useState("")
 	const [buttons, setButtons] = useState([])
 	const [links, setLinks] = useState([])
+	const [title, setTitle] = useState("")
+	const [url, setUrl] = useState("")
 	const [settings, setSettings] = useState(defaultSettings)
 	const [error, setError] = useState(null)
 
@@ -183,6 +185,10 @@ export const GlobalContextProvider = ({ children }) => {
 				deleteLink,
 				addButton,
 				deleteButton,
+				title,
+				setTitle,
+				url,
+				setUrl,
 				error,
 			}}
 		>
