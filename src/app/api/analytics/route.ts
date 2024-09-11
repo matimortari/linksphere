@@ -1,19 +1,15 @@
-import { authOptions } from "@/src/lib/auth"
 import { db } from "@/src/lib/db"
-import { getServerSession } from "next-auth"
+import { getSessionOrUnauthorized } from "@/src/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(request: NextRequest) {
 	try {
-		const session = await getServerSession(authOptions)
-
-		if (!session) {
-			return NextResponse.redirect(new URL("/login", request.url))
-		}
+		const { error, session, response } = await getSessionOrUnauthorized()
+		if (error) return response
 
 		const userSlug = session.user?.slug
 		if (!userSlug) {
-			throw new Error("User slug is missing in the session")
+			return NextResponse.json({ error: "User slug is missing in the session" }, { status: 400 })
 		}
 
 		const user = await db.user.findUnique({
@@ -22,7 +18,7 @@ export async function GET(request: NextRequest) {
 		})
 
 		if (!user) {
-			throw new Error(`User with slug ${userSlug} not found`)
+			return NextResponse.json({ error: `User with slug ${userSlug} not found` }, { status: 404 })
 		}
 
 		const stats =
@@ -43,13 +39,20 @@ export async function GET(request: NextRequest) {
 		return NextResponse.json({ success: true, stats: updatedStats })
 	} catch (error) {
 		console.error("Error in /api/analytics route:", error)
-		return NextResponse.error()
+		return NextResponse.json({ success: false, error: "Failed to fetch or update analytics" }, { status: 500 })
 	}
 }
 
 export async function POST(request: Request) {
 	try {
+		const { error, session, response } = await getSessionOrUnauthorized()
+		if (error) return response
+
 		const { id, type } = await request.json()
+
+		if (!id || !type) {
+			return NextResponse.json({ success: false, error: "Missing id or type" }, { status: 400 })
+		}
 
 		if (type === "link") {
 			const updatedLink = await db.userLink.update({
@@ -67,9 +70,9 @@ export async function POST(request: Request) {
 			return NextResponse.json({ success: true, updatedButton })
 		}
 
-		return NextResponse.json({ success: false, error: "Invalid type" })
+		return NextResponse.json({ success: false, error: "Invalid type" }, { status: 400 })
 	} catch (error) {
 		console.error("Error incrementing clicks:", error)
-		return NextResponse.json({ success: false, error: "Failed to increment clicks" })
+		return NextResponse.json({ success: false, error: "Failed to increment clicks" }, { status: 500 })
 	}
 }

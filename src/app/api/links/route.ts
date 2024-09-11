@@ -1,134 +1,98 @@
-import { authOptions } from "@/src/lib/auth"
 import { db } from "@/src/lib/db"
-import { getServerSession } from "next-auth"
+import { getSessionOrUnauthorized, validateLinkData } from "@/src/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
+	const slug = req.nextUrl.searchParams.get("slug")
+
+	if (!slug) {
+		return NextResponse.json({ error: "Invalid slug" }, { status: 400 })
+	}
+
 	try {
-		const slug = req.nextUrl.searchParams.get("slug")
-
-		if (!slug || typeof slug !== "string") {
-			return new NextResponse("Invalid slug", { status: 400 })
-		}
-
-		const user = await db.user.findUnique({
-			where: { slug },
-		})
-
+		const user = await db.user.findUnique({ where: { slug } })
 		if (!user) {
-			return new NextResponse("User not found", { status: 404 })
+			return NextResponse.json({ error: "User not found" }, { status: 404 })
 		}
 
-		const userLinks = await db.userLink.findMany({
-			where: {
-				userId: user.id,
-			},
-		})
-
+		const userLinks = await db.userLink.findMany({ where: { userId: user.id } })
 		return NextResponse.json(userLinks)
 	} catch (error) {
 		console.error("Error fetching links:", error)
-		return new NextResponse("Error fetching links", { status: 500 })
+		return NextResponse.json({ error: "Error fetching links" }, { status: 500 })
 	}
 }
 
 export async function POST(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
 	try {
-		const { title, url } = await req.json()
+		const linkData = await req.json()
 
-		if (!title || typeof title !== "string" || !url || typeof url !== "string") {
-			return new NextResponse(JSON.stringify({ error: "Invalid input" }), { status: 400 })
-		}
-
-		const session = await getServerSession(authOptions)
-		const userId = session?.user?.id
-
-		if (!userId) {
-			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
+		if (!validateLinkData(linkData)) {
+			return NextResponse.json({ error: "Invalid input" }, { status: 400 })
 		}
 
 		const newLink = await db.userLink.create({
 			data: {
-				title,
-				url,
-				userId,
+				...linkData,
+				userId: session.user.id,
 			},
 		})
 
 		return NextResponse.json(newLink)
 	} catch (error) {
 		console.error("Error adding link:", error)
-		return new NextResponse(JSON.stringify({ error: "Error adding link" }), { status: 500 })
+		return NextResponse.json({ error: "Error adding link" }, { status: 500 })
 	}
 }
 
 export async function PUT(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
 	try {
 		const { id, title, url } = await req.json()
-
-		if (typeof id !== "number" || !title || typeof title !== "string" || !url || typeof url !== "string") {
-			return new NextResponse(JSON.stringify({ error: "Invalid input" }), { status: 400 })
+		if (typeof id !== "number" || !validateLinkData({ title, url })) {
+			return NextResponse.json({ error: "Invalid input" }, { status: 400 })
 		}
 
-		const session = await getServerSession(authOptions)
-		const userId = session?.user?.id
-
-		if (!userId) {
-			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
+		const existingLink = await db.userLink.findUnique({ where: { id } })
+		if (!existingLink || existingLink.userId !== session.user.id) {
+			return NextResponse.json({ error: "Forbidden" }, { status: 403 })
 		}
 
-		const existingLink = await db.userLink.findUnique({
-			where: { id },
-		})
-
-		if (!existingLink || existingLink.userId !== userId) {
-			return new NextResponse(JSON.stringify({ error: "Link not found or not authorized" }), { status: 403 })
-		}
-
-		const updatedLink = await db.userLink.update({
-			where: { id },
-			data: { title, url },
-		})
-
+		const updatedLink = await db.userLink.update({ where: { id }, data: { title, url } })
 		return NextResponse.json(updatedLink)
 	} catch (error) {
 		console.error("Error updating link:", error)
-		return new NextResponse(JSON.stringify({ error: "Error updating link" }), { status: 500 })
+		return NextResponse.json({ error: "Error updating link" }, { status: 500 })
 	}
 }
 
 export async function DELETE(req: NextRequest) {
+	const id = req.nextUrl.searchParams.get("id")
+
+	if (!id) {
+		return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
+	}
+
+	const idNumber = parseInt(id, 10)
+
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
 	try {
-		const id = req.nextUrl.searchParams.get("id")
-
-		if (!id || isNaN(Number(id))) {
-			return new NextResponse(JSON.stringify({ error: "Invalid ID" }), { status: 400 })
+		const existingLink = await db.userLink.findUnique({ where: { id: idNumber } })
+		if (!existingLink || existingLink.userId !== session.user.id) {
+			return NextResponse.json({ error: "Forbidden" }, { status: 403 })
 		}
 
-		const idNumber = parseInt(id, 10)
-
-		const session = await getServerSession(authOptions)
-		const userId = session?.user?.id
-
-		if (!userId) {
-			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
-		}
-
-		const existingLink = await db.userLink.findUnique({
-			where: { id: idNumber },
-		})
-
-		if (!existingLink || existingLink.userId !== userId) {
-			return new NextResponse(JSON.stringify({ error: "Link not found or not authorized" }), { status: 403 })
-		}
-
-		await db.userLink.delete({
-			where: { id: idNumber },
-		})
-
+		await db.userLink.delete({ where: { id: idNumber } })
 		return new NextResponse(null, { status: 204 })
 	} catch (error) {
 		console.error("Error deleting link:", error)
-		return new NextResponse(JSON.stringify({ error: "Error deleting link" }), { status: 500 })
+		return NextResponse.json({ error: "Error deleting link" }, { status: 500 })
 	}
 }

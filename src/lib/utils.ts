@@ -1,5 +1,8 @@
 import { type ClassValue, clsx } from "clsx"
+import { getServerSession } from "next-auth"
+import { NextResponse } from "next/server"
 import { twMerge } from "tailwind-merge"
+import { authOptions } from "./auth"
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -13,6 +16,22 @@ export function generateSlug(name: string) {
 		.slice(0, 20)
 
 	return `${baseSlug}-${Math.random().toString(36).substring(2, 6)}`
+}
+
+export async function getSessionOrUnauthorized() {
+	const session = await getServerSession(authOptions)
+	if (!session || !session.user) {
+		return { error: true, response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) }
+	}
+	return { error: false, session }
+}
+
+export function validateLinkData(data: any) {
+	return data && typeof data.title === "string" && typeof data.url === "string"
+}
+
+export function validateButtonData(data: any) {
+	return data && typeof data.platform === "string" && typeof data.url === "string" && typeof data.icon === "string"
 }
 
 export const SLUG_TEXT_SIZE_OPTIONS = [
@@ -33,7 +52,7 @@ export const SLUG_TEXT_WEIGHT_OPTIONS = [
 ]
 
 export const BORDER_RADIUS_OPTIONS = [
-	{ label: "None", value: "0px" },
+	{ label: "None", value: "0rem" },
 	{ label: "Small", value: "0.5rem" },
 	{ label: "Medium", value: "1rem" },
 	{ label: "Large", value: "5rem" },
@@ -47,33 +66,33 @@ export const PADDING_OPTIONS = [
 ]
 
 export const SOCIAL_ICONS: { [key: string]: string } = {
-	Instagram: "simple-icons:instagram",
-	Email: "simple-icons:gmail",
-	Facebook: "simple-icons:facebook",
-	Youtube: "simple-icons:youtube",
-	X: "simple-icons:x",
-	Tiktok: "simple-icons:tiktok",
-	Whatsapp: "simple-icons:whatsapp",
-	Snapchat: "simple-icons:snapchat",
-	Amazon: "simple-icons:amazon",
-	Googleplay: "simple-icons:googleplay",
-	Appstore: "simple-icons:appstore",
-	Applemusic: "simple-icons:applemusic",
-	Applepodcasts: "simple-icons:applepodcasts",
-	Bandcamp: "simple-icons:bandcamp",
-	Spotify: "simple-icons:spotify",
-	Bluesky: "simple-icons:bluesky",
-	Discord: "simple-icons:discord",
-	Etsy: "simple-icons:etsy",
-	Github: "simple-icons:github",
-	Linkedin: "simple-icons:linkedin",
-	Mastodon: "simple-icons:mastodon",
-	Patreon: "simple-icons:patreon",
-	Pinterest: "simple-icons:pinterest",
-	Signal: "simple-icons:signal",
-	Soundcloud: "simple-icons:soundcloud",
-	Telegram: "simple-icons:telegram",
-	Twitch: "simple-icons:twitch",
+	"App Store": "simple-icons:appstore",
+	"Apple Music": "simple-icons:applemusic",
+	"Apple Podcasts": "simple-icons:applepodcasts",
+	"Amazon ": "simple-icons:amazon",
+	"Bandcamp ": "simple-icons:bandcamp",
+	"Bluesky ": "simple-icons:bluesky",
+	"Discord ": "simple-icons:discord",
+	"Email ": "simple-icons:gmail",
+	"Etsy ": "simple-icons:etsy",
+	"Facebook ": "simple-icons:facebook",
+	"GitHub ": "simple-icons:github",
+	"Google Play": "simple-icons:googleplay",
+	"Instagram ": "simple-icons:instagram",
+	"LinkedIn ": "simple-icons:linkedin",
+	"Mastodon ": "simple-icons:mastodon",
+	"Patreon ": "simple-icons:patreon",
+	"Pinterest ": "simple-icons:pinterest",
+	"Signal ": "simple-icons:signal",
+	"Snapchat ": "simple-icons:snapchat",
+	"Soundcloud ": "simple-icons:soundcloud",
+	"Spotify ": "simple-icons:spotify",
+	"Telegram ": "simple-icons:telegram",
+	"Tiktok ": "simple-icons:tiktok",
+	"Twitch ": "simple-icons:twitch",
+	"Whatsapp ": "simple-icons:whatsapp",
+	"X ": "simple-icons:x",
+	"Youtube ": "simple-icons:youtube",
 }
 
 export const defaultSettings = {
@@ -88,8 +107,8 @@ export const defaultSettings = {
 	buttonHoverBackgroundColor: "#eeeeee",
 	linkBackgroundColor: "#ffffff",
 	linkTextColor: "#1e1e1e",
-	linkHoverBackgroundColor: "#eeeeee",
 	linkShadowColor: "#e7e5e5",
+	linkHoverBackgroundColor: "#eeeeee",
 	linkBorderRadius: "0.5rem",
 	linkPadding: "0.5rem",
 }

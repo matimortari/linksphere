@@ -1,57 +1,37 @@
-import { authOptions } from "@/src/lib/auth"
 import { db } from "@/src/lib/db"
-import { getServerSession } from "next-auth"
+import { getSessionOrUnauthorized, validateButtonData } from "@/src/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
+	const slug = req.nextUrl.searchParams.get("slug")
+
+	if (!slug) {
+		return NextResponse.json({ error: "Invalid slug" }, { status: 400 })
+	}
+
 	try {
-		const slug = req.nextUrl.searchParams.get("slug")
-
-		if (!slug || typeof slug !== "string") {
-			return new NextResponse("Invalid slug", { status: 400 })
-		}
-
-		const user = await db.user.findUnique({
-			where: { slug },
-		})
-
+		const user = await db.user.findUnique({ where: { slug } })
 		if (!user) {
-			return new NextResponse("User not found", { status: 404 })
+			return NextResponse.json({ error: "User not found" }, { status: 404 })
 		}
 
-		const userButtons = await db.socialButton.findMany({
-			where: {
-				userId: user.id,
-			},
-		})
-
+		const userButtons = await db.socialButton.findMany({ where: { userId: user.id } })
 		return NextResponse.json(userButtons)
 	} catch (error) {
 		console.error("Error fetching buttons:", error)
-		return new NextResponse("Error fetching buttons", { status: 500 })
+		return NextResponse.json({ error: "Error fetching buttons" }, { status: 500 })
 	}
 }
 
 export async function POST(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
 	try {
 		const { platform, url, icon } = await req.json()
 
-		if (
-			!platform ||
-			typeof platform !== "string" ||
-			!url ||
-			typeof url !== "string" ||
-			!icon ||
-			typeof icon !== "string"
-		) {
-			return new NextResponse(JSON.stringify({ error: "Invalid input" }), { status: 400 })
-		}
-
-		const session = await getServerSession(authOptions)
-		const userId = session?.user?.id
-
-		if (!userId) {
-			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
+		if (!platform || !url || !icon) {
+			return NextResponse.json({ error: "Invalid input" }, { status: 400 })
 		}
 
 		const newButton = await db.socialButton.create({
@@ -59,92 +39,65 @@ export async function POST(req: NextRequest) {
 				platform,
 				url,
 				icon,
-				userId,
+				userId: session.user.id,
 			},
 		})
 
 		return NextResponse.json(newButton)
 	} catch (error) {
 		console.error("Error adding button:", error)
-		return new NextResponse(JSON.stringify({ error: "Error adding button" }), { status: 500 })
+		return NextResponse.json({ error: "Error adding button" }, { status: 500 })
 	}
 }
 
 export async function PUT(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
 	try {
 		const { id, platform, url, icon } = await req.json()
-
-		if (
-			typeof id !== "number" ||
-			!platform ||
-			typeof platform !== "string" ||
-			!url ||
-			typeof url !== "string" ||
-			!icon ||
-			typeof icon !== "string"
-		) {
-			return new NextResponse(JSON.stringify({ error: "Invalid input" }), { status: 400 })
+		if (typeof id !== "number" || !validateButtonData({ platform, url, icon })) {
+			return NextResponse.json({ error: "Invalid input" }, { status: 400 })
 		}
 
-		const session = await getServerSession(authOptions)
-		const userId = session?.user?.id
-
-		if (!userId) {
-			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
-		}
-
-		const existingButton = await db.socialButton.findUnique({
-			where: { id },
-		})
-
-		if (!existingButton || existingButton.userId !== userId) {
-			return new NextResponse(JSON.stringify({ error: "Button not found or not authorized" }), { status: 403 })
+		const existingButton = await db.socialButton.findUnique({ where: { id } })
+		if (!existingButton || existingButton.userId !== session.user.id) {
+			return NextResponse.json({ error: "Forbidden" }, { status: 403 })
 		}
 
 		const updatedButton = await db.socialButton.update({
 			where: { id },
 			data: { platform, url, icon },
 		})
-
 		return NextResponse.json(updatedButton)
 	} catch (error) {
 		console.error("Error updating button:", error)
-		return new NextResponse(JSON.stringify({ error: "Error updating button" }), { status: 500 })
+		return NextResponse.json({ error: "Error updating button" }, { status: 500 })
 	}
 }
 
 export async function DELETE(req: NextRequest) {
+	const id = req.nextUrl.searchParams.get("id")
+
+	if (!id) {
+		return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
+	}
+
+	const idNumber = parseInt(id, 10)
+
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
 	try {
-		const id = req.nextUrl.searchParams.get("id")
-
-		if (!id || isNaN(Number(id))) {
-			return new NextResponse(JSON.stringify({ error: "Invalid ID" }), { status: 400 })
+		const existingButton = await db.socialButton.findUnique({ where: { id: idNumber } })
+		if (!existingButton || existingButton.userId !== session.user.id) {
+			return NextResponse.json({ error: "Forbidden" }, { status: 403 })
 		}
 
-		const idNumber = parseInt(id, 10)
-
-		const session = await getServerSession(authOptions)
-		const userId = session?.user?.id
-
-		if (!userId) {
-			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
-		}
-
-		const existingButton = await db.socialButton.findUnique({
-			where: { id: idNumber },
-		})
-
-		if (!existingButton || existingButton.userId !== userId) {
-			return new NextResponse(JSON.stringify({ error: "Button not found or not authorized" }), { status: 403 })
-		}
-
-		await db.socialButton.delete({
-			where: { id: idNumber },
-		})
-
+		await db.socialButton.delete({ where: { id: idNumber } })
 		return new NextResponse(null, { status: 204 })
 	} catch (error) {
 		console.error("Error deleting button:", error)
-		return new NextResponse(JSON.stringify({ error: "Error deleting button" }), { status: 500 })
+		return NextResponse.json({ error: "Error deleting button" }, { status: 500 })
 	}
 }

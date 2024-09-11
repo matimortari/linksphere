@@ -28,16 +28,9 @@ export async function fetchUserButtons(slug: string) {
 export async function fetchUserSettings() {
 	try {
 		const response = await fetch("/api/preferences")
-		if (!response.ok) {
-			const { error } = await response.json()
-			throw new Error(error)
-		}
+		if (!response.ok) throw new Error((await response.json()).error)
 
-		const { settings } = await response.json()
-		return {
-			...defaultSettings,
-			...settings,
-		}
+		return { ...defaultSettings, ...(await response.json()).settings }
 	} catch (error) {
 		console.error("Error fetching user settings:", error)
 		return defaultSettings
@@ -53,26 +46,19 @@ export async function handleFormSubmit(
 	onSuccess?: () => void
 ) {
 	e.preventDefault()
-	setError(null)
-	setSuccess(null)
 
 	try {
 		const response = await fetch(url, {
 			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(payload),
 		})
 
 		const data = await response.json()
-
-		if (!response.ok) {
-			throw new Error(data.error)
-		}
+		if (!response.ok) throw new Error(data.error)
 
 		setSuccess("Updated successfully!")
-		if (onSuccess) onSuccess()
+		onSuccess?.()
 	} catch (error) {
 		setError((error as Error).message)
 	}
@@ -87,7 +73,7 @@ export async function trackPageVisit(slug: string) {
 	if (!user) return
 
 	const stats =
-		user.UserStats[0] ||
+		user.UserStats[0] ??
 		(await db.userStats.create({
 			data: { userId: user.id, views: 0, clicks: 0 },
 		}))
