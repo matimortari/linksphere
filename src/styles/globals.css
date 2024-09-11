@@ -89,6 +89,14 @@
 	border-radius: 0.5rem;
 }
 
+.preview-container {
+	background-color: var(--card);
+	padding: 1rem;
+	border-color: var(--muted);
+	border-width: 1px;
+	border-radius: 0.5rem;
+}
+
 .form-container {
 	background-color: transparent;
 	display: inline-flex;

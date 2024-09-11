@@ -2,27 +2,18 @@
 
 import { Icon } from "@iconify/react"
 import { useState } from "react"
+import { trackClick } from "../lib/actions"
 
 export default function SocialButton({ url, icon, settings, buttonId }) {
 	const [isHovered, setIsHovered] = useState(false)
 
-	const handleButtonClick = async () => {
-		try {
-			await fetch("/api/analytics", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ id: buttonId, type: "button" }),
-			})
-		} catch (error) {
-			console.error("Failed to increment click count:", error)
-		}
+	const handleClick = async () => {
+		await trackClick(buttonId, "button")
 	}
 
 	return (
 		<li className="flex flex-row items-center justify-center">
-			<a href={url} onClick={handleButtonClick}>
+			<a href={url} onClick={handleClick}>
 				<div
 					className="flex h-10 w-10 items-center justify-center rounded-full"
 					style={{

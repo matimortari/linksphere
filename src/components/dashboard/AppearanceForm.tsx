@@ -193,7 +193,7 @@ export default function AppearanceForm() {
 				</div>
 			</form>
 
-			<div className="font-bold">
+			<div className="mt-2 font-bold">
 				{error && <p className="text-destructive">{error}</p>}
 				{success && <p className="text-accent">{success}</p>}
 			</div>

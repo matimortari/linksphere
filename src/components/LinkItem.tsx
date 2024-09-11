@@ -1,29 +1,20 @@
 "use client"
 
 import { useState } from "react"
+import { trackClick } from "../lib/actions"
 
 export default function LinkItem({ url, title, settings, linkId }) {
 	const [isHovered, setIsHovered] = useState(false)
 
-	const handleLinkClick = async () => {
-		try {
-			await fetch("/api/analytics", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ id: linkId, type: "link" }),
-			})
-		} catch (error) {
-			console.error("Failed to increment click count:", error)
-		}
+	const handleClick = async () => {
+		await trackClick(linkId, "link")
 	}
 
 	return (
 		<li className="flex flex-col items-center justify-center">
-			<a href={url} target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>
+			<a href={url} target="_blank" rel="noopener noreferrer" onClick={handleClick}>
 				<div
-					className="min-w-[35vw] text-center"
+					className="min-w-32 text-center"
 					style={{
 						backgroundColor: isHovered ? settings.linkHoverBackgroundColor : settings.linkBackgroundColor,
 						boxShadow: `0 4px 6px ${settings.linkShadowColor}`,

@@ -47,20 +47,21 @@ export default function AddButtonDialog({ onClose }) {
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-			<div ref={dialogRef} className="w-full max-w-2xl rounded-lg bg-background p-8 shadow-lg">
-				<h2 className="mb-4 text-xl font-semibold">Add Social Button</h2>
+			<div ref={dialogRef} className="content-container w-full max-w-3xl shadow-lg">
+				<h2 className="title mb-2">Add Social Button</h2>
+				<hr />
 
 				{error && <p className="mb-4 text-destructive">{error}</p>}
 
-				<form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-					<div className="flex flex-col space-y-2">
+				<form onSubmit={handleSubmit} className="flex flex-col space-y-2">
+					<div className="my-4 flex flex-col space-y-4">
 						<label className="text-sm font-medium">Select Platform:</label>
-						<div className="mb-4 grid grid-cols-10 gap-8">
+						<div className="my-4 grid grid-cols-9 gap-4">
 							{Object.entries(SOCIAL_ICONS).map(([platform, icon]) => (
 								<div
 									key={platform}
 									onClick={() => setSelectedPlatform(platform)}
-									className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border p-2 ${selectedPlatform === platform ? "border-primary" : "border-transparent"}`}
+									className={`icon flex cursor-pointer flex-col items-center justify-center rounded-lg border ${selectedPlatform === platform ? "border-primary" : "border-transparent"}`}
 								>
 									<Icon icon={icon} className="text-2xl" />
 									<p className="mt-1 text-center text-xs">{platform.charAt(0).toUpperCase() + platform.slice(1)}</p>
@@ -69,7 +70,7 @@ export default function AddButtonDialog({ onClose }) {
 						</div>
 					</div>
 
-					<div className="flex flex-col space-y-2">
+					<div className="my-4 flex flex-col space-y-2">
 						<label className="text-sm font-medium">URL:</label>
 						<input
 							type="url"
@@ -80,12 +81,12 @@ export default function AddButtonDialog({ onClose }) {
 						/>
 					</div>
 
-					<div className="button-container mt-4 flex justify-end space-x-2">
+					<div className="button-container justify-end">
 						<button type="button" className="button bg-destructive text-destructive-foreground" onClick={onClose}>
 							Cancel
 						</button>
 						<button type="submit" className="button bg-primary text-primary-foreground">
-							Add Social Button
+							Add Button
 						</button>
 					</div>
 				</form>

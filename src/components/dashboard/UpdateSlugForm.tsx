@@ -21,16 +21,16 @@ export default function UpdateSlugForm() {
 				</span>
 				<input
 					type="text"
-					onChange={(e) => setSlug(e.target.value)}
 					value={slug}
-					className="input max-w-[250px] flex-1 overflow-hidden text-ellipsis whitespace-nowrap bg-transparent"
+					onChange={(e) => setSlug(e.target.value)}
+					className="input flex-1 overflow-hidden text-ellipsis whitespace-nowrap bg-transparent"
 				/>
 				<button type="submit" className="button bg-primary text-primary-foreground">
 					Update
 				</button>
 			</form>
 
-			<div className="font-bold">
+			<div className="mt-2 font-bold">
 				{error && <p className="text-destructive">{error}</p>}
 				{success && <p className="text-accent">{success}</p>}
 			</div>

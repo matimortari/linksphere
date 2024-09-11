@@ -7,8 +7,8 @@ import { useGlobalContext } from "../context/GlobalContext"
 export default function UpdateDescriptionForm() {
 	const { description, setDescription } = useGlobalContext()
 	const [localDescription, updateLocalDescription] = useState(description)
-	const [error, setError] = useState(null)
-	const [success, setSuccess] = useState(null)
+	const [error, setError] = useState("")
+	const [success, setSuccess] = useState("")
 
 	const handleSubmit = (e: FormEvent) => {
 		handleFormSubmit(e, "/api/user", { newDescription: localDescription }, setSuccess, setError, () =>
@@ -21,10 +21,10 @@ export default function UpdateDescriptionForm() {
 			<form onSubmit={handleSubmit} className="form-container w-full">
 				<input
 					type="text"
-					onChange={(e) => updateLocalDescription(e.target.value)}
 					value={localDescription}
-					className="input max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground"
-					placeholder="Enter new description"
+					onChange={(e) => updateLocalDescription(e.target.value)}
+					placeholder="Enter new header description"
+					className="input flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground"
 				/>
 
 				<div className="button-container">
@@ -37,7 +37,7 @@ export default function UpdateDescriptionForm() {
 				</div>
 			</form>
 
-			<div className="font-bold">
+			<div className="mt-2 font-bold">
 				{error && <p className="text-destructive">{error}</p>}
 				{success && <p className="text-accent">{success}</p>}
 			</div>

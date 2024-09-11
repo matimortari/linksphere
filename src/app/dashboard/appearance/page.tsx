@@ -22,7 +22,7 @@ export default function Appearance() {
 			<div className="flex flex-col bg-background md:flex-row">
 				<Sidebar />
 
-				<main className="dashboard-container w-full md:w-9/12">
+				<main className="dashboard-container w-full md:w-6/12">
 					<header className="flex flex-col gap-2 pb-4">
 						<h1 className="title">Appearance</h1>
 						<span className="text-muted-foreground">Update your profile appearance.</span>
@@ -32,12 +32,13 @@ export default function Appearance() {
 					<div className="flex flex-col gap-2">
 						<AppearanceForm />
 						<hr />
-
-						<p className="subtitle">Preview</p>
-						<Preview />
-						<hr />
 					</div>
 				</main>
+
+				<div className="mb-2 flex h-full w-full justify-center md:ml-2 md:w-3/12 md:max-w-full">
+					<Preview />
+					<hr />
+				</div>
 			</div>
 		</div>
 	)

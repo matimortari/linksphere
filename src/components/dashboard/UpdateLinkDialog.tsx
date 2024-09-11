@@ -49,10 +49,11 @@ export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-			<div ref={dialogRef} className="w-full max-w-sm rounded-lg bg-background p-8 shadow-lg">
-				<h2 className="mb-4 text-xl font-semibold">Update Link</h2>
+			<div ref={dialogRef} className="content-container w-full max-w-xl shadow-lg">
+				<h2 className="title">Update Link</h2>
+				<hr />
 
-				{error && <p className="mb-4 text-destructive">{error}</p>}
+				{error && <p className="title text-destructive">{error}</p>}
 
 				<form onSubmit={handleSubmit}>
 					<div className="my-4 flex flex-col space-y-2">
