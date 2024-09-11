@@ -5,5 +5,4 @@
 
 */
 -- AlterTable
-ALTER TABLE "UserSettings" DROP COLUMN "sensitiveContent",
-ADD COLUMN     "analyticsPaused" BOOLEAN NOT NULL DEFAULT false;
+ALTER TABLE "UserSettings" DROP COLUMN "sensitiveContent";

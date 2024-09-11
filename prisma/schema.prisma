@@ -100,7 +100,6 @@ model UserSettings {
   linkBorderRadius           String        @default("0.5rem")
   linkPadding                String        @default("0.5rem")
   supportBanner              SupportBanner @default(NONE)
-  analyticsPaused            Boolean       @default(false)
   user                       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

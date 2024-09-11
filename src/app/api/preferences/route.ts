@@ -15,16 +15,18 @@ export async function GET() {
 			where: { userId: session.user.id },
 		})
 
-		return settings
-			? NextResponse.json({ settings }, { status: 200 })
-			: NextResponse.json({ error: "Settings not found" }, { status: 404 })
+		if (settings) {
+			return NextResponse.json({ settings }, { status: 200 })
+		} else {
+			return NextResponse.json({ error: "Settings not found" }, { status: 404 })
+		}
 	} catch (error) {
 		console.error("Error fetching settings:", error)
 		return NextResponse.json({ error: "Failed to fetch settings" }, { status: 500 })
 	}
 }
 
-export async function PUT(req) {
+export async function PUT(req: Request) {
 	const session = await getServerSession(authOptions)
 
 	if (!session?.user) {
@@ -34,6 +36,10 @@ export async function PUT(req) {
 	try {
 		const settingsData = await req.json()
 
+		if (!settingsData || !settingsData.supportBanner) {
+			return NextResponse.json({ error: "Invalid input" }, { status: 400 })
+		}
+
 		const updatedSettings = await db.userSettings.update({
 			where: { userId: session.user.id },
 			data: settingsData,
@@ -42,6 +48,7 @@ export async function PUT(req) {
 		return NextResponse.json({ message: "Settings updated successfully", settings: updatedSettings }, { status: 200 })
 	} catch (error) {
 		console.error("Error updating settings:", error)
+
 		return NextResponse.json({ error: "Failed to update settings" }, { status: 500 })
 	}
 }
