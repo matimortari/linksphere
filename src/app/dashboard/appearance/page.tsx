@@ -25,7 +25,7 @@ export default function Appearance() {
 				<main className="dashboard-container w-full md:w-6/12">
 					<header className="flex flex-col gap-2 pb-4">
 						<h1 className="title">Appearance</h1>
-						<span className="text-muted-foreground">Update your profile appearance.</span>
+						<span className="title-label">Update your profile appearance.</span>
 						<hr />
 					</header>
 

@@ -42,20 +42,20 @@ export default function Navbar() {
 	return (
 		<nav className="absolute top-0 flex w-full items-center justify-end bg-transparent p-4">
 			<div className="button-container">
-				<button onClick={toggleTheme} className="button h-10 w-10 bg-card">
+				<button onClick={toggleTheme} className="button bg-card h-10 w-10">
 					<Icon
 						icon={theme === "light" ? "material-symbols:light-mode-rounded" : "material-symbols:dark-mode-rounded"}
 					/>
 				</button>
 
 				{!session && (
-					<Link href="/login" className="button h-10 w-10 bg-card">
+					<Link href="/login" className="button bg-card h-10 w-10">
 						<Icon icon="material-symbols:login" />
 					</Link>
 				)}
 
 				{session && (
-					<button onClick={toggleDialog} className="button h-10 w-10 bg-card">
+					<button onClick={toggleDialog} className="button bg-card h-10 w-10">
 						<Icon icon="material-symbols:menu-rounded" />
 					</button>
 				)}

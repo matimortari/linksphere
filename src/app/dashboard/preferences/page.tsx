@@ -116,7 +116,7 @@ export default function Preferences() {
 				<main className="dashboard-container w-full md:w-9/12">
 					<header className="flex flex-col gap-2 pb-4">
 						<h1 className="title">Settings</h1>
-						<span className="text-muted-foreground">Update your account preferences.</span>
+						<span className="title-label">Update your account preferences.</span>
 						<hr />
 					</header>
 

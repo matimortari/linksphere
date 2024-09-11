@@ -43,7 +43,7 @@ export default function Dashboard() {
 				<main className="dashboard-container w-full md:w-6/12 md:max-w-full">
 					<header className="flex flex-col gap-2 pb-4">
 						<h1 className="title">Dashboard</h1>
-						<span className="text-muted-foreground">
+						<span className="title-label">
 							Welcome back, <span className="font-bold text-primary">{session.user.name}!</span>
 						</span>
 						<hr />

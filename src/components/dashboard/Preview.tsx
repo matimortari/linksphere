@@ -20,6 +20,7 @@ export default function Preview() {
 		<div className="h-full w-full">
 			<div className="rounded-lg border border-muted p-12" style={{ backgroundColor: settings.backgroundColor }}>
 				<div className="flex flex-col items-center justify-center gap-3">
+					<h1 className="title">Preview</h1>
 					{image && <Image src={image} alt={slug} width={100} height={100} className="avatar" />}
 					<h1
 						style={{

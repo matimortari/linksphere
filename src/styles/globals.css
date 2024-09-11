@@ -42,9 +42,6 @@
 		--background: #252525;
 		--foreground: #f7f3f7;
 
-		--card: #1e1e1e;
-		--card-foreground: #f7f3f7;
-
 		--primary: #4c4083;
 		--primary-foreground: #e7e5e5;
 
@@ -156,6 +153,13 @@
 	font-size: 1.25rem;
 	line-height: 1.75rem;
 	font-weight: 600;
+}
+
+.title-label {
+	color: var(--muted-foreground);
+	font-size: 1rem;
+	line-height: 1.75rem;
+	font-weight: 400;
 }
 
 .darkened-background {
