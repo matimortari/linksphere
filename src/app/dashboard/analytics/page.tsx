@@ -47,11 +47,14 @@ export default function Analytics() {
 	return (
 		<div className="main-container">
 			<div className="flex flex-col bg-background md:flex-row">
-				<Sidebar />
+				<aside className="sidebar-container w-full md:mr-2 md:w-3/12">
+					<Sidebar />
+				</aside>
+
 				<main className="dashboard-container w-full md:w-9/12">
 					<header className="flex flex-col gap-2 pb-4">
 						<h1 className="title">Analytics</h1>
-						<span className="text-muted-foreground">View your profile analytics.</span>
+						<span className="title-label">View your profile analytics.</span>
 						<hr />
 					</header>
 
@@ -67,7 +70,6 @@ export default function Analytics() {
 
 						<p className="subtitle">Clicks By Link</p>
 						<LinkClickList />
-						<hr />
 					</div>
 				</main>
 			</div>

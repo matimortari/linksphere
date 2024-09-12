@@ -1,5 +1,4 @@
 import { db } from "./db"
-import { defaultSettings } from "./utils"
 
 export async function fetchUserData() {
 	const response = await fetch("/api/user")
@@ -26,15 +25,12 @@ export async function fetchUserButtons(slug: string) {
 }
 
 export async function fetchUserSettings() {
-	try {
-		const response = await fetch("/api/preferences")
-		if (!response.ok) throw new Error((await response.json()).error)
-
-		return { ...defaultSettings, ...(await response.json()).settings }
-	} catch (error) {
-		console.error("Error fetching user settings:", error)
-		return defaultSettings
+	const response = await fetch("/api/preferences")
+	if (!response.ok) {
+		throw new Error((await response.json()).error)
 	}
+
+	return (await response.json()).settings
 }
 
 export async function handleFormSubmit(

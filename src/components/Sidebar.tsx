@@ -4,13 +4,14 @@ import { Icon } from "@iconify/react"
 import Image from "next/image"
 import Link from "next/link"
 import { useGlobalContext } from "./context/GlobalContext"
+import Preview from "./dashboard/Preview"
 
 export default function Sidebar() {
 	const { slug, name, image } = useGlobalContext()
 
 	return (
-		<aside className="content-container mb-2 h-full w-full md:mr-2 md:w-3/12">
-			<div className="flex flex-col items-center justify-center gap-2 py-4">
+		<div className="flex h-full w-full flex-col items-center justify-center gap-2 pt-2">
+			<div className="flex flex-col items-center justify-center">
 				{image && <Image src={image} alt={name} width={40} height={40} className="avatar" />}
 				<p className="text-lg font-bold">{name}</p>
 				<a href={`https://ness-live.vercel.app/${slug}`} className="text-xs font-normal">
@@ -18,9 +19,7 @@ export default function Sidebar() {
 				</a>
 			</div>
 
-			<hr />
-
-			<div className="flex flex-col justify-center gap-4 py-4 font-semibold">
+			<div className="flex w-full flex-col justify-center gap-3 font-semibold">
 				<Link href="/dashboard" className="button">
 					<Icon icon="material-symbols:id-card" className="icon text-2xl" />
 					<p>Links</p>
@@ -44,7 +43,9 @@ export default function Sidebar() {
 					<p>Preferences</p>
 				</Link>
 				<hr />
+
+				<Preview />
 			</div>
-		</aside>
+		</div>
 	)
 }

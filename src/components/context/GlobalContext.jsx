@@ -30,10 +30,8 @@ export const GlobalContextProvider = ({ children }) => {
 				setName(name)
 				setImage(image)
 				setUser(userData)
-
 				setLinks(await fetchUserLinks(slug))
 				setButtons(await fetchUserButtons(slug))
-
 				setSettings((await fetchUserSettings()) || defaultSettings)
 			} catch (error) {
 				console.error("Error loading user data:", error)

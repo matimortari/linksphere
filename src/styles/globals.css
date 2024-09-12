@@ -42,6 +42,9 @@
 		--background: #252525;
 		--foreground: #f7f3f7;
 
+		--card: #1e1e1e;
+		--card-foreground: #f7f3f7;
+
 		--primary: #4c4083;
 		--primary-foreground: #e7e5e5;
 
@@ -62,20 +65,34 @@
 .main-container {
 	min-height: 100vh;
 	background-color: var(--card);
-	margin-top: 4rem;
-	margin-bottom: 1rem;
-	margin-left: 1rem;
-	margin-right: 1rem;
-	border-radius: 0.5rem;
+	margin-top: 3.5rem;
+	margin-bottom: 0.5rem;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
+	border-radius: 1rem;
 }
 
 .dashboard-container {
 	min-height: 100vh;
-	background-color: var(--card);
 	padding: 1rem;
+	background-color: var(--card);
 	border-color: var(--muted);
 	border-width: 1px;
-	border-radius: 0.5rem;
+	border-radius: 1rem;
+}
+
+.sidebar-container {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.5rem;
+	background-color: var(--card);
+	border-color: var(--muted);
+	border-width: 1px;
+	border-radius: 1rem;
 }
 
 .content-container {
@@ -83,15 +100,7 @@
 	padding: 1rem;
 	border-color: var(--muted);
 	border-width: 1px;
-	border-radius: 0.5rem;
-}
-
-.preview-container {
-	background-color: var(--card);
-	padding: 1rem;
-	border-color: var(--muted);
-	border-width: 1px;
-	border-radius: 0.5rem;
+	border-radius: 1rem;
 }
 
 .form-container {
@@ -102,7 +111,7 @@
 	padding-left: 0.75rem;
 	border-color: var(--muted);
 	border-width: 1px;
-	border-radius: 0.5rem;
+	border-radius: 1.5rem
 }
 
 .button-container {
@@ -118,7 +127,7 @@
 	justify-content: center;
 	padding: 0.5rem;
 	gap: 0.5rem;
-	border-radius: 0.5rem;
+	border-radius: 1rem;
 	border-color: var(--muted);
 	border-width: 1px;
 	font-weight: 600;
@@ -174,7 +183,7 @@
 	padding: 1rem;
 	text-align: center;
 	font-weight: bold;
-	border-radius: 0.5rem;
+	border-radius: 1rem;
 	z-index: 1000;
 }
 

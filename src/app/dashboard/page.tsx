@@ -4,7 +4,6 @@ import Sidebar from "@/src/components/Sidebar"
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import ButtonList from "@/src/components/dashboard/ButtonList"
 import LinkList from "@/src/components/dashboard/LinkList"
-import Preview from "@/src/components/dashboard/Preview"
 import UpdateDescriptionForm from "@/src/components/dashboard/UpdateDescriptionForm"
 import UpdateSlugForm from "@/src/components/dashboard/UpdateSlugForm"
 import { UserLink } from "@prisma/client"
@@ -38,9 +37,11 @@ export default function Dashboard() {
 	return (
 		<div className="main-container">
 			<div className="flex flex-col bg-background md:flex-row">
-				<Sidebar />
+				<aside className="sidebar-container w-full md:mr-2 md:w-3/12">
+					<Sidebar />
+				</aside>
 
-				<main className="dashboard-container w-full md:w-6/12 md:max-w-full">
+				<main className="dashboard-container w-full md:w-9/12">
 					<header className="flex flex-col gap-2 pb-4">
 						<h1 className="title">Dashboard</h1>
 						<span className="title-label">
@@ -64,14 +65,8 @@ export default function Dashboard() {
 
 						<p className="subtitle">My Links</p>
 						<LinkList onUpdateLink={handleUpdateLink} onDeleteLink={handleDeleteLink} />
-						<hr />
 					</div>
 				</main>
-
-				<div className="mb-2 flex h-full w-full justify-center md:ml-2 md:w-3/12 md:max-w-full">
-					<Preview />
-					<hr />
-				</div>
 			</div>
 		</div>
 	)

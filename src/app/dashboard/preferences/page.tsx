@@ -111,7 +111,9 @@ export default function Preferences() {
 	return (
 		<div className="main-container">
 			<div className="flex flex-col bg-background md:flex-row">
-				<Sidebar />
+				<aside className="sidebar-container w-full md:mr-2 md:w-3/12">
+					<Sidebar />
+				</aside>
 
 				<main className="dashboard-container w-full md:w-9/12">
 					<header className="flex flex-col gap-2 pb-4">
@@ -148,7 +150,6 @@ export default function Preferences() {
 								{isDeleting ? "Deleting..." : "Delete Account"}
 							</button>
 						</div>
-						<hr />
 					</div>
 				</main>
 			</div>
