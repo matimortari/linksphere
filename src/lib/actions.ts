@@ -33,30 +33,20 @@ export async function fetchUserSettings() {
 	return (await response.json()).settings
 }
 
-export async function handleFormSubmit(
-	e: React.FormEvent,
-	url: string,
-	payload: object,
-	setSuccess: React.Dispatch<React.SetStateAction<string | null>>,
-	setError: React.Dispatch<React.SetStateAction<string | null>>,
-	onSuccess?: () => void
-) {
-	e.preventDefault()
-
+export async function fetchUserAnalytics() {
 	try {
-		const response = await fetch(url, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(payload),
-		})
+		const response = await fetch("/api/analytics")
+		if (!response.ok) throw new Error("Network response was not ok")
 
 		const data = await response.json()
-		if (!response.ok) throw new Error(data.error)
+		if (!data.success) {
+			throw new Error("Failed to fetch analytics data")
+		}
 
-		setSuccess("Updated successfully!")
-		onSuccess?.()
+		return data
 	} catch (error) {
-		setError((error as Error).message)
+		console.error("Error fetching analytics:", error)
+		throw error
 	}
 }
 
@@ -91,5 +81,32 @@ export const trackClick = async (id, type) => {
 		})
 	} catch (error) {
 		console.error("Failed to increment click count:", error)
+	}
+}
+
+export async function handleFormSubmit(
+	e: React.FormEvent,
+	url: string,
+	payload: object,
+	setSuccess: React.Dispatch<React.SetStateAction<string | null>>,
+	setError: React.Dispatch<React.SetStateAction<string | null>>,
+	onSuccess?: () => void
+) {
+	e.preventDefault()
+
+	try {
+		const response = await fetch(url, {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(payload),
+		})
+
+		const data = await response.json()
+		if (!response.ok) throw new Error(data.error)
+
+		setSuccess("Updated successfully!")
+		onSuccess?.()
+	} catch (error) {
+		setError((error as Error).message)
 	}
 }

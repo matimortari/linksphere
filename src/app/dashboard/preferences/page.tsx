@@ -1,5 +1,6 @@
 "use client"
 
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import FeedbackForm from "@/src/components/dashboard/FeedbackForm"
 import Sidebar from "@/src/components/Sidebar"
 import { useSession } from "next-auth/react"
@@ -8,66 +9,29 @@ import { useEffect, useState } from "react"
 
 export default function Preferences() {
 	const { data: session, status } = useSession()
+	const { settings, updateSettings } = useGlobalContext()
 	const [selectedOption, setSelectedOption] = useState("")
 	const [isDeleting, setIsDeleting] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
-	const [isLoading, setIsLoading] = useState(true)
-
-	useEffect(() => {
-		const fetchSettings = async () => {
-			try {
-				const response = await fetch("/api/preferences", {
-					method: "GET",
-				})
-
-				if (response.ok) {
-					const { settings } = await response.json()
-					if (settings && settings.supportBanner) {
-						setSelectedOption(settings.supportBanner)
-					}
-				} else {
-					console.error("Error fetching settings")
-				}
-			} catch (error) {
-				console.error("Error fetching settings:", error)
-			} finally {
-				setIsLoading(false)
-			}
-		}
-
-		if (session?.user) {
-			fetchSettings()
-		}
-	}, [session?.user])
-
-	if (status === "loading") {
-		return <div>Loading...</div>
-	}
 
 	if (status === "unauthenticated") {
 		redirect("/login")
 	}
 
-	const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-		setSelectedOption(event.target.value)
-	}
+	useEffect(() => {
+		if (session?.user) {
+			if (settings?.supportBanner) {
+				setSelectedOption(settings.supportBanner)
+			}
+		}
+	}, [session?.user, settings])
 
-	const handleSaveBanner = async () => {
+	const handleOptionChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const newBanner = event.target.value
+		setSelectedOption(newBanner)
 		setIsSaving(true)
 		try {
-			const response = await fetch("/api/preferences", {
-				method: "PUT",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ supportBanner: selectedOption }),
-			})
-
-			if (!response.ok) {
-				const errorData = await response.json()
-				throw new Error(errorData.error || "Failed to save settings")
-			}
-
+			await updateSettings({ supportBanner: newBanner })
 			alert("Support banner has been updated successfully!")
 		} catch (error) {
 			console.error("Error saving support banner:", error)
@@ -104,10 +68,6 @@ export default function Preferences() {
 		}
 	}
 
-	if (isLoading) {
-		return <div>Loading...</div>
-	}
-
 	return (
 		<div className="main-container">
 			<div className="flex flex-col bg-background md:flex-row">
@@ -131,7 +91,7 @@ export default function Preferences() {
 							<option value="MENTAL_HEALTH">Mental Health</option>
 							<option value="CLIMATE_ACTION">Climate Action</option>
 						</select>
-						<button onClick={handleSaveBanner} className="button bg-accent text-accent-foreground" disabled={isSaving}>
+						<button className="button bg-accent text-accent-foreground" disabled={isSaving}>
 							{isSaving ? "Saving..." : "Save Banner"}
 						</button>
 						<hr />

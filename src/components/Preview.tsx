@@ -1,9 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import { useGlobalContext } from "../context/GlobalContext"
-import LinkItem from "../LinkItem"
-import SocialButton from "../SocialButton"
+import { useGlobalContext } from "./context/GlobalContext"
+import LinkItem from "./LinkItem"
+import SocialButton from "./SocialButton"
 
 export default function Preview() {
 	const { description, links, setSlug, image, buttons, slug, settings } = useGlobalContext()

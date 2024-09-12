@@ -12,10 +12,6 @@ export default function Appearance() {
 		redirect("/login")
 	}
 
-	if (!session?.user) {
-		return null
-	}
-
 	return (
 		<div className="main-container">
 			<div className="flex flex-col bg-background md:flex-row">

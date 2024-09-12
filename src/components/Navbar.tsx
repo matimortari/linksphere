@@ -42,27 +42,27 @@ export default function Navbar() {
 	return (
 		<nav className="absolute top-0 flex w-full items-center justify-end bg-transparent p-2">
 			<div className="button-container">
-				<button onClick={toggleTheme} className="button bg-card h-10 w-10">
+				<button onClick={toggleTheme} className="button h-10 w-10 bg-card">
 					<Icon
 						icon={theme === "light" ? "material-symbols:light-mode-rounded" : "material-symbols:dark-mode-rounded"}
 					/>
 				</button>
 
 				{!session && (
-					<Link href="/login" className="button bg-card h-10 w-10">
+					<Link href="/login" className="button h-10 w-10 bg-card">
 						<Icon icon="material-symbols:login" />
 					</Link>
 				)}
 
 				{session && (
-					<button onClick={toggleDialog} className="button bg-card h-10 w-10">
+					<button onClick={toggleDialog} className="button h-10 w-10 bg-card">
 						<Icon icon="material-symbols:menu-rounded" />
 					</button>
 				)}
 			</div>
 
 			{isDialogOpen && (
-				<div ref={dialogRef} className="content-container absolute top-16 flex">
+				<div ref={dialogRef} className="content-container absolute top-14 flex">
 					<div className="flex flex-col justify-center gap-2 p-2 text-sm font-semibold">
 						{session && (
 							<>

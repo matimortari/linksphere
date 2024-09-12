@@ -16,7 +16,7 @@ export default function LinkClickList() {
 			{items.length > 0 ? (
 				<ul className="space-y-2">
 					{items.map((item) => (
-						<li key={item.id} className="flex items-center border-b p-2 last:border-b-0">
+						<li key={`${item.type}-${item.id}`} className="flex items-center border-b p-2 last:border-b-0">
 							<a href={item.url} className="flex w-full items-center gap-4">
 								{item.type === "link" ? (
 									<div className="flex items-center gap-2">

@@ -2,7 +2,6 @@
 
 import { fetchUserButtons, fetchUserData, fetchUserLinks, fetchUserSettings } from "@/src/lib/actions"
 import { defaultSettings } from "@/src/lib/utils"
-import { Analytics } from "@vercel/analytics/react"
 import { createContext, useContext, useEffect, useState } from "react"
 
 const GlobalContext = createContext(null)
@@ -54,8 +53,8 @@ export const GlobalContextProvider = ({ children }) => {
 				const link = await response.json()
 				setLinks((prevLinks) => [...prevLinks, link])
 			} else {
-				const error = await response.json()
-				throw new Error(error.error)
+				const errorData = await response.json()
+				throw new Error(errorData.error)
 			}
 		} catch (error) {
 			console.error("Error adding link:", error)
@@ -72,8 +71,8 @@ export const GlobalContextProvider = ({ children }) => {
 			})
 
 			if (!response.ok) {
-				const error = await response.json()
-				throw new Error(error.error)
+				const errorData = await response.json()
+				throw new Error(errorData.error)
 			}
 
 			const link = await response.json()
@@ -91,8 +90,8 @@ export const GlobalContextProvider = ({ children }) => {
 			if (response.status === 204) {
 				setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id))
 			} else {
-				const error = await response.json()
-				throw new Error(error.error)
+				const errorData = await response.json()
+				throw new Error(errorData.error)
 			}
 		} catch (error) {
 			console.error("Error deleting link:", error)
@@ -112,8 +111,8 @@ export const GlobalContextProvider = ({ children }) => {
 				const button = await response.json()
 				setButtons((prevButtons) => [...prevButtons, button])
 			} else {
-				const error = await response.json()
-				throw new Error(error.error)
+				const errorData = await response.json()
+				throw new Error(errorData.error)
 			}
 		} catch (error) {
 			console.error("Error adding button:", error)
@@ -128,8 +127,8 @@ export const GlobalContextProvider = ({ children }) => {
 			if (response.status === 204) {
 				setButtons((prevButtons) => prevButtons.filter((button) => button.id !== id))
 			} else {
-				const error = await response.json()
-				throw new Error(error.error)
+				const errorData = await response.json()
+				throw new Error(errorData.error)
 			}
 		} catch (error) {
 			console.error("Error deleting button:", error)
@@ -149,8 +148,8 @@ export const GlobalContextProvider = ({ children }) => {
 				const updatedSettings = await response.json()
 				setSettings(updatedSettings)
 			} else {
-				const error = await response.json()
-				throw new Error(error.error)
+				const errorData = await response.json()
+				throw new Error(errorData.error)
 			}
 		} catch (error) {
 			console.error("Error updating settings:", error)
@@ -171,10 +170,10 @@ export const GlobalContextProvider = ({ children }) => {
 				setImage,
 				description,
 				setDescription,
-				links,
-				setLinks,
 				buttons,
 				setButtons,
+				links,
+				setLinks,
 				settings,
 				setSettings,
 				updateSettings,
@@ -191,7 +190,6 @@ export const GlobalContextProvider = ({ children }) => {
 			}}
 		>
 			{children}
-			<Analytics />
 		</GlobalContext.Provider>
 	)
 }

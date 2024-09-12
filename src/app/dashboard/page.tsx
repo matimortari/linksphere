@@ -10,28 +10,24 @@ import { UserLink } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 
+const handleUpdateLink = (updatedLink: UserLink, setLinks) => {
+	setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
+}
+
+const handleDeleteLink = (linkId, setLinks) => {
+	setLinks((prevLinks) => prevLinks.filter((link) => link.id !== linkId))
+}
+
+const handleDeleteButton = (buttonId, setSocialButtons) => {
+	setSocialButtons((prevButtons) => prevButtons.filter((button) => button.id !== buttonId))
+}
+
 export default function Dashboard() {
 	const { data: session, status } = useSession()
-	const { links, socialButtons, setLinks, setSocialButtons } = useGlobalContext()
+	const { setLinks, setSocialButtons } = useGlobalContext()
 
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
-	}
-
-	const handleUpdateLink = (updatedLink: UserLink) => {
-		setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
-	}
-
-	const handleDeleteLink = (linkId: number) => {
-		setLinks((prevLinks) => prevLinks.filter((link) => link.id !== linkId))
-	}
-
-	const handleDeleteButton = (buttonId: number) => {
-		setSocialButtons((prevButtons) => prevButtons.filter((button) => button.id !== buttonId))
-	}
-
-	if (!session?.user) {
-		return null
 	}
 
 	return (
@@ -60,11 +56,14 @@ export default function Dashboard() {
 						<hr />
 
 						<p className="subtitle">My Social Buttons</p>
-						<ButtonList onDeleteButton={handleDeleteButton} />
+						<ButtonList onDeleteButton={(buttonId) => handleDeleteButton(buttonId, setSocialButtons)} />
 						<hr />
 
 						<p className="subtitle">My Links</p>
-						<LinkList onUpdateLink={handleUpdateLink} onDeleteLink={handleDeleteLink} />
+						<LinkList
+							onUpdateLink={(updatedLink) => handleUpdateLink(updatedLink, setLinks)}
+							onDeleteLink={(linkId) => handleDeleteLink(linkId, setLinks)}
+						/>
 					</div>
 				</main>
 			</div>
