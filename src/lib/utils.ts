@@ -1,29 +1,8 @@
 import { type ClassValue, clsx } from "clsx"
-import { getServerSession } from "next-auth"
-import { NextResponse } from "next/server"
 import { twMerge } from "tailwind-merge"
-import { authOptions } from "./auth"
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
-}
-
-export function generateSlug(name: string) {
-	const baseSlug = (name || Math.random().toString(36).substring(2, 10))
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-+|-+$/g, "")
-		.slice(0, 20)
-
-	return `${baseSlug}-${Math.random().toString(36).substring(2, 6)}`
-}
-
-export async function getSessionOrUnauthorized() {
-	const session = await getServerSession(authOptions)
-	if (!session || !session.user) {
-		return { error: true, response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) }
-	}
-	return { error: false, session }
 }
 
 export function validateLinkData(data: any) {
@@ -93,6 +72,20 @@ export const SOCIAL_ICONS: { [key: string]: string } = {
 	"Whatsapp ": "simple-icons:whatsapp",
 	"X ": "simple-icons:x",
 	"Youtube ": "simple-icons:youtube",
+}
+
+export const bannerMessages = {
+	LGBTQ_RIGHTS: "Pride and Inclusion: Support LGBTQ+ Rights",
+	ANTI_RACISM: "Stand Against Racism: Promote Diversity and Inclusion",
+	MENTAL_HEALTH: "Mental Health Matters: Support and Resources Available",
+	CLIMATE_ACTION: "Act Now: Support Climate Action and Sustainability",
+}
+
+export const bannerStyles = {
+	LGBTQ_RIGHTS: "banner lgbtq-rights",
+	ANTI_RACISM: "banner anti-racism",
+	MENTAL_HEALTH: "banner mental-health",
+	CLIMATE_ACTION: "banner climate-action",
 }
 
 export const defaultSettings = {

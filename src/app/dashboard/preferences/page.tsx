@@ -3,35 +3,34 @@
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import FeedbackForm from "@/src/components/dashboard/FeedbackForm"
 import Sidebar from "@/src/components/Sidebar"
+import { deleteUserAccount, updateUserBanner } from "@/src/lib/actions"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function Preferences() {
 	const { data: session, status } = useSession()
-	const { settings, updateSettings } = useGlobalContext()
-	const [selectedOption, setSelectedOption] = useState("")
-	const [isDeleting, setIsDeleting] = useState(false)
+	const { settings } = useGlobalContext()
+	const [selectedOption, setSelectedOption] = useState("NONE")
 	const [isSaving, setIsSaving] = useState(false)
+	const [isDeleting, setIsDeleting] = useState(false)
 
-	if (status === "unauthenticated") {
+	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
 	}
 
 	useEffect(() => {
-		if (session?.user) {
-			if (settings?.supportBanner) {
-				setSelectedOption(settings.supportBanner)
-			}
+		if (settings && settings.supportBanner) {
+			setSelectedOption(settings.supportBanner)
 		}
-	}, [session?.user, settings])
+	}, [settings])
 
 	const handleOptionChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const newBanner = event.target.value
 		setSelectedOption(newBanner)
 		setIsSaving(true)
 		try {
-			await updateSettings({ supportBanner: newBanner })
+			await updateUserBanner(newBanner)
 			alert("Support banner has been updated successfully!")
 		} catch (error) {
 			console.error("Error saving support banner:", error)
@@ -43,23 +42,13 @@ export default function Preferences() {
 
 	const handleDeleteAccount = async () => {
 		const confirmed = window.confirm("Are you sure you want to delete your account? This action cannot be undone.")
-
-		if (!confirmed) {
-			return
-		}
+		if (!confirmed) return
 
 		setIsDeleting(true)
 		try {
-			const response = await fetch("/api/user", {
-				method: "DELETE",
-			})
-
-			if (!response.ok) {
-				const errorData = await response.json()
-				throw new Error(errorData.error || "Failed to delete the account")
-			}
-
+			await deleteUserAccount()
 			alert("Your account has been successfully deleted.")
+			redirect("/login")
 		} catch (error) {
 			console.error("Error deleting account:", error)
 			alert(`Error deleting account: ${error.message}`)

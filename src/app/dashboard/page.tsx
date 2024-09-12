@@ -10,21 +10,21 @@ import { UserLink } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 
-const handleUpdateLink = (updatedLink: UserLink, setLinks) => {
-	setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
-}
-
-const handleDeleteLink = (linkId, setLinks) => {
-	setLinks((prevLinks) => prevLinks.filter((link) => link.id !== linkId))
-}
-
-const handleDeleteButton = (buttonId, setSocialButtons) => {
-	setSocialButtons((prevButtons) => prevButtons.filter((button) => button.id !== buttonId))
-}
-
 export default function Dashboard() {
 	const { data: session, status } = useSession()
 	const { setLinks, setSocialButtons } = useGlobalContext()
+
+	const handleUpdateLink = (updatedLink: UserLink, setLinks) => {
+		setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
+	}
+
+	const handleDeleteLink = (linkId, setLinks) => {
+		setLinks((prevLinks) => prevLinks.filter((link) => link.id !== linkId))
+	}
+
+	const handleDeleteButton = (buttonId, setSocialButtons) => {
+		setSocialButtons((prevButtons) => prevButtons.filter((button) => button.id !== buttonId))
+	}
 
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
