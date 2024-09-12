@@ -56,7 +56,9 @@ export async function PUT(req: NextRequest) {
 	if (error) return response
 
 	try {
-		const { id, platform, url, icon } = await req.json()
+		const buttonData = await req.json()
+		const { id, platform, url, icon } = buttonData
+
 		if (typeof id !== "number" || !validateButtonData({ platform, url, icon })) {
 			return NextResponse.json({ error: "Invalid input" }, { status: 400 })
 		}
@@ -70,6 +72,7 @@ export async function PUT(req: NextRequest) {
 			where: { id },
 			data: { platform, url, icon },
 		})
+
 		return NextResponse.json(updatedButton)
 	} catch (error) {
 		console.error("Error updating button:", error)
@@ -78,24 +81,23 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-	const id = req.nextUrl.searchParams.get("id")
-
-	if (!id) {
-		return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
-	}
-
-	const idNumber = parseInt(id, 10)
-
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 
 	try {
-		const existingButton = await db.socialButton.findUnique({ where: { id: idNumber } })
+		const { id } = await req.json()
+
+		if (typeof id !== "number") {
+			return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
+		}
+
+		const existingButton = await db.socialButton.findUnique({ where: { id } })
 		if (!existingButton || existingButton.userId !== session.user.id) {
 			return NextResponse.json({ error: "Forbidden" }, { status: 403 })
 		}
 
-		await db.socialButton.delete({ where: { id: idNumber } })
+		await db.socialButton.delete({ where: { id } })
+
 		return new NextResponse(null, { status: 204 })
 	} catch (error) {
 		console.error("Error deleting button:", error)

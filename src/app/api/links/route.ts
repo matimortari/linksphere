@@ -29,15 +29,16 @@ export async function POST(req: NextRequest) {
 	if (error) return response
 
 	try {
-		const linkData = await req.json()
+		const { title, url } = await req.json()
 
-		if (!validateLinkData(linkData)) {
+		if (!title || !url) {
 			return NextResponse.json({ error: "Invalid input" }, { status: 400 })
 		}
 
 		const newLink = await db.userLink.create({
 			data: {
-				...linkData,
+				title,
+				url,
 				userId: session.user.id,
 			},
 		})
@@ -55,6 +56,7 @@ export async function PUT(req: NextRequest) {
 
 	try {
 		const { id, title, url } = await req.json()
+
 		if (typeof id !== "number" || !validateLinkData({ title, url })) {
 			return NextResponse.json({ error: "Invalid input" }, { status: 400 })
 		}
@@ -64,7 +66,11 @@ export async function PUT(req: NextRequest) {
 			return NextResponse.json({ error: "Forbidden" }, { status: 403 })
 		}
 
-		const updatedLink = await db.userLink.update({ where: { id }, data: { title, url } })
+		const updatedLink = await db.userLink.update({
+			where: { id },
+			data: { title, url },
+		})
+
 		return NextResponse.json(updatedLink)
 	} catch (error) {
 		console.error("Error updating link:", error)
@@ -73,24 +79,23 @@ export async function PUT(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
-	const id = req.nextUrl.searchParams.get("id")
-
-	if (!id) {
-		return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
-	}
-
-	const idNumber = parseInt(id, 10)
-
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 
 	try {
-		const existingLink = await db.userLink.findUnique({ where: { id: idNumber } })
+		const { id } = await req.json()
+
+		if (typeof id !== "number") {
+			return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
+		}
+
+		const existingLink = await db.userLink.findUnique({ where: { id } })
 		if (!existingLink || existingLink.userId !== session.user.id) {
 			return NextResponse.json({ error: "Forbidden" }, { status: 403 })
 		}
 
-		await db.userLink.delete({ where: { id: idNumber } })
+		await db.userLink.delete({ where: { id } })
+
 		return new NextResponse(null, { status: 204 })
 	} catch (error) {
 		console.error("Error deleting link:", error)

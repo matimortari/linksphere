@@ -6,25 +6,12 @@ import ButtonList from "@/src/components/dashboard/ButtonList"
 import LinkList from "@/src/components/dashboard/LinkList"
 import UpdateDescriptionForm from "@/src/components/dashboard/UpdateDescriptionForm"
 import UpdateSlugForm from "@/src/components/dashboard/UpdateSlugForm"
-import { UserLink } from "@prisma/client"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 
 export default function Dashboard() {
 	const { data: session, status } = useSession()
 	const { setLinks, setSocialButtons } = useGlobalContext()
-
-	const handleUpdateLink = (updatedLink: UserLink, setLinks) => {
-		setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
-	}
-
-	const handleDeleteLink = (linkId, setLinks) => {
-		setLinks((prevLinks) => prevLinks.filter((link) => link.id !== linkId))
-	}
-
-	const handleDeleteButton = (buttonId, setSocialButtons) => {
-		setSocialButtons((prevButtons) => prevButtons.filter((button) => button.id !== buttonId))
-	}
 
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
@@ -56,14 +43,11 @@ export default function Dashboard() {
 						<hr />
 
 						<p className="subtitle">My Social Buttons</p>
-						<ButtonList onDeleteButton={(buttonId) => handleDeleteButton(buttonId, setSocialButtons)} />
+						<ButtonList />
 						<hr />
 
 						<p className="subtitle">My Links</p>
-						<LinkList
-							onUpdateLink={(updatedLink) => handleUpdateLink(updatedLink, setLinks)}
-							onDeleteLink={(linkId) => handleDeleteLink(linkId, setLinks)}
-						/>
+						<LinkList />
 					</div>
 				</main>
 			</div>

@@ -2,7 +2,7 @@ import { getSessionOrUnauthorized } from "@/src/lib/actions"
 import { db } from "@/src/lib/db"
 import { NextRequest, NextResponse } from "next/server"
 
-export async function GET(request: NextRequest) {
+export async function GET(req: NextRequest) {
 	try {
 		const { error, session, response } = await getSessionOrUnauthorized()
 		if (error) return response
@@ -43,12 +43,12 @@ export async function GET(request: NextRequest) {
 	}
 }
 
-export async function POST(request: Request) {
+export async function POST(req: Request) {
 	try {
 		const { error, session, response } = await getSessionOrUnauthorized()
 		if (error) return response
 
-		const { id, type } = await request.json()
+		const { id, type } = await req.json()
 
 		if (!id || !type) {
 			return NextResponse.json({ success: false, error: "Missing id or type" }, { status: 400 })

@@ -5,17 +5,16 @@ import { Icon } from "@iconify/react"
 import { useState } from "react"
 import AddButtonDialog from "./AddButtonDialog"
 
-export default function ButtonList({ onDeleteButton }) {
-	const { buttons: contextButtons, deleteButton } = useGlobalContext()
+export default function ButtonList() {
+	const { buttons: contextButtons, setSocialButtons, deleteButton } = useGlobalContext()
 	const [isAddButtonDialogOpen, setIsAddButtonDialogOpen] = useState(false)
 	const [isDeleteMode, setIsDeleteMode] = useState(false)
 
+	// Handle deleting a social button
 	const handleDeleteButton = async (id) => {
 		try {
 			await deleteButton(id)
-			if (onDeleteButton) {
-				onDeleteButton(id)
-			}
+			setSocialButtons((prevButtons) => prevButtons.filter((button) => button.id !== id))
 		} catch (error) {
 			console.error("Error deleting button:", error)
 		}

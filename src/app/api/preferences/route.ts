@@ -2,7 +2,7 @@ import { getSessionOrUnauthorized } from "@/src/lib/actions"
 import { db } from "@/src/lib/db"
 import { NextResponse } from "next/server"
 
-export async function GET() {
+export async function GET(req: Request) {
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 

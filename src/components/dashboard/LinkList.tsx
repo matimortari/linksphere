@@ -2,39 +2,40 @@
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { Icon } from "@iconify/react"
-import { UserLink } from "@prisma/client"
 import { useState } from "react"
 import AddLinkDialog from "./AddLinkDialog"
 import UpdateLinkDialog from "./UpdateLinkDialog"
 
-export default function LinkList({ onUpdateLink, onDeleteLink }) {
-	const { links: contextLinks, deleteLink, updateLink } = useGlobalContext()
+export default function LinkList() {
+	const { links: contextLinks, setLinks, deleteLink, updateLink } = useGlobalContext()
 	const [isAddLinkDialogOpen, setIsAddLinkDialogOpen] = useState(false)
 	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
 	const [currentLink, setCurrentLink] = useState(null)
 
-	const handleEditClick = (link: UserLink) => {
-		setCurrentLink(link)
-		setIsUpdateDialogOpen(true)
-	}
-
-	const handleUpdateLink = async (updatedLink: UserLink) => {
+	// Handle updating a link
+	const handleUpdateLink = async (updatedLink) => {
 		try {
 			await updateLink(updatedLink)
-			onUpdateLink(updatedLink)
+			setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
 			setIsUpdateDialogOpen(false)
 		} catch (error) {
 			console.error("Error updating link:", error)
 		}
 	}
 
-	const handleDeleteLink = async (id: number) => {
+	// Handle deleting a link
+	const handleDeleteLink = async (id) => {
 		try {
 			await deleteLink(id)
-			onDeleteLink(id)
+			setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id))
 		} catch (error) {
 			console.error("Error deleting link:", error)
 		}
+	}
+
+	const handleEditClick = (link) => {
+		setCurrentLink(link)
+		setIsUpdateDialogOpen(true)
 	}
 
 	return (

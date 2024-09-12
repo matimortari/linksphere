@@ -1,6 +1,5 @@
 import { getSessionOrUnauthorized } from "@/src/lib/actions"
 import { db } from "@/src/lib/db"
-import {} from "@/src/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
