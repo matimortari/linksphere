@@ -36,7 +36,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 			<div className="flex flex-col items-center justify-center gap-3">
 				{settings.supportBanner !== "NONE" && <SupportBanner bannerType={settings.supportBanner} />}
 
-				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar" />}
+				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar icon" />}
 				<h1
 					style={{
 						color: settings.slugTextColor,

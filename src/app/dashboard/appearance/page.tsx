@@ -28,7 +28,6 @@ export default function Appearance() {
 						</header>
 
 						<AppearanceForm />
-						<hr />
 					</div>
 				</main>
 			</div>

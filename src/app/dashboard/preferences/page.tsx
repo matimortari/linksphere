@@ -101,7 +101,6 @@ export default function Preferences() {
 								{isDeleting ? "Deleting..." : "Delete Account"}
 							</button>
 						</div>
-						<hr />
 					</div>
 				</main>
 			</div>

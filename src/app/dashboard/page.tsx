@@ -46,7 +46,6 @@ export default function Dashboard() {
 
 						<p className="subtitle">My Links</p>
 						<LinkList />
-						<hr />
 					</div>
 				</main>
 			</div>

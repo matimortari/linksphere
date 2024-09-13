@@ -57,7 +57,6 @@ export default function Analytics() {
 
 						<p className="subtitle">Clicks By Link</p>
 						<LinkClickList />
-						<hr />
 					</div>
 				</main>
 			</div>

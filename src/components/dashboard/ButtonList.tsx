@@ -53,10 +53,10 @@ export default function ButtonList() {
 
 			<div className="button-container">
 				<button onClick={() => setIsAddButtonDialogOpen(true)} className="button bg-primary text-primary-foreground">
-					Add Social Button
+					Add Button
 				</button>
 				<button onClick={handleToggleDeleteMode} className="button bg-destructive text-destructive-foreground">
-					{isDeleteMode ? "Cancel Deletion" : "Delete Social Buttons"}
+					{isDeleteMode ? "Cancel Deletion" : "Delete Buttons"}
 				</button>
 			</div>
 		</div>
