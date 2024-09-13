@@ -13,8 +13,8 @@ import { useGlobalContext } from "../context/GlobalContext"
 
 const ColorInput = ({ id, label, value, onChange }) => (
 	<div className="mb-4 flex items-center space-x-2">
-		<input id={id} type="color" value={value} onChange={onChange} className="h-8 w-8 rounded" />
-		<label htmlFor={id} className="font-medium">
+		<input id={id} type="color" value={value} onChange={onChange} className="icon h-8 w-8 cursor-pointer rounded" />
+		<label htmlFor={id} className="font-semibold">
 			{label}
 		</label>
 	</div>
@@ -22,7 +22,7 @@ const ColorInput = ({ id, label, value, onChange }) => (
 
 const RadioOptions = ({ options, name, value, onChange, label }) => (
 	<div className="mb-4">
-		<p className="mb-2 font-medium">{label}</p>
+		<p className="mb-2 font-semibold">{label}</p>
 		<div className="space-y-1">
 			{options.map((option) => (
 				<label key={option.value} className="flex items-center space-x-2 text-sm">
@@ -32,9 +32,9 @@ const RadioOptions = ({ options, name, value, onChange, label }) => (
 						value={option.value}
 						checked={value === option.value}
 						onChange={onChange}
-						className="mr-2"
+						className="cursor-pointer"
 					/>
-					<span>{option.label}</span>
+					<span className="font-medium">{option.label}</span>
 				</label>
 			))}
 		</div>
@@ -117,6 +117,7 @@ export default function AppearanceForm() {
 						value={currentSettings.linkBackgroundColor}
 						onChange={handleColorChange("linkBackgroundColor")}
 					/>
+
 					<ColorInput
 						id="linkTextColor"
 						label="Link Text Color"
@@ -193,10 +194,10 @@ export default function AppearanceForm() {
 				</div>
 			</form>
 
-			<div className="mt-2 font-bold">
-				{error && <p className="text-destructive">{error}</p>}
-				{success && <p className="text-accent">{success}</p>}
-			</div>
+			<>
+				{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
+				{success && <p className="mt-2 font-bold text-accent">{success}</p>}
+			</>
 		</>
 	)
 }

@@ -40,18 +40,18 @@ export default function Analytics() {
 
 				<main className="w-full md:w-9/12">
 					<div className="content-container flex flex-col gap-2">
-						<header className="flex flex-col pb-4">
+						<header className="flex flex-col">
 							<h1 className="title">Analytics</h1>
 							<span className="title-label">View your profile analytics.</span>
 							<hr />
 						</header>
-						<p className="subtitle">Total Page Views</p>
-						<div className="text-base">
-							Total Views: <span className="font-semibold">{stats?.views ?? 0}</span>
+
+						<div className="font-semibold">
+							Total Views: <span className="font-normal">{stats?.views ?? 0}</span>
 						</div>
 
-						<div className="text-base">
-							Total Page Clicks: <span className="font-semibold">{stats?.clicks ?? 0}</span>
+						<div className="font-semibold">
+							Total Page Clicks: <span className="font-normal">{stats?.clicks ?? 0}</span>
 						</div>
 						<hr />
 

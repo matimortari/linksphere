@@ -37,10 +37,10 @@ export default function UpdateDescriptionForm() {
 				</div>
 			</form>
 
-			<div className="mt-2 font-bold">
-				{error && <p className="text-destructive">{error}</p>}
-				{success && <p className="text-accent">{success}</p>}
-			</div>
+			<>
+				{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
+				{success && <p className="mt-2 font-bold text-accent">{success}</p>}
+			</>
 		</div>
 	)
 }

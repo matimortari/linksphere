@@ -43,33 +43,30 @@ export default function LinkList() {
 			{contextLinks && contextLinks.length > 0 ? (
 				<ul className="space-y-2">
 					{contextLinks.map((link) => (
-						<li key={link.id} className="content-container flex items-center overflow-hidden">
+						<li key={link.id} className="flex items-center overflow-hidden rounded-2xl border border-muted p-2">
 							<div className="flex flex-1 flex-col">
 								<section className="flex flex-row items-center gap-2">
-									<p className="overflow-hidden text-ellipsis whitespace-nowrap font-semibold">{link.title}</p>
+									<p className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold">{link.title}</p>
 									<button className="text-muted-foreground" onClick={() => handleEditClick(link)}>
-										<Icon icon="material-symbols:ink-pen-outline" className="icon h-5 w-5" />
+										<Icon icon="material-symbols:ink-pen-outline" className="icon h-6 w-6" />
 									</button>
 								</section>
 
-								<section className="mt-1 flex items-center gap-2">
-									<a
-										href={link.url}
-										className="max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground md:max-w-[500px]"
-									>
+								<section className="flex items-center gap-2">
+									<a href={link.url} className="overflow-hidden text-ellipsis whitespace-nowrap">
 										{link.url}
 									</a>
 								</section>
 							</div>
 
 							<button className="mt-8 text-destructive" onClick={() => handleDeleteLink(link.id)}>
-								<Icon icon="material-symbols:delete-forever-outline" className="icon h-5 w-5" />
+								<Icon icon="material-symbols:delete-forever-outline" className="icon h-6 w-6" />
 							</button>
 						</li>
 					))}
 				</ul>
 			) : (
-				<p className="text-muted-foreground">No links yet</p>
+				<p className="text-muted-foreground">No links yet.</p>
 			)}
 
 			{isUpdateDialogOpen && currentLink && (

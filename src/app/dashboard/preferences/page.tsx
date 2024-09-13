@@ -66,11 +66,12 @@ export default function Preferences() {
 
 				<main className="w-full md:w-9/12">
 					<div className="content-container flex flex-col gap-2">
-						<header className="flex flex-col pb-4">
+						<header className="flex flex-col">
 							<h1 className="title">Settings</h1>
 							<span className="title-label">Update your account preferences.</span>
 							<hr />
 						</header>
+
 						<p className="subtitle">Support Banner</p>
 						<select value={selectedOption} onChange={handleOptionChange} className="rounded border p-2">
 							<option value="NONE">None</option>

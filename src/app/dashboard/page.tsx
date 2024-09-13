@@ -24,13 +24,14 @@ export default function Dashboard() {
 
 				<main className="w-full md:w-9/12">
 					<div className="content-container flex flex-col gap-2">
-						<header className="flex flex-col pb-4">
+						<header className="flex flex-col">
 							<h1 className="title">Dashboard</h1>
 							<span className="title-label">
 								Welcome back, <span className="font-bold text-primary">{session.user.name}!</span>
 							</span>
 							<hr />
 						</header>
+
 						<p className="subtitle">My URL</p>
 						<UpdateSlugForm />
 						<hr />

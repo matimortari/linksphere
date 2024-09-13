@@ -67,7 +67,7 @@ export default function Navbar() {
 						{session && (
 							<>
 								<Link href={`/${slug}`} className="button">
-									My Profile
+									My Page
 								</Link>
 								<Link href="/dashboard" className="button">
 									Dashboard

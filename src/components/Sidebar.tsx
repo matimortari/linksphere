@@ -16,17 +16,19 @@ export default function Sidebar() {
 	}
 
 	return (
-		<div className="content-container flex flex-col items-center justify-center gap-2 py-4">
-			{image && <Image src={image} alt={name} width={40} height={40} className="avatar" />}
-			<p className="text-lg font-bold">{name}</p>
-			<a href={`https://ness-live.vercel.app/${slug}`} className="text-xs font-normal">
-				ness-live.vercel.app/{slug}
-			</a>
+		<div className="content-container flex flex-col items-center justify-center">
+			<div className="flex flex-col items-center justify-center p-4">
+				{image && <Image src={image} alt={name} width={40} height={40} className="avatar" />}
+				<p className="text-lg font-bold">{name}</p>
+				<a href={`https://ness-live.vercel.app/${slug}`} className="text-xs font-normal">
+					ness-live.vercel.app/{slug}
+				</a>
+			</div>
 
 			<div className="flex w-full flex-col justify-center gap-3 font-semibold">
 				<Link href="/dashboard" className="button">
 					<Icon icon="material-symbols:id-card" className="icon text-2xl" />
-					<p>Links</p>
+					<p>My Links</p>
 				</Link>
 				<hr />
 
@@ -55,10 +57,11 @@ export default function Sidebar() {
 				<hr />
 			</div>
 
-			<div className="mt-2 flex w-full flex-col items-center justify-end">
+			<div className="flex w-full flex-col items-center justify-center">
 				{isPreviewVisible && (
 					<div className="w-full">
 						<Preview />
+						<hr />
 					</div>
 				)}
 			</div>
