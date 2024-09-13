@@ -47,8 +47,8 @@ export default function LinkList() {
 							<div className="flex flex-1 flex-col">
 								<section className="flex flex-row items-center gap-2">
 									<p className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold">{link.title}</p>
-									<button className="text-muted-foreground" onClick={() => handleEditClick(link)}>
-										<Icon icon="material-symbols:ink-pen-outline" className="icon h-6 w-6" />
+									<button onClick={() => handleEditClick(link)}>
+										<Icon icon="material-symbols:edit-square-outline" className="icon h-6 w-6" />
 									</button>
 								</section>
 

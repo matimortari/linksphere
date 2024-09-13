@@ -26,32 +26,32 @@ export default function Sidebar() {
 			</div>
 
 			<div className="flex w-full flex-col justify-center gap-3 font-semibold">
-				<Link href="/dashboard" className="button">
-					<Icon icon="material-symbols:id-card" className="icon text-2xl" />
+				<Link href="/dashboard" className="button" style={{ justifyContent: "start" }}>
+					<Icon icon="material-symbols:view-timeline-outline" className="icon text-2xl" />
 					<p>My Links</p>
 				</Link>
 				<hr />
 
-				<Link href="/dashboard/appearance" className="button">
-					<Icon icon="material-symbols:brush" className="icon text-2xl" />
+				<Link href="/dashboard/appearance" className="button" style={{ justifyContent: "start" }}>
+					<Icon icon="material-symbols:slide-library" className="icon text-2xl" />
 					<p>Appearance</p>
 				</Link>
 				<hr />
 
-				<Link href="/dashboard/analytics" className="button">
-					<Icon icon="material-symbols:analytics" className="icon text-2xl" />
+				<Link href="/dashboard/analytics" className="button" style={{ justifyContent: "start" }}>
+					<Icon icon="material-symbols:chart-data-outline" className="icon text-2xl" />
 					<p>Analytics</p>
 				</Link>
 				<hr />
 
-				<Link href="/dashboard/preferences" className="button">
-					<Icon icon="material-symbols:settings" className="icon text-2xl" />
+				<Link href="/dashboard/preferences" className="button" style={{ justifyContent: "start" }}>
+					<Icon icon="material-symbols:settings-applications-outline" className="icon text-2xl" />
 					<p>Preferences</p>
 				</Link>
 				<hr />
 
-				<button onClick={togglePreview} className="button">
-					<Icon icon="material-symbols:visibility" className="icon text-2xl" />
+				<button onClick={togglePreview} className="button" style={{ justifyContent: "start" }}>
+					<Icon icon="material-symbols:preview" className="icon text-2xl" />
 					<p>Preview</p>
 				</button>
 				<hr />
