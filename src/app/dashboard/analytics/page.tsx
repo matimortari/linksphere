@@ -32,24 +32,24 @@ export default function Analytics() {
 	}, [status])
 
 	return (
-		<div className="main-container">
-			<div className="flex flex-col bg-background md:flex-row">
-				<aside className="sidebar-container w-full md:mr-2 md:w-3/12">
+		<div className="dashboard-container">
+			<div className="flex flex-col gap-2 bg-background md:flex-row">
+				<aside className="w-full md:w-3/12">
 					<Sidebar />
 				</aside>
 
-				<main className="dashboard-container w-full md:w-9/12">
-					<header className="flex flex-col gap-2 pb-4">
-						<h1 className="title">Analytics</h1>
-						<span className="title-label">View your profile analytics.</span>
-						<hr />
-					</header>
-
-					<div className="flex flex-col gap-2">
+				<main className="w-full md:w-9/12">
+					<div className="content-container flex flex-col gap-2">
+						<header className="flex flex-col pb-4">
+							<h1 className="title">Analytics</h1>
+							<span className="title-label">View your profile analytics.</span>
+							<hr />
+						</header>
 						<p className="subtitle">Total Page Views</p>
 						<div className="text-base">
 							Total Views: <span className="font-semibold">{stats?.views ?? 0}</span>
 						</div>
+
 						<div className="text-base">
 							Total Page Clicks: <span className="font-semibold">{stats?.clicks ?? 0}</span>
 						</div>
@@ -57,6 +57,7 @@ export default function Analytics() {
 
 						<p className="subtitle">Clicks By Link</p>
 						<LinkClickList />
+						<hr />
 					</div>
 				</main>
 			</div>

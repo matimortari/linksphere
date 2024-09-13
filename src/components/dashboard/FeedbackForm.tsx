@@ -47,9 +47,12 @@ export default function FeedbackForm() {
 				className="rounded border p-2"
 				required
 			/>
-			<button type="submit" disabled={isSubmitting} className="button bg-accent text-accent-foreground">
-				{isSubmitting ? "Submitting..." : "Submit Feedback"}
-			</button>
+
+			<div className="button-container">
+				<button type="submit" disabled={isSubmitting} className="button bg-accent text-accent-foreground">
+					{isSubmitting ? "Submitting..." : "Submit Feedback"}
+				</button>
+			</div>
 			{submissionStatus && <p className="mb-4 font-bold">{submissionStatus}</p>}
 		</form>
 	)

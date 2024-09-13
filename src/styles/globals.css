@@ -64,40 +64,26 @@
 
 .main-container {
 	min-height: 100vh;
-	background-color: var(--card);
 	margin-top: 3.5rem;
 	margin-bottom: 0.5rem;
 	margin-left: 0.5rem;
 	margin-right: 0.5rem;
+	border-color: var(--muted);
+	border-width: 1px;
 	border-radius: 1rem;
 }
 
 .dashboard-container {
 	min-height: 100vh;
-	padding: 1rem;
-	background-color: var(--card);
-	border-color: var(--muted);
-	border-width: 1px;
-	border-radius: 1rem;
-}
-
-.sidebar-container {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	gap: 0.5rem;
-	padding: 0.5rem;
-	background-color: var(--card);
-	border-color: var(--muted);
-	border-width: 1px;
-	border-radius: 1rem;
+	margin-top: 3.5rem;
+	margin-bottom: 0.5rem;
+	margin-left: 0.5rem;
+	margin-right: 0.5rem;
 }
 
 .content-container {
-	background-color: var(--card);
 	padding: 1rem;
+	background-color: var(--card);
 	border-color: var(--muted);
 	border-width: 1px;
 	border-radius: 1rem;

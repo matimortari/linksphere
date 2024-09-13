@@ -58,20 +58,19 @@ export default function Preferences() {
 	}
 
 	return (
-		<div className="main-container">
-			<div className="flex flex-col bg-background md:flex-row">
-				<aside className="sidebar-container w-full md:mr-2 md:w-3/12">
+		<div className="dashboard-container">
+			<div className="flex flex-col gap-2 bg-background md:flex-row">
+				<aside className="w-full md:w-3/12">
 					<Sidebar />
 				</aside>
 
-				<main className="dashboard-container w-full md:w-9/12">
-					<header className="flex flex-col gap-2 pb-4">
-						<h1 className="title">Settings</h1>
-						<span className="title-label">Update your account preferences.</span>
-						<hr />
-					</header>
-
-					<div className="flex flex-col gap-2">
+				<main className="w-full md:w-9/12">
+					<div className="content-container flex flex-col gap-2">
+						<header className="flex flex-col pb-4">
+							<h1 className="title">Settings</h1>
+							<span className="title-label">Update your account preferences.</span>
+							<hr />
+						</header>
 						<p className="subtitle">Support Banner</p>
 						<select value={selectedOption} onChange={handleOptionChange} className="rounded border p-2">
 							<option value="NONE">None</option>
@@ -80,9 +79,11 @@ export default function Preferences() {
 							<option value="MENTAL_HEALTH">Mental Health</option>
 							<option value="CLIMATE_ACTION">Climate Action</option>
 						</select>
-						<button className="button bg-accent text-accent-foreground" disabled={isSaving}>
-							{isSaving ? "Saving..." : "Save Banner"}
-						</button>
+						<div className="button-container">
+							<button className="button bg-accent text-accent-foreground" disabled={isSaving}>
+								{isSaving ? "Saving..." : "Save Banner"}
+							</button>
+						</div>
 						<hr />
 
 						<p className="subtitle">Submit Feedback</p>
@@ -99,6 +100,7 @@ export default function Preferences() {
 								{isDeleting ? "Deleting..." : "Delete Account"}
 							</button>
 						</div>
+						<hr />
 					</div>
 				</main>
 			</div>
