@@ -1,16 +1,4 @@
-import { getServerSession } from "next-auth"
-import { NextResponse } from "next/server"
-import { authOptions } from "./auth"
 import { db } from "./db"
-
-// Get session or return unauthorized
-export async function getSessionOrUnauthorized() {
-	const session = await getServerSession(authOptions)
-	if (!session || !session.user) {
-		return { error: true, response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) }
-	}
-	return { error: false, session }
-}
 
 // Fetch user data
 export async function fetchUserData() {
@@ -64,70 +52,6 @@ export async function fetchUserAnalytics() {
 	} catch (error) {
 		console.error("Error fetching analytics:", error)
 		throw error
-	}
-}
-
-// Track a page visit based on the user's slug
-export async function trackPageVisit(slug: string) {
-	const user = await db.user.findUnique({
-		where: { slug },
-		include: { UserStats: true },
-	})
-
-	if (!user) return
-
-	const stats =
-		user.UserStats[0] ??
-		(await db.userStats.create({
-			data: { userId: user.id, views: 0, clicks: 0 },
-		}))
-
-	await db.userStats.update({
-		where: { id: stats.id },
-		data: { views: stats.views + 1 },
-	})
-}
-
-// Track a user social button or link click
-export async function trackClick(id: string, type: string) {
-	try {
-		await fetch("/api/analytics", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ id, type }),
-		})
-	} catch (error) {
-		console.error("Failed to increment click count:", error)
-	}
-}
-
-// Handle form submission
-export async function handleFormSubmit(
-	e: React.FormEvent,
-	url: string,
-	payload: object,
-	setSuccess: React.Dispatch<React.SetStateAction<string | null>>,
-	setError: React.Dispatch<React.SetStateAction<string | null>>,
-	onSuccess?: () => void
-) {
-	e.preventDefault()
-
-	try {
-		const response = await fetch(url, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(payload),
-		})
-
-		const data = await response.json()
-		if (!response.ok) throw new Error(data.error)
-
-		setSuccess("Updated successfully!")
-		onSuccess?.()
-	} catch (error) {
-		setError((error as Error).message)
 	}
 }
 
@@ -249,5 +173,41 @@ export const deleteUserAccount = async (): Promise<void> => {
 		}
 	} catch (error) {
 		throw new Error(error.message)
+	}
+}
+
+// Track a page visit based on the user's slug
+export async function trackPageVisit(slug: string) {
+	const user = await db.user.findUnique({
+		where: { slug },
+		include: { UserStats: true },
+	})
+
+	if (!user) return
+
+	const stats =
+		user.UserStats[0] ??
+		(await db.userStats.create({
+			data: { userId: user.id, views: 0, clicks: 0 },
+		}))
+
+	await db.userStats.update({
+		where: { id: stats.id },
+		data: { views: stats.views + 1 },
+	})
+}
+
+// Track a user social button or link or link click
+export async function trackClick(id: string, type: string) {
+	try {
+		await fetch("/api/analytics", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ id, type }),
+		})
+	} catch (error) {
+		console.error("Failed to increment click count:", error)
 	}
 }

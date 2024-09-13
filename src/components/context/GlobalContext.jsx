@@ -12,7 +12,7 @@ import {
 	updateLink,
 	updateSettings,
 } from "@/src/lib/actions"
-import { defaultSettings } from "@/src/lib/utils"
+import { defaultSettings } from "@/src/lib/userSettings"
 import { createContext, useContext, useEffect, useState } from "react"
 
 const GlobalContext = createContext(null)

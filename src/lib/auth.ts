@@ -4,7 +4,7 @@ import { DefaultSession, SessionStrategy } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { db } from "./db"
-import { defaultSettings } from "./utils"
+import { defaultSettings } from "./userSettings"
 
 // Extend the default session with custom properties
 declare module "next-auth" {

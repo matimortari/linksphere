@@ -1,6 +1,5 @@
-import { getSessionOrUnauthorized } from "@/src/lib/actions"
 import { db } from "@/src/lib/db"
-import { validateLinkData } from "@/src/lib/utils"
+import { getSessionOrUnauthorized, validateLinkData } from "@/src/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {

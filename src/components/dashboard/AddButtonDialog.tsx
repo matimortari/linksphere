@@ -1,7 +1,7 @@
 "use client"
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
-import { SOCIAL_ICONS } from "@/src/lib/utils"
+import { SOCIAL_ICONS } from "@/src/lib/userSettings"
 import { Icon } from "@iconify/react"
 import { useEffect, useRef, useState } from "react"
 

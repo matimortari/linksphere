@@ -1,4 +1,4 @@
-import { bannerMessages, bannerStyles } from "../lib/utils"
+import { bannerMessages, bannerStyles } from "../lib/userSettings"
 
 export default function SupportBanner({ bannerType }) {
 	const message = bannerMessages[bannerType] || ""

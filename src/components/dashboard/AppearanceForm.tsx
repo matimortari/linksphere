@@ -1,13 +1,14 @@
 "use client"
 
-import { fetchUserSettings, handleFormSubmit } from "@/src/lib/actions"
+import { fetchUserSettings } from "@/src/lib/actions"
 import {
 	BORDER_RADIUS_OPTIONS,
 	PADDING_OPTIONS,
 	SLUG_TEXT_SIZE_OPTIONS,
 	SLUG_TEXT_WEIGHT_OPTIONS,
 	defaultSettings,
-} from "@/src/lib/utils"
+} from "@/src/lib/userSettings"
+import { handleFormSubmit } from "@/src/lib/utils"
 import React, { useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
