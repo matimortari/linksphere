@@ -3,7 +3,7 @@
 import Sidebar from "@/src/components/Sidebar"
 import ButtonList from "@/src/components/dashboard/ButtonList"
 import LinkList from "@/src/components/dashboard/LinkList"
-import UpdateDescriptionForm from "@/src/components/dashboard/UpdateDescriptionForm"
+import UpdateHeaderForm from "@/src/components/dashboard/UpdateHeaderForm"
 import UpdateSlugForm from "@/src/components/dashboard/UpdateSlugForm"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
@@ -37,7 +37,7 @@ export default function Dashboard() {
 						<hr />
 
 						<p className="subtitle">My Header</p>
-						<UpdateDescriptionForm />
+						<UpdateHeaderForm />
 						<hr />
 
 						<p className="subtitle">My Social Buttons</p>

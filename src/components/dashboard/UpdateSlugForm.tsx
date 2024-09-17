@@ -14,7 +14,7 @@ export default function UpdateSlugForm() {
 	}
 
 	return (
-		<div>
+		<>
 			<form onSubmit={handleSubmit} className="form-container w-full">
 				<span className="text-muted-foreground">ness-live.vercel.app/</span>
 				<input
@@ -33,6 +33,6 @@ export default function UpdateSlugForm() {
 				{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
 				{success && <p className="mt-2 font-bold text-accent">{success}</p>}
 			</>
-		</div>
+		</>
 	)
 }

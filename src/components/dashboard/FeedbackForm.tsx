@@ -39,14 +39,7 @@ export default function FeedbackForm() {
 
 	return (
 		<form onSubmit={handleSubmit} className="flex flex-col gap-2">
-			<textarea
-				value={feedback}
-				onChange={(e) => setFeedback(e.target.value)}
-				placeholder="Your feedback here..."
-				rows={4}
-				className="rounded border p-2"
-				required
-			/>
+			<textarea value={feedback} onChange={(e) => setFeedback(e.target.value)} className="form-container" required />
 
 			<div className="button-container">
 				<button type="submit" disabled={isSubmitting} className="button bg-accent text-accent-foreground">

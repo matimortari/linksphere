@@ -73,7 +73,7 @@ export default function Preferences() {
 						</header>
 
 						<p className="subtitle">Support Banner</p>
-						<select value={selectedOption} onChange={handleOptionChange} className="rounded border p-2">
+						<select value={selectedOption} onChange={handleOptionChange} className="form-container">
 							<option value="NONE">None</option>
 							<option value="LGBTQ_RIGHTS">Pride</option>
 							<option value="ANTI_RACISM">Anti-Racism</option>

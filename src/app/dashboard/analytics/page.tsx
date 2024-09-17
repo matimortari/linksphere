@@ -1,6 +1,6 @@
 "use client"
 
-import LinkClickList from "@/src/components/dashboard/LinkClickList"
+import ClicksByLink from "@/src/components/dashboard/ClicksByLink"
 import Sidebar from "@/src/components/Sidebar"
 import { fetchUserAnalytics } from "@/src/lib/actions"
 import { useSession } from "next-auth/react"
@@ -56,7 +56,7 @@ export default function Analytics() {
 						<hr />
 
 						<p className="subtitle">Clicks By Link</p>
-						<LinkClickList />
+						<ClicksByLink />
 					</div>
 				</main>
 			</div>

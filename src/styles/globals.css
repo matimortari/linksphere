@@ -12,7 +12,7 @@
 	}
 
 	.input {
-		@apply bg-transparent border-none outline-none w-full;
+		@apply w-full border-none bg-transparent outline-none;
 	}
 
 	:root {
@@ -99,7 +99,7 @@
 	padding-bottom: 0.25rem;
 	border-color: var(--muted);
 	border-width: 1px;
-	border-radius: 1.5rem
+	border-radius: 1.5rem;
 }
 
 .button-container {
@@ -172,17 +172,17 @@
 }
 
 .banner.lgbtq-rights {
-	background-color: #4CAF50;
+	background-color: #4caf50;
 }
 
 .banner.anti-racism {
-	background-color: #FF5722;
+	background-color: #ff5722;
 }
 
 .banner.mental-health {
-	background-color: #2196F3;
+	background-color: #2196f3;
 }
 
 .banner.climate-action {
-	background-color: #4CAF50;
+	background-color: #4caf50;
 }
