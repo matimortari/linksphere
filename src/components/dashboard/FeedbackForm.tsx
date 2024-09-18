@@ -1,9 +1,11 @@
 "use client"
 
+import { useSession } from "next-auth/react"
 import { useState } from "react"
 
 export default function FeedbackForm() {
-	const [feedback, setFeedback] = useState("")
+	const { data: session } = useSession()
+	const [message, setMessage] = useState("")
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [submissionStatus, setSubmissionStatus] = useState<string | null>(null)
 
@@ -18,7 +20,7 @@ export default function FeedbackForm() {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ feedback }),
+				body: JSON.stringify({ message }),
 			})
 
 			const responseData = await response.json()
@@ -27,7 +29,7 @@ export default function FeedbackForm() {
 				throw new Error(responseData.error || "Failed to submit feedback")
 			}
 
-			setFeedback("")
+			setMessage("")
 			setSubmissionStatus(responseData.message)
 		} catch (error) {
 			console.error("Error submitting feedback:", error)
@@ -39,14 +41,31 @@ export default function FeedbackForm() {
 
 	return (
 		<form onSubmit={handleSubmit} className="flex flex-col gap-2">
-			<textarea value={feedback} onChange={(e) => setFeedback(e.target.value)} className="form-container" required />
+			<textarea
+				value={message}
+				onChange={(e) => setMessage(e.target.value)}
+				className="form-container"
+				required
+				placeholder="Enter your feedback here"
+			/>
 
 			<div className="button-container">
-				<button type="submit" disabled={isSubmitting} className="button bg-accent text-accent-foreground">
+				<button
+					type="submit"
+					disabled={isSubmitting || !session}
+					className={`button bg-accent text-accent-foreground ${isSubmitting ? "opacity-50" : ""}`}
+				>
 					{isSubmitting ? "Submitting..." : "Submit Feedback"}
 				</button>
 			</div>
-			{submissionStatus && <p className="mb-4 font-bold">{submissionStatus}</p>}
+
+			{submissionStatus && (
+				<p className={`mb-4 font-bold ${submissionStatus.startsWith("Error") ? "text-destructive" : "text-accent"}`}>
+					{submissionStatus}
+				</p>
+			)}
+
+			{!session && <p className="text-sm text-destructive">You must be logged in to submit feedback.</p>}
 		</form>
 	)
 }

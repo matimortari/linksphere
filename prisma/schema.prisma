@@ -108,3 +108,11 @@ model UserStats {
   clicks Int    @default(0)
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+model Feedback {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
