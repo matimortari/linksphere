@@ -59,20 +59,6 @@ export const SOCIAL_ICONS: { [key: string]: string } = {
 	"Youtube ": "simple-icons:youtube",
 }
 
-export const bannerMessages = {
-	LGBTQ_RIGHTS: "Pride and Inclusion: Support LGBTQ+ Rights",
-	ANTI_RACISM: "Stand Against Racism: Promote Diversity and Inclusion",
-	MENTAL_HEALTH: "Mental Health Matters: Support and Resources Available",
-	CLIMATE_ACTION: "Act Now: Support Climate Action and Sustainability",
-}
-
-export const bannerStyles = {
-	LGBTQ_RIGHTS: "banner lgbtq-rights",
-	ANTI_RACISM: "banner anti-racism",
-	MENTAL_HEALTH: "banner mental-health",
-	CLIMATE_ACTION: "banner climate-action",
-}
-
 export const defaultSettings = {
 	backgroundColor: "#e7e5e5",
 	slugTextColor: "#1e1e1e",

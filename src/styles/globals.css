@@ -159,30 +159,29 @@
 	font-weight: 400;
 }
 
-.profile-banner {
+.support-banner {
 	position: fixed;
 	bottom: 0;
 	right: 0;
-	margin: 1rem;
-	padding: 1rem;
-	text-align: center;
-	font-weight: bold;
-	border-radius: 1rem;
 	z-index: 1000;
+	margin: 1rem;
+	padding: 0.75rem;
+	border-radius: 1.5rem;
+	color: #ffffff;
 }
 
 .banner.lgbtq-rights {
-	background-color: #4caf50;
+	background-color: #5c3963;
 }
 
 .banner.anti-racism {
-	background-color: #ff5722;
+	background-color: #1a1919;
 }
 
 .banner.mental-health {
-	background-color: #2196f3;
+	background-color: #285274;
 }
 
 .banner.climate-action {
-	background-color: #4caf50;
+	background-color: #287445;
 }
