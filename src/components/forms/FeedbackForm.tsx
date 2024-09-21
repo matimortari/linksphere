@@ -7,6 +7,7 @@ import { useState } from "react"
 export default function FeedbackForm() {
 	const { data: session } = useSession()
 	const [message, setMessage] = useState("")
+	const [rating, setRating] = useState<number | null>(null)
 	const [error, setError] = useState("")
 	const [success, setSuccess] = useState("")
 
@@ -16,12 +17,29 @@ export default function FeedbackForm() {
 		setSuccess("")
 
 		try {
-			await handleFeedbackSubmit(message)
+			await handleFeedbackSubmit(message, rating)
 			setSuccess("Feedback submitted!")
+			setMessage("")
+			setRating(null)
 		} catch (error) {
 			console.error("Error submitting feedback:", error)
 			setError("Failed to submit feedback")
 		}
+	}
+
+	const renderStars = () => {
+		return Array.from({ length: 5 }, (_, index) => {
+			const starIndex = index + 1
+			return (
+				<span
+					key={starIndex}
+					className={`cursor-pointer text-2xl ${rating >= starIndex ? "text-accent" : "text-muted"}`}
+					onClick={() => setRating(starIndex)}
+				>
+					★
+				</span>
+			)
+		})
 	}
 
 	return (
@@ -30,10 +48,16 @@ export default function FeedbackForm() {
 				<textarea
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
-					className="form-container text-sm"
 					required
 					placeholder="Enter your feedback here..."
+					rows={5}
+					className="form-container text-sm"
 				/>
+
+				<div className="flex flex-row items-center gap-2">
+					<label className="text-base font-semibold">Rating (Optional):</label>
+					<div className="flex space-x-1">{renderStars()}</div>
+				</div>
 
 				<div className="button-container">
 					<button type="submit" disabled={!session} className="button bg-accent text-accent-foreground">

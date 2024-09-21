@@ -4,26 +4,26 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest) {
 	try {
-		const { error, session, response } = await getSessionOrUnauthorized()
+		const { session } = await getSessionOrUnauthorized()
 
 		if (!session || !session.user || !session.user.email) {
 			return new NextResponse(JSON.stringify({ error: "User not authenticated" }), { status: 401 })
 		}
 
 		const { name, email } = session.user
-
 		const body = await req.json()
-		const { message } = body
+		const { message, rating } = body
 
 		if (!message) {
 			return new NextResponse(JSON.stringify({ error: "Feedback message is required" }), { status: 400 })
 		}
 
-		const feedback = await db.feedback.create({
+		await db.feedback.create({
 			data: {
 				name: name || "Anonymous",
 				email: email!,
 				message,
+				rating: rating !== undefined ? rating : null,
 			},
 		})
 

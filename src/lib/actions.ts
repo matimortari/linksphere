@@ -272,14 +272,14 @@ export async function handleDialogFormSubmit({ contextFn, formData, onClose, onE
 }
 
 // Handle feedback form submission
-export async function handleFeedbackSubmit(message: string) {
+export async function handleFeedbackSubmit(message: string, rating: number | null) {
 	try {
 		const response = await fetch("/api/feedback", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({ message }),
+			body: JSON.stringify({ message, rating }), // Include rating in the request body
 		})
 
 		const responseData = await response.json()
@@ -289,7 +289,7 @@ export async function handleFeedbackSubmit(message: string) {
 		}
 
 		return { success: true, message: "Feedback submitted successfully!" }
-	} catch (error) {
+	} catch (error: any) {
 		console.error("Error submitting feedback:", error)
 		return { success: false, message: error.message || "Failed to submit feedback" }
 	}

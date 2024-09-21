@@ -114,5 +114,6 @@ model Feedback {
   name      String
   email     String
   message   String
+  rating    Int?
   createdAt DateTime @default(now())
 }
