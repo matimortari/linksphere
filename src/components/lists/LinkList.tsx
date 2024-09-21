@@ -3,8 +3,8 @@
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
-import AddLinkDialog from "./AddLinkDialog"
-import UpdateLinkDialog from "./UpdateLinkDialog"
+import AddLinkDialog from "../dialogs/AddLinkDialog"
+import UpdateLinkDialog from "../dialogs/UpdateLinkDialog"
 
 export default function LinkList() {
 	const { links: contextLinks, setLinks, deleteLink, updateLink } = useGlobalContext()

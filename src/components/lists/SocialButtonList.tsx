@@ -3,9 +3,9 @@
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
-import AddButtonDialog from "./AddButtonDialog"
+import AddButtonDialog from "../dialogs/AddButtonDialog"
 
-export default function ButtonList() {
+export default function SocialButtonList() {
 	const { buttons: contextButtons, setSocialButtons, deleteButton } = useGlobalContext()
 	const [isAddButtonDialogOpen, setIsAddButtonDialogOpen] = useState(false)
 	const [isDeleteMode, setIsDeleteMode] = useState(false)

@@ -1,35 +1,17 @@
 "use client"
 
-import ClicksByLink from "@/src/components/dashboard/ClicksByLink"
+import ClicksByLink from "@/src/components/lists/ClicksByLink"
+import ClicksTotal from "@/src/components/lists/ClicksTotal"
 import Sidebar from "@/src/components/Sidebar"
-import { fetchUserAnalytics } from "@/src/lib/actions"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
-import { useEffect, useState } from "react"
 
 export default function Analytics() {
 	const { data: session, status } = useSession()
-	const [stats, setStats] = useState(null)
-	const [links, setLinks] = useState([])
-	const [error, setError] = useState(null)
 
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
 	}
-
-	useEffect(() => {
-		const loadAnalyticsData = async () => {
-			try {
-				const data = await fetchUserAnalytics()
-				setStats(data.stats)
-				setLinks(data.links)
-			} catch (error) {
-				setError("Error fetching analytics")
-			}
-		}
-
-		loadAnalyticsData()
-	}, [status])
 
 	return (
 		<div className="dashboard-container">
@@ -46,13 +28,8 @@ export default function Analytics() {
 							<hr />
 						</header>
 
-						<div className="font-semibold">
-							Total Views: <span className="font-normal">{stats?.views ?? 0}</span>
-						</div>
-
-						<div className="font-semibold">
-							Total Page Clicks: <span className="font-normal">{stats?.clicks ?? 0}</span>
-						</div>
+						<p className="subtitle">Total Clicks</p>
+						<ClicksTotal />
 						<hr />
 
 						<p className="subtitle">Clicks By Link</p>

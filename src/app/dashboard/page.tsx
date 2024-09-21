@@ -1,10 +1,10 @@
 "use client"
 
 import Sidebar from "@/src/components/Sidebar"
-import ButtonList from "@/src/components/dashboard/ButtonList"
-import LinkList from "@/src/components/dashboard/LinkList"
-import UpdateHeaderForm from "@/src/components/dashboard/UpdateHeaderForm"
-import UpdateSlugForm from "@/src/components/dashboard/UpdateSlugForm"
+import UpdateHeaderForm from "@/src/components/forms/UpdateHeaderForm"
+import UpdateSlugForm from "@/src/components/forms/UpdateSlugForm"
+import LinkList from "@/src/components/lists/LinkList"
+import SocialButtonList from "@/src/components/lists/SocialButtonList"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
 
@@ -41,7 +41,7 @@ export default function Dashboard() {
 						<hr />
 
 						<p className="subtitle">My Social Buttons</p>
-						<ButtonList />
+						<SocialButtonList />
 						<hr />
 
 						<p className="subtitle">My Links</p>

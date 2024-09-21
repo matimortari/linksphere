@@ -1,6 +1,6 @@
 "use client"
 
-import AppearanceForm from "@/src/components/dashboard/AppearanceForm"
+import AppearanceForm from "@/src/components/forms/AppearanceForm"
 import Sidebar from "@/src/components/Sidebar"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"

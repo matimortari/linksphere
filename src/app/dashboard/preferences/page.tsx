@@ -1,7 +1,7 @@
 "use client"
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
-import FeedbackForm from "@/src/components/dashboard/FeedbackForm"
+import FeedbackForm from "@/src/components/forms/FeedbackForm"
 import Sidebar from "@/src/components/Sidebar"
 import { deleteUserAccount, updateUserBanner } from "@/src/lib/actions"
 import { useSession } from "next-auth/react"
