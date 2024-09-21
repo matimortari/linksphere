@@ -53,7 +53,7 @@ export default function Navbar() {
 					</Link>
 				) : (
 					<button onClick={toggleDialog} className="button h-10 w-10 bg-card">
-						<Icon icon="material-symbols:menu-rounded" />
+						<Icon icon="charm:menu-hamburger" />
 					</button>
 				)}
 			</div>

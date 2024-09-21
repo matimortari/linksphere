@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 const ColorInput = ({ id, label, value, onChange, disabled = false }) => (
 	<div className="my-2 flex items-center space-x-2">
 		<input id={id} type="color" value={value} onChange={onChange} disabled={disabled} />
-		<label htmlFor={id} className={`font-semibold ${disabled ? "text-muted-foreground" : ""}`}>
+		<label htmlFor={id} className={`font-semibold ${disabled ? "text-muted line-through" : ""}`}>
 			{label}
 		</label>
 	</div>
