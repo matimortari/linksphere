@@ -211,3 +211,43 @@ export async function trackClick(id: string, type: string) {
 		console.error("Failed to increment click count:", error)
 	}
 }
+
+// Handle form submission
+export async function handleFormSubmit(
+	e: React.FormEvent,
+	url: string,
+	payload: object,
+	setSuccess: React.Dispatch<React.SetStateAction<string | null>>,
+	setError: React.Dispatch<React.SetStateAction<string | null>>,
+	onSuccess?: () => void
+) {
+	e.preventDefault()
+
+	try {
+		const response = await fetch(url, {
+			method: "PUT",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(payload),
+		})
+
+		const data = await response.json()
+		if (!response.ok) throw new Error(data.error)
+
+		setSuccess("Updated successfully!")
+		onSuccess?.()
+	} catch (error) {
+		setError((error as Error).message)
+	}
+}
+
+// Handle form submission for dialogs
+export async function handleDialogFormSubmit({ contextFn, formData, onClose, onError }) {
+	const result = await contextFn(formData)
+
+	if (result && result.error) {
+		if (onError) onError(result.error)
+	} else {
+		onClose()
+		if (onError) onError(null)
+	}
+}

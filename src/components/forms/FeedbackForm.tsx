@@ -9,8 +9,8 @@ export default function FeedbackForm() {
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [submissionStatus, setSubmissionStatus] = useState<string | null>(null)
 
-	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault()
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault()
 		setIsSubmitting(true)
 		setSubmissionStatus(null)
 

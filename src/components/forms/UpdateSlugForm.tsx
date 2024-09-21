@@ -1,6 +1,6 @@
 "use client"
 
-import { handleFormSubmit } from "@/src/lib/utils"
+import { handleFormSubmit } from "@/src/lib/actions"
 import { useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 

@@ -5,6 +5,7 @@ import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { db } from "./db"
 import { defaultSettings } from "./userSettings"
+import { generateSlug } from "./utils"
 
 // Extend the default session with custom properties
 declare module "next-auth" {
@@ -18,16 +19,6 @@ declare module "next-auth" {
 			settings: typeof defaultSettings
 		}
 	}
-}
-
-function generateSlug(name: string) {
-	const baseSlug = (name || Math.random().toString(36).substring(2, 10))
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-+|-+$/g, "")
-		.slice(0, 20)
-
-	return `${baseSlug}-${Math.random().toString(36).substring(2, 6)}`
 }
 
 export const authOptions = {

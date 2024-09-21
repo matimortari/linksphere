@@ -1,6 +1,6 @@
 "use client"
 
-import { fetchUserSettings } from "@/src/lib/actions"
+import { fetchUserSettings, handleFormSubmit } from "@/src/lib/actions"
 import {
 	BORDER_RADIUS_OPTIONS,
 	PADDING_OPTIONS,
@@ -8,7 +8,6 @@ import {
 	SLUG_TEXT_WEIGHT_OPTIONS,
 	defaultSettings,
 } from "@/src/lib/userSettings"
-import { handleFormSubmit } from "@/src/lib/utils"
 import React, { useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
@@ -51,7 +50,7 @@ export default function AppearanceForm() {
 		fetchUserSettings().then(setSettings)
 	}, [setSettings])
 
-	const onSubmit = (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		handleFormSubmit(e, "/api/preferences", settings, setSuccess, setError, () => setSettings(settings))
 	}
 
@@ -71,7 +70,7 @@ export default function AppearanceForm() {
 
 	return (
 		<>
-			<form onSubmit={onSubmit} className="flex flex-wrap">
+			<form onSubmit={handleSubmit} className="flex flex-wrap">
 				<div className="flex w-full flex-col md:w-1/2">
 					<ColorInput
 						id="backgroundColor"

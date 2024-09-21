@@ -70,11 +70,7 @@ export default function LinkList() {
 			)}
 
 			{isUpdateDialogOpen && currentLink && (
-				<UpdateLinkDialog
-					onClose={() => setIsUpdateDialogOpen(false)}
-					onUpdateLink={handleUpdateLink}
-					linkData={currentLink}
-				/>
+				<UpdateLinkDialog onClose={() => setIsUpdateDialogOpen(false)} linkData={currentLink} />
 			)}
 
 			{isAddLinkDialogOpen && <AddLinkDialog onClose={() => setIsAddLinkDialogOpen(false)} />}

@@ -16,6 +16,16 @@ export function validateButtonData(data: any) {
 	return data && typeof data.platform === "string" && typeof data.url === "string" && typeof data.icon === "string"
 }
 
+export function generateSlug(name: string) {
+	const baseSlug = (name || Math.random().toString(36).substring(2, 10))
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, "-")
+		.replace(/^-+|-+$/g, "")
+		.slice(0, 20)
+
+	return `${baseSlug}-${Math.random().toString(36).substring(2, 6)}`
+}
+
 export async function getSessionOrUnauthorized() {
 	const session = await getServerSession(authOptions)
 	if (!session || !session.user) {
@@ -24,29 +34,13 @@ export async function getSessionOrUnauthorized() {
 	return { error: false, session }
 }
 
-export async function handleFormSubmit(
-	e: React.FormEvent,
-	url: string,
-	payload: object,
-	setSuccess: React.Dispatch<React.SetStateAction<string | null>>,
-	setError: React.Dispatch<React.SetStateAction<string | null>>,
-	onSuccess?: () => void
-) {
-	e.preventDefault()
+export function formatDate(dateString) {
+	const date = new Date(dateString)
+	const formattedDate = date.toLocaleDateString("en-US", {
+		year: "numeric",
+		month: "long",
+		day: "numeric",
+	})
 
-	try {
-		const response = await fetch(url, {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(payload),
-		})
-
-		const data = await response.json()
-		if (!response.ok) throw new Error(data.error)
-
-		setSuccess("Updated successfully!")
-		onSuccess?.()
-	} catch (error) {
-		setError((error as Error).message)
-	}
+	return formattedDate.charAt(0).toLowerCase() + formattedDate.slice(1)
 }

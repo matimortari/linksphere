@@ -1,57 +1,34 @@
 "use client"
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
+import useDialog from "@/src/hooks/useDialog"
+import { handleDialogFormSubmit } from "@/src/lib/actions"
 import { SOCIAL_ICONS } from "@/src/lib/userSettings"
 import { Icon } from "@iconify/react"
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
 
 export default function AddButtonDialog({ onClose }) {
+	const { dialogRef, error, setError } = useDialog(onClose)
 	const { addButton } = useGlobalContext()
 	const [selectedPlatform, setSelectedPlatform] = useState(null)
 	const [url, setUrl] = useState("")
-	const [error, setError] = useState(null)
-	const dialogRef = useRef(null)
 
-	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
-				onClose()
-			}
-		}
-
-		document.addEventListener("mousedown", handleClickOutside)
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside)
-		}
-	}, [onClose])
-
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-
-		if (!selectedPlatform || !url) {
-			setError("Both platform and URL are required.")
-			return
-		}
-
-		try {
-			await addButton({ platform: selectedPlatform, url, icon: SOCIAL_ICONS[selectedPlatform] })
-			setSelectedPlatform(null)
-			setUrl("")
-			setError(null)
-			onClose()
-		} catch (err) {
-			console.error("Error adding button:", err)
-			setError("An error occurred while adding the social button.")
-		}
+		handleDialogFormSubmit({
+			contextFn: addButton,
+			formData: { platform: selectedPlatform, url, icon: SOCIAL_ICONS[selectedPlatform] },
+			onClose,
+			onError: setError,
+		})
 	}
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
 			<div ref={dialogRef} className="content-container w-full max-w-3xl shadow-lg">
 				<h2 className="title mb-2">Add Social Button</h2>
-				<hr />
-
 				{error && <p className="mb-4 text-destructive">{error}</p>}
+				<hr />
 
 				<form onSubmit={handleSubmit} className="flex flex-col space-y-2">
 					<div className="my-4 flex flex-col space-y-4">
@@ -69,7 +46,6 @@ export default function AddButtonDialog({ onClose }) {
 							))}
 						</div>
 					</div>
-
 					<div className="my-4 flex flex-col space-y-2">
 						<label className="text-sm font-medium">URL:</label>
 						<input
@@ -80,7 +56,6 @@ export default function AddButtonDialog({ onClose }) {
 							required
 						/>
 					</div>
-
 					<div className="button-container justify-end">
 						<button type="button" className="button bg-destructive text-destructive-foreground" onClick={onClose}>
 							Cancel

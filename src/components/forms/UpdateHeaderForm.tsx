@@ -1,7 +1,7 @@
 "use client"
 
-import { handleFormSubmit } from "@/src/lib/utils"
-import { FormEvent, useEffect, useState } from "react"
+import { handleFormSubmit } from "@/src/lib/actions"
+import { useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
 export default function UpdateHeaderForm() {
@@ -15,7 +15,7 @@ export default function UpdateHeaderForm() {
 		updateLocalDescription(description || "")
 	}, [description])
 
-	const handleSubmit = (e: FormEvent) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		handleFormSubmit(e, "/api/user", { newDescription: localDescription }, setSuccess, setError, () =>
 			setDescription(localDescription)
 		)

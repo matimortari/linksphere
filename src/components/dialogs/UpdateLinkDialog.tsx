@@ -1,59 +1,32 @@
 "use client"
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
-import { useEffect, useRef, useState } from "react"
+import useDialog from "@/src/hooks/useDialog"
+import { handleDialogFormSubmit } from "@/src/lib/actions"
+import { useState } from "react"
 
-export default function UpdateLinkDialog({ onClose, onUpdateLink, linkData }) {
+export default function UpdateLinkDialog({ onClose, linkData }) {
+	const { dialogRef, error, setError } = useDialog(onClose)
 	const { updateLink } = useGlobalContext()
 	const [localTitle, setLocalTitle] = useState(linkData.title)
 	const [localUrl, setLocalUrl] = useState(linkData.url)
-	const [error, setError] = useState(null)
-	const dialogRef = useRef(null)
 
-	useEffect(() => {
-		setLocalTitle(linkData.title)
-		setLocalUrl(linkData.url)
-
-		const handleClickOutside = (event: MouseEvent) => {
-			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
-				onClose()
-			}
-		}
-
-		document.addEventListener("mousedown", handleClickOutside)
-		return () => {
-			document.removeEventListener("mousedown", handleClickOutside)
-		}
-	}, [linkData, onClose])
-
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-
-		if (!localTitle || !localUrl) {
-			setError("Both title and URL are required.")
-			return
-		}
-
-		try {
-			const updatedLink = { ...linkData, title: localTitle, url: localUrl }
-			await updateLink(updatedLink)
-			setLocalTitle("")
-			setLocalUrl("")
-			setError(null)
-			onUpdateLink(updatedLink)
-			onClose()
-		} catch (error) {
-			setError("An error occurred while updating the link.")
-		}
+		handleDialogFormSubmit({
+			contextFn: updateLink,
+			formData: { ...linkData, title: localTitle, url: localUrl },
+			onClose,
+			onError: setError,
+		})
 	}
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
 			<div ref={dialogRef} className="content-container w-full max-w-xl shadow-lg">
 				<h2 className="title">Update Link</h2>
-				<hr />
-
 				{error && <p className="title text-destructive">{error}</p>}
+				<hr />
 
 				<form onSubmit={handleSubmit}>
 					<div className="my-4 flex flex-col space-y-2">

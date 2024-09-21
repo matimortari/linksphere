@@ -1,6 +1,7 @@
 "use client"
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
+import { formatDate } from "@/src/lib/utils"
 import { Icon } from "@iconify/react"
 
 export default function ClicksByLink() {
@@ -10,17 +11,6 @@ export default function ClicksByLink() {
 		...contextLinks.map((link) => ({ type: "link", ...link })),
 		...contextButtons.map((button) => ({ type: "button", ...button })),
 	]
-
-	const formatDate = (dateString) => {
-		const date = new Date(dateString)
-		const formattedDate = date.toLocaleDateString("en-US", {
-			year: "numeric",
-			month: "long",
-			day: "numeric",
-		})
-
-		return formattedDate.charAt(0).toLowerCase() + formattedDate.slice(1)
-	}
 
 	const LinkItem = ({ item }) => (
 		<a href={item.url} className="flex w-full flex-col items-start">
