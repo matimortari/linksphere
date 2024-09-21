@@ -2,11 +2,17 @@ import { db } from "./db"
 
 // Fetch user data
 export async function fetchUserData() {
-	const response = await fetch("/api/user")
+	const response = await fetch("/api/user", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		},
+	})
 
 	if (!response.ok) {
 		throw new Error("Failed to fetch user data")
 	}
+
 	return response.json()
 }
 

@@ -11,8 +11,8 @@ input[type="color"] {
   border-width: 1px;
   border-color: var(--muted);
   border-radius: 100%;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 

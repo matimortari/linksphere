@@ -7,13 +7,16 @@ import LinkList from "@/src/components/lists/LinkList"
 import SocialButtonList from "@/src/components/lists/SocialButtonList"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
+import { useEffect } from "react"
 
 export default function Dashboard() {
 	const { data: session, status } = useSession()
 
-	if (status === "unauthenticated" || !session?.user) {
-		redirect("/login")
-	}
+	useEffect(() => {
+		if (status === "unauthenticated" || !session?.user) {
+			redirect("/login")
+		}
+	}, [status, session])
 
 	return (
 		<div className="dashboard-container">

@@ -13,27 +13,26 @@ export default function Navbar() {
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	const dialogRef = useRef(null)
 
-	const toggleTheme = () => setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"))
+	const toggleTheme = () => setTheme((prev) => (prev === "light" ? "dark" : "light"))
 
 	useEffect(() => {
 		document.documentElement.classList.toggle("dark", theme === "dark")
 	}, [theme])
 
-	const toggleDialog = () => setIsDialogOpen((prevState) => !prevState)
+	const toggleDialog = () => setIsDialogOpen((prev) => !prev)
 
 	const handleSignOut = () => {
 		signOut({ redirect: true, callbackUrl: "/" })
 	}
 
 	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
+		const handleClickOutside = (event) => {
+			if (dialogRef.current && !dialogRef.current.contains(event.target)) {
 				setIsDialogOpen(false)
 			}
 		}
 
 		document.addEventListener("mousedown", handleClickOutside)
-
 		return () => {
 			document.removeEventListener("mousedown", handleClickOutside)
 		}
@@ -48,13 +47,11 @@ export default function Navbar() {
 					/>
 				</button>
 
-				{!session && (
+				{!session ? (
 					<Link href="/login" className="button h-10 w-10 bg-card">
 						<Icon icon="material-symbols:login" />
 					</Link>
-				)}
-
-				{session && (
+				) : (
 					<button onClick={toggleDialog} className="button h-10 w-10 bg-card">
 						<Icon icon="material-symbols:menu-rounded" />
 					</button>

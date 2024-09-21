@@ -21,13 +21,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<GlobalContextProvider>
-					<Providers session={session}>
+				<Providers session={session}>
+					<GlobalContextProvider>
 						<Navbar />
 						{children}
 						<Footer />
-					</Providers>
-				</GlobalContextProvider>
+					</GlobalContextProvider>
+				</Providers>
 			</body>
 		</html>
 	)

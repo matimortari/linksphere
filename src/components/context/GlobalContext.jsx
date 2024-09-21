@@ -1,6 +1,5 @@
 "use client"
 
-import useIsHomePage from "@/src/hooks/useIsHomePage"
 import {
 	addButton,
 	addLink,
@@ -14,11 +13,13 @@ import {
 	updateSettings,
 } from "@/src/lib/actions"
 import { defaultSettings } from "@/src/lib/userSettings"
+import { useSession } from "next-auth/react"
 import { createContext, useContext, useEffect, useState } from "react"
 
 const GlobalContext = createContext(null)
 
 export const GlobalContextProvider = ({ children }) => {
+	const { data: session } = useSession()
 	const [user, setUser] = useState(null)
 	const [slug, setSlug] = useState("")
 	const [name, setName] = useState("")
@@ -28,10 +29,10 @@ export const GlobalContextProvider = ({ children }) => {
 	const [buttons, setButtons] = useState([])
 	const [settings, setSettings] = useState(defaultSettings)
 
-	const isHomePage = useIsHomePage()
-
 	useEffect(() => {
 		const loadUserData = async () => {
+			if (!session?.user) return
+
 			try {
 				const userData = await fetchUserData()
 				const { slug, description = "", name = "", image = "" } = userData
@@ -48,11 +49,8 @@ export const GlobalContextProvider = ({ children }) => {
 			}
 		}
 
-		// Only load user data if not on the homepage
-		if (!isHomePage) {
-			loadUserData()
-		}
-	}, [isHomePage])
+		loadUserData()
+	}, [session])
 
 	const handleAddLink = async (newLink) => {
 		try {

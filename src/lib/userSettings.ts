@@ -1,11 +1,11 @@
-export const SLUG_TEXT_SIZE_OPTIONS = [
+export const SLUG_FONT_SIZES = [
 	{ label: "Small", value: "1rem" },
-	{ label: "Medium", value: "1.5rem" },
-	{ label: "Large", value: "2rem" },
-	{ label: "Extra Large", value: "2.5rem" },
+	{ label: "Medium", value: "1.25rem" },
+	{ label: "Large", value: "1.5rem" },
+	{ label: "Extra Large", value: "1.75em" },
 ]
 
-export const SLUG_TEXT_WEIGHT_OPTIONS = [
+export const SLUG_FONT_WEIGHT_SIZES = [
 	{ label: "Extralight", value: "300" },
 	{ label: "Light", value: "400" },
 	{ label: "Normal", value: "500" },
