@@ -1,8 +1,8 @@
 "use client"
 
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { handleFormSubmit } from "@/src/lib/actions"
 import { useEffect, useState } from "react"
-import { useGlobalContext } from "../context/GlobalContext"
 
 export default function UpdateHeaderForm() {
 	const { description, setDescription } = useGlobalContext()
@@ -46,8 +46,8 @@ export default function UpdateHeaderForm() {
 			</form>
 
 			<>
+				{success && <p className="mt-2 font-bold text-primary">{success}</p>}
 				{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
-				{success && <p className="mt-2 font-bold text-accent">{success}</p>}
 			</>
 		</>
 	)

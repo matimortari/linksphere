@@ -1,8 +1,8 @@
 "use client"
 
+import { trackClick } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
-import { trackClick } from "../lib/actions"
 
 export default function SocialButton({ url, icon, settings, buttonId }) {
 	const [isHovered, setIsHovered] = useState(false)

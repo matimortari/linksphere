@@ -1,5 +1,5 @@
+import { bannerDescriptions, bannerIcons, bannerLinks, bannerMessages, bannerStyles } from "@/src/lib/bannerSettings"
 import { Icon } from "@iconify/react"
-import { bannerDescriptions, bannerIcons, bannerLinks, bannerMessages, bannerStyles } from "../lib/bannerSettings"
 
 export default function SupportBanner({ bannerType }) {
 	const message = bannerMessages[bannerType]

@@ -1,10 +1,10 @@
 "use client"
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
+import AddLinkDialog from "@/src/components/dialogs/AddLinkDialog"
+import UpdateLinkDialog from "@/src/components/dialogs/UpdateLinkDialog"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
-import AddLinkDialog from "../dialogs/AddLinkDialog"
-import UpdateLinkDialog from "../dialogs/UpdateLinkDialog"
 
 export default function LinkList() {
 	const { links: contextLinks, deleteLink } = useGlobalContext()

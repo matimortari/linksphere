@@ -1,9 +1,9 @@
 "use client"
 
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { handleFormSubmit } from "@/src/lib/actions"
 import { generateSlug } from "@/src/lib/utils"
 import { useState } from "react"
-import { useGlobalContext } from "../context/GlobalContext"
 
 export default function UpdateSlugForm() {
 	const { slug, setSlug } = useGlobalContext()
@@ -35,14 +35,14 @@ export default function UpdateSlugForm() {
 						Update
 					</button>
 					<button type="button" onClick={handleGenerateSlug} className="button bg-accent text-accent-foreground">
-						Random URL{" "}
+						Random URL
 					</button>
 				</div>
 			</form>
 
 			<>
+				{success && <p className="mt-2 font-bold text-primary">{success}</p>}
 				{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
-				{success && <p className="mt-2 font-bold text-accent">{success}</p>}
 			</>
 		</>
 	)

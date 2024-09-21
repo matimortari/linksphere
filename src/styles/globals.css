@@ -66,8 +66,8 @@
 	min-height: 100vh;
 	margin-top: 3.5rem;
 	margin-bottom: 0.5rem;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
+	margin-left: 2rem;
+	margin-right: 2rem;
 	border-color: var(--muted);
 	border-width: 1px;
 	border-radius: 1rem;
@@ -77,8 +77,8 @@
 	min-height: 100vh;
 	margin-top: 3.5rem;
 	margin-bottom: 0.5rem;
-	margin-left: 0.5rem;
-	margin-right: 0.5rem;
+	margin-left: 2rem;
+	margin-right: 2rem;
 }
 
 .content-container {
@@ -155,7 +155,7 @@
 .title-label {
 	color: var(--muted-foreground);
 	font-size: 1rem;
-	line-height: 1.75rem;
+	line-height: 1.5rem;
 	font-weight: 400;
 }
 

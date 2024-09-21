@@ -1,10 +1,10 @@
 "use client"
 
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { fetchUserSettings, handleFormSubmit, resetSettings } from "@/src/lib/actions"
 import { BORDER_RADIUS_OPTIONS, PADDING_OPTIONS, SLUG_FONT_SIZES, SLUG_FONT_WEIGHT_SIZES } from "@/src/lib/userSettings"
 import "@/src/styles/inputs.css"
 import { useEffect, useState } from "react"
-import { useGlobalContext } from "../context/GlobalContext"
 
 const ColorInput = ({ id, label, value, onChange, disabled = false }) => (
 	<div className="my-2 flex items-center space-x-2">

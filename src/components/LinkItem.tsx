@@ -1,7 +1,7 @@
 "use client"
 
+import { trackClick } from "@/src/lib/actions"
 import { useState } from "react"
-import { trackClick } from "../lib/actions"
 
 export default function LinkItem({ url, title, settings, linkId }) {
 	const [isHovered, setIsHovered] = useState(false)

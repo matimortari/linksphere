@@ -51,31 +51,27 @@ export default function FeedbackForm() {
 					required
 					placeholder="Enter your feedback here..."
 					rows={5}
-					className="form-container resize-none text-sm"
+					className="form-container w-full max-w-full resize-none overflow-auto text-sm"
 					style={{
 						paddingTop: "0.75rem",
-						paddingBottom: "0.75rem", // Added for symmetry
-						width: "100%", // Ensures full width
-						maxWidth: "100%", // Prevent overflow
-						overflow: "auto", // Allow scrolling if necessary
 					}}
 				/>
 
-				<div className="flex flex-col items-start">
-					<label className="text-base font-semibold">Rating (Optional):</label>
+				<div className="flex flex-row items-center gap-2">
+					<label className="text-base font-semibold">Rating (Optional)</label>
 					<div className="flex space-x-1 overflow-x-auto">{renderStars()}</div>
 				</div>
 
 				<div className="button-container">
-					<button type="submit" disabled={!session} className="button bg-accent text-accent-foreground">
+					<button type="submit" disabled={!session} className="button bg-primary text-primary-foreground">
 						Submit Feedback
 					</button>
 				</div>
 			</form>
 
 			<>
+				{success && <p className="mt-2 font-bold text-primary">{success}</p>}
 				{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
-				{success && <p className="mt-2 font-bold text-accent">{success}</p>}
 			</>
 		</>
 	)

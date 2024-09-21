@@ -1,9 +1,9 @@
 "use client"
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
+import AddButtonDialog from "@/src/components/dialogs/AddButtonDialog"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
-import AddButtonDialog from "../dialogs/AddButtonDialog"
 
 export default function SocialButtonList() {
 	const { buttons: contextButtons, deleteButton } = useGlobalContext()

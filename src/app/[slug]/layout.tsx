@@ -8,16 +8,21 @@ import { Inter } from "next/font/google"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata: Metadata = {
-	title: "neSS",
-	description: "Social media & link aggregator",
-}
-
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	const session = await getServerSession(authOptions)
 
+	const metadata: Metadata = {
+		title: session?.user?.slug ? `${session.user.slug} | neSS` : "neSS",
+		description: "Social media & link aggregator",
+	}
+
 	return (
 		<html lang="en">
+			<head>
+				<title>{String(metadata.title)}</title>
+				<meta name="description" content={metadata.description} />
+			</head>
+
 			<body className={inter.className}>
 				<Providers session={session}>
 					<GlobalContextProvider>{children}</GlobalContextProvider>

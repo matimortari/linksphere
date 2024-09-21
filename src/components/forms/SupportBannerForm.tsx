@@ -1,8 +1,8 @@
 "use client"
 
+import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { updateUserBanner } from "@/src/lib/actions"
 import { useEffect, useState } from "react"
-import { useGlobalContext } from "../context/GlobalContext"
 
 export default function SupportBannerForm() {
 	const { settings } = useGlobalContext()
@@ -32,39 +32,39 @@ export default function SupportBannerForm() {
 
 	return (
 		<>
-			<div className="flex flex-col gap-2">
+			<form className="flex flex-col gap-2">
 				<select
 					value={selectedOption}
 					onChange={(event) => setSelectedOption(event.target.value)}
-					className="form-container text-sm"
+					className="form-container text-sm font-medium"
 				>
-					<option value="NONE" className="bg-card text-muted-foreground">
+					<option value="NONE" className="bg-card font-medium text-muted-foreground">
 						None
 					</option>
-					<option value="LGBTQ_RIGHTS" className="bg-card">
+					<option value="LGBTQ_RIGHTS" className="bg-card font-medium">
 						Pride
 					</option>
-					<option value="ANTI_RACISM" className="bg-card">
+					<option value="ANTI_RACISM" className="bg-card font-medium">
 						Anti-Racism
 					</option>
-					<option value="MENTAL_HEALTH" className="bg-card">
+					<option value="MENTAL_HEALTH" className="bg-card font-medium">
 						Mental Health
 					</option>
-					<option value="CLIMATE_ACTION" className="bg-card">
+					<option value="CLIMATE_ACTION" className="bg-card font-medium">
 						Climate Action
 					</option>
 				</select>
 
 				<div className="button-container">
-					<button onClick={handleSubmit} className="button bg-accent text-accent-foreground">
+					<button onClick={handleSubmit} className="button bg-primary text-primary-foreground">
 						Update Banner
 					</button>
 				</div>
-			</div>
+			</form>
 
 			<>
+				{success && <p className="mt-2 font-bold text-primary">{success}</p>}
 				{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
-				{success && <p className="mt-2 font-bold text-accent">{success}</p>}
 			</>
 		</>
 	)
