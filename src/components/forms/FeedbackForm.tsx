@@ -52,6 +52,9 @@ export default function FeedbackForm() {
 					placeholder="Enter your feedback here..."
 					rows={5}
 					className="form-container text-sm"
+					style={{
+						paddingTop: "0.75rem",
+					}}
 				/>
 
 				<div className="flex flex-row items-center gap-2">

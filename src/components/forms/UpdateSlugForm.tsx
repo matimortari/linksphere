@@ -14,7 +14,7 @@ export default function UpdateSlugForm() {
 		handleFormSubmit(e, "/api/user", { newSlug: slug }, setSuccess, setError)
 	}
 
-	const handleGenerateSlugFromUsername = () => {
+	const handleGenerateSlug = () => {
 		const newSlug = generateSlug(slug)
 		setSlug(newSlug)
 	}
@@ -34,11 +34,7 @@ export default function UpdateSlugForm() {
 					<button type="submit" className="button bg-primary text-primary-foreground">
 						Update
 					</button>
-					<button
-						type="button"
-						onClick={handleGenerateSlugFromUsername}
-						className="button bg-accent text-accent-foreground"
-					>
+					<button type="button" onClick={handleGenerateSlug} className="button bg-accent text-accent-foreground">
 						Random URL{" "}
 					</button>
 				</div>

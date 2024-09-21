@@ -39,13 +39,14 @@ export const authOptions = {
 		strategy: "database" as SessionStrategy,
 	},
 	callbacks: {
-		async signIn({ user, account, profile, email }) {
+		async signIn({ user, account, profile }) {
 			const existingUser = await db.user.findUnique({
 				where: { email: user.email },
 			})
 
 			if (!existingUser) {
-				const slug = generateSlug(profile?.name ?? user.email ?? "")
+				const baseSlug = profile?.name ?? user.email ?? ""
+				const slug = generateSlug(baseSlug, true) // Set isInitial to true
 				const newUser = await db.user.create({
 					data: {
 						email: user.email,
@@ -73,7 +74,6 @@ export const authOptions = {
 
 			return true
 		},
-
 		async session({ session, user }) {
 			session.user.id = user.id
 			const dbUser = await db.user.findUnique({ where: { id: user.id } })

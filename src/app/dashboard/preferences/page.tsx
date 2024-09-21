@@ -5,32 +5,25 @@ import Sidebar from "@/src/components/Sidebar"
 import { deleteUserAccount } from "@/src/lib/actions"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
-import { useState } from "react"
 import SupportBannerForm from "../../../components/forms/SupportBannerForm"
 
 export default function Preferences() {
 	const { data: session, status } = useSession()
-
-	const [isDeleting, setIsDeleting] = useState(false)
 
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
 	}
 
 	const handleDeleteAccount = async () => {
-		const confirmed = window.confirm("Are you sure you want to delete your account? This action cannot be undone.")
-		if (!confirmed) return
+		const confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.")
 
-		setIsDeleting(true)
-		try {
-			await deleteUserAccount()
-			alert("Your account has been successfully deleted.")
-			redirect("/login")
-		} catch (error) {
-			console.error("Error deleting account:", error)
-			alert(`Error deleting account: ${error.message}`)
-		} finally {
-			setIsDeleting(false)
+		if (confirmation) {
+			try {
+				await deleteUserAccount()
+				window.location.href = "/login"
+			} catch (error) {
+				alert(error.message)
+			}
 		}
 	}
 
@@ -59,12 +52,8 @@ export default function Preferences() {
 
 						<p className="subtitle">Delete Account</p>
 						<div className="button-container mt-2">
-							<button
-								className="button bg-destructive text-destructive-foreground"
-								onClick={handleDeleteAccount}
-								disabled={isDeleting}
-							>
-								{isDeleting ? "Deleting..." : "Delete Account"}
+							<button className="button bg-destructive text-destructive-foreground" onClick={handleDeleteAccount}>
+								Delete Account
 							</button>
 						</div>
 					</div>

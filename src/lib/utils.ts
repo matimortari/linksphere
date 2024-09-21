@@ -16,11 +16,18 @@ export function validateButtonData(data: any) {
 	return data && typeof data.platform === "string" && typeof data.url === "string" && typeof data.icon === "string"
 }
 
-export function generateSlug(currentSlug: string) {
-	const baseSlug = currentSlug.split("-").slice(0, -1).join("-") || currentSlug
+export function generateSlug(base: string = "", isInitial: boolean = false, length: number = 6) {
+	const randomString = () =>
+		Math.random()
+			.toString(36)
+			.substring(2, 2 + length)
 
-	const randomSuffix = Math.random().toString(36).substring(2, 6)
-	return `${baseSlug}-${randomSuffix}`
+	return isInitial
+		? `${base
+				.toLowerCase()
+				.replace(/\s+/g, "-")
+				.replace(/[^a-z0-9-]/g, "")}-${randomString()}`
+		: `${randomString()}-${randomString()}`
 }
 
 export async function getSessionOrUnauthorized() {
