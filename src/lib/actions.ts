@@ -146,6 +146,27 @@ export async function updateSettings(newSettings) {
 	}
 }
 
+// Reset user settings to default
+export async function resetSettings() {
+	try {
+		const response = await fetch("/api/preferences", {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({}),
+		})
+
+		if (!response.ok) {
+			const errorData = await response.json()
+			throw new Error(errorData.error || "Failed to reset settings")
+		}
+
+		return await response.json()
+	} catch (error) {
+		throw new Error("Failed to reset settings: " + error.message)
+	}
+}
 // Update user banner
 export async function updateUserBanner(newBanner) {
 	try {

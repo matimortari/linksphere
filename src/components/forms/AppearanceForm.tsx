@@ -1,12 +1,11 @@
 "use client"
 
-import { fetchUserSettings, handleFormSubmit } from "@/src/lib/actions"
+import { fetchUserSettings, handleFormSubmit, resetSettings } from "@/src/lib/actions"
 import {
 	BORDER_RADIUS_OPTIONS,
 	PADDING_OPTIONS,
 	SLUG_TEXT_SIZE_OPTIONS,
 	SLUG_TEXT_WEIGHT_OPTIONS,
-	defaultSettings,
 } from "@/src/lib/userSettings"
 import React, { useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
@@ -47,18 +46,30 @@ export default function AppearanceForm() {
 	const [success, setSuccess] = useState("")
 
 	useEffect(() => {
-		fetchUserSettings().then(setSettings)
+		const loadUserSettings = async () => {
+			const userSettings = await fetchUserSettings()
+			setSettings(userSettings)
+		}
+		loadUserSettings()
 	}, [setSettings])
 
 	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault()
 		handleFormSubmit(e, "/api/preferences", settings, setSuccess, setError, () => setSettings(settings))
 	}
 
-	const handleReset = () => {
-		setSettings(defaultSettings)
-	}
+	const handleReset = async (e) => {
+		if (e) e.preventDefault()
 
-	const currentSettings = { ...defaultSettings, ...settings }
+		try {
+			const result = await resetSettings() // Call the resetSettings function
+			setSettings(result.settings) // Update local state with the reset settings
+			setSuccess("Settings reset to default.")
+		} catch (err) {
+			console.error("Error resetting settings:", err)
+			setError("Failed to reset settings. Please try again.")
+		}
+	}
 
 	const handleColorChange = (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSettings({ ...settings, [key]: e.target.value })
@@ -75,21 +86,21 @@ export default function AppearanceForm() {
 					<ColorInput
 						id="backgroundColor"
 						label="Main Background Color"
-						value={currentSettings.backgroundColor}
+						value={settings.backgroundColor}
 						onChange={handleColorChange("backgroundColor")}
 					/>
 
 					<ColorInput
 						id="slugTextColor"
 						label="Username Text Color"
-						value={currentSettings.slugTextColor}
+						value={settings.slugTextColor}
 						onChange={handleColorChange("slugTextColor")}
 					/>
 
 					<ColorInput
 						id="headerTextColor"
 						label="Header Text Color"
-						value={currentSettings.headerTextColor}
+						value={settings.headerTextColor}
 						onChange={handleColorChange("headerTextColor")}
 					/>
 
@@ -97,7 +108,7 @@ export default function AppearanceForm() {
 						name="slugTextSize"
 						label="Username Text Size"
 						options={SLUG_TEXT_SIZE_OPTIONS}
-						value={currentSettings.slugTextSize}
+						value={settings.slugTextSize}
 						onChange={handleRadioChange("slugTextSize")}
 					/>
 
@@ -105,7 +116,7 @@ export default function AppearanceForm() {
 						name="slugTextWeight"
 						label="Username Text Weight"
 						options={SLUG_TEXT_WEIGHT_OPTIONS}
-						value={currentSettings.slugTextWeight}
+						value={settings.slugTextWeight}
 						onChange={handleRadioChange("slugTextWeight")}
 					/>
 				</div>
@@ -114,28 +125,28 @@ export default function AppearanceForm() {
 					<ColorInput
 						id="linkBackgroundColor"
 						label="Link Background Color"
-						value={currentSettings.linkBackgroundColor}
+						value={settings.linkBackgroundColor}
 						onChange={handleColorChange("linkBackgroundColor")}
 					/>
 
 					<ColorInput
 						id="linkTextColor"
 						label="Link Text Color"
-						value={currentSettings.linkTextColor}
+						value={settings.linkTextColor}
 						onChange={handleColorChange("linkTextColor")}
 					/>
 
 					<ColorInput
 						id="linkHoverBackgroundColor"
 						label="Button Hover Background Color"
-						value={currentSettings.linkHoverBackgroundColor}
+						value={settings.linkHoverBackgroundColor}
 						onChange={handleColorChange("linkHoverBackgroundColor")}
 					/>
 
 					<ColorInput
 						id="linkShadowColor"
 						label="Button Shadow Color"
-						value={currentSettings.linkShadowColor}
+						value={settings.linkShadowColor}
 						onChange={handleColorChange("linkShadowColor")}
 					/>
 
@@ -143,7 +154,7 @@ export default function AppearanceForm() {
 						name="linkBorderRadius"
 						label="Button Border Radius"
 						options={BORDER_RADIUS_OPTIONS}
-						value={currentSettings.linkBorderRadius}
+						value={settings.linkBorderRadius}
 						onChange={handleRadioChange("linkBorderRadius")}
 					/>
 
@@ -151,35 +162,35 @@ export default function AppearanceForm() {
 						name="linkPadding"
 						label="Button Padding"
 						options={PADDING_OPTIONS}
-						value={currentSettings.linkPadding}
+						value={settings.linkPadding}
 						onChange={handleRadioChange("linkPadding")}
 					/>
 
 					<ColorInput
 						id="buttonBackgroundColor"
 						label="Social Button Background Color"
-						value={currentSettings.buttonBackgroundColor}
+						value={settings.buttonBackgroundColor}
 						onChange={handleColorChange("buttonBackgroundColor")}
 					/>
 
 					<ColorInput
 						id="buttonIconColor"
 						label="Social Button Icon Color"
-						value={currentSettings.buttonIconColor}
+						value={settings.buttonIconColor}
 						onChange={handleColorChange("buttonIconColor")}
 					/>
 
 					<ColorInput
 						id="buttonHoverBackgroundColor"
 						label="Social Button Hover Background Color"
-						value={currentSettings.buttonHoverBackgroundColor}
+						value={settings.buttonHoverBackgroundColor}
 						onChange={handleColorChange("buttonHoverBackgroundColor")}
 					/>
 
 					<ColorInput
 						id="buttonShadowColor"
 						label="Social Button Shadow Color"
-						value={currentSettings.buttonShadowColor}
+						value={settings.buttonShadowColor}
 						onChange={handleColorChange("buttonShadowColor")}
 					/>
 				</div>

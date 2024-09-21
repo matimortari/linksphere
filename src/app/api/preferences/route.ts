@@ -1,4 +1,5 @@
 import { db } from "@/src/lib/db"
+import { defaultSettings } from "@/src/lib/userSettings"
 import { getSessionOrUnauthorized } from "@/src/lib/utils"
 import { NextResponse } from "next/server"
 
@@ -20,15 +21,22 @@ export async function GET(req: Request) {
 	}
 }
 
-export async function PUT(req: Request) {
+export async function PUT(req) {
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 
 	try {
 		const settingsData = await req.json()
 
-		if (!settingsData?.supportBanner) {
-			return NextResponse.json({ error: "Invalid input" }, { status: 400 })
+		if (!settingsData || Object.keys(settingsData).length === 0) {
+			const updatedSettings = await db.userSettings.update({
+				where: { userId: session.user.id },
+				data: defaultSettings,
+			})
+			return NextResponse.json(
+				{ message: "Settings reset to default successfully", settings: updatedSettings },
+				{ status: 200 }
+			)
 		}
 
 		const updatedSettings = await db.userSettings.update({

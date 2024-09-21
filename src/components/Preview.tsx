@@ -6,11 +6,7 @@ import LinkItem from "./LinkItem"
 import SocialButton from "./SocialButton"
 
 export default function Preview() {
-	const { description, links, setSlug, image, buttons, slug, settings } = useGlobalContext()
-
-	if (slug) {
-		setSlug(slug)
-	}
+	const { description, links, image, buttons, slug, settings } = useGlobalContext()
 
 	return (
 		<div className="content-container my-2" style={{ backgroundColor: settings.backgroundColor }}>
