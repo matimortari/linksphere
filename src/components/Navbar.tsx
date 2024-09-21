@@ -62,7 +62,7 @@ export default function Navbar() {
 			</div>
 
 			{isDialogOpen && (
-				<div ref={dialogRef} className="content-container absolute top-14 flex">
+				<div ref={dialogRef} className="content-container absolute top-14 z-10 flex">
 					<div className="flex flex-col justify-center gap-2 p-2 text-sm font-semibold">
 						{session && (
 							<>

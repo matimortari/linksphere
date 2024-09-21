@@ -1,21 +1,7 @@
-"use client"
-
-import { useSession } from "next-auth/react"
 import Link from "next/link"
-import { redirect } from "next/navigation"
 import { CardCarousel } from "../components/CardCarousel"
 
 export default function Home() {
-	const { data: session, status } = useSession()
-
-	if (status === "loading") {
-		return <div>Loading...</div>
-	}
-
-	if (status === "authenticated" && session?.user) {
-		redirect("/dashboard")
-	}
-
 	return (
 		<div className="main-container flex flex-col bg-card md:flex-row">
 			<section className="flex flex-col items-center gap-2 p-8 md:w-1/2 md:items-start">

@@ -62,7 +62,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 						))}
 					</ul>
 				) : (
-					<hr />
+					<p className="text-muted-foreground">No social buttons available</p>
 				)}
 
 				{links.length > 0 ? (
