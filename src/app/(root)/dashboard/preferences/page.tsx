@@ -1,11 +1,11 @@
 "use client"
 
 import FeedbackForm from "@/src/components/forms/FeedbackForm"
+import SupportBannerForm from "@/src/components/forms/SupportBannerForm"
 import Sidebar from "@/src/components/Sidebar"
 import { deleteUserAccount } from "@/src/lib/actions"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
-import SupportBannerForm from "../../../components/forms/SupportBannerForm"
 
 export default function Preferences() {
 	const { data: session, status } = useSession()

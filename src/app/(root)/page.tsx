@@ -1,5 +1,5 @@
+import { CardCarousel } from "@/src/components/CardCarousel"
 import Link from "next/link"
-import { CardCarousel } from "../components/CardCarousel"
 
 export default function Home() {
 	return (
