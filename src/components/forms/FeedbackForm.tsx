@@ -1,71 +1,51 @@
 "use client"
 
+import { handleFeedbackSubmit } from "@/src/lib/actions"
 import { useSession } from "next-auth/react"
 import { useState } from "react"
 
 export default function FeedbackForm() {
 	const { data: session } = useSession()
 	const [message, setMessage] = useState("")
-	const [isSubmitting, setIsSubmitting] = useState(false)
-	const [submissionStatus, setSubmissionStatus] = useState<string | null>(null)
+	const [error, setError] = useState("")
+	const [success, setSuccess] = useState("")
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		setIsSubmitting(true)
-		setSubmissionStatus(null)
+		setError("")
+		setSuccess("")
 
 		try {
-			const response = await fetch("/api/feedback", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ message }),
-			})
-
-			const responseData = await response.json()
-
-			if (!response.ok) {
-				throw new Error(responseData.error || "Failed to submit feedback")
-			}
-
-			setMessage("")
-			setSubmissionStatus(responseData.message)
+			await handleFeedbackSubmit(message)
+			setSuccess("Feedback submitted!")
 		} catch (error) {
 			console.error("Error submitting feedback:", error)
-			setSubmissionStatus(`Error: ${error.message}`)
-		} finally {
-			setIsSubmitting(false)
+			setError("Failed to submit feedback")
 		}
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="flex flex-col gap-2">
-			<textarea
-				value={message}
-				onChange={(e) => setMessage(e.target.value)}
-				className="form-container"
-				required
-				placeholder="Enter your feedback here"
-			/>
+		<>
+			<form onSubmit={handleSubmit} className="flex flex-col gap-2">
+				<textarea
+					value={message}
+					onChange={(e) => setMessage(e.target.value)}
+					className="form-container text-sm"
+					required
+					placeholder="Enter your feedback here..."
+				/>
 
-			<div className="button-container">
-				<button
-					type="submit"
-					disabled={isSubmitting || !session}
-					className={`button bg-accent text-accent-foreground ${isSubmitting ? "opacity-50" : ""}`}
-				>
-					{isSubmitting ? "Submitting..." : "Submit Feedback"}
-				</button>
-			</div>
+				<div className="button-container">
+					<button type="submit" disabled={!session} className="button bg-accent text-accent-foreground">
+						Submit Feedback
+					</button>
+				</div>
+			</form>
 
-			{submissionStatus && (
-				<p className={`mb-4 font-bold ${submissionStatus.startsWith("Error") ? "text-destructive" : "text-accent"}`}>
-					{submissionStatus}
-				</p>
-			)}
-
-			{!session && <p className="text-sm text-destructive">You must be logged in to submit feedback.</p>}
-		</form>
+			<>
+				{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
+				{success && <p className="mt-2 font-bold text-accent">{success}</p>}
+			</>
+		</>
 	)
 }

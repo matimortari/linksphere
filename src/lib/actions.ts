@@ -52,6 +52,22 @@ export async function fetchUserAnalytics() {
 	return response.json()
 }
 
+// Delete user account
+export async function deleteUserAccount() {
+	try {
+		const response = await fetch("/api/user", {
+			method: "DELETE",
+		})
+
+		if (!response.ok) {
+			const errorData = await response.json()
+			throw new Error(errorData.error || "Failed to delete the account")
+		}
+	} catch (error) {
+		throw new Error(error.message)
+	}
+}
+
 // Add a new link
 export async function addLink(newLink) {
 	try {
@@ -167,32 +183,15 @@ export async function resetSettings() {
 		throw new Error("Failed to reset settings: " + error.message)
 	}
 }
+
 // Update user banner
 export async function updateUserBanner(newBanner) {
 	try {
 		const currentSettings = await fetchUserSettings()
 		const updatedSettings = { ...currentSettings, supportBanner: newBanner }
 		await updateSettings(updatedSettings)
-		alert("Support banner has been updated successfully!")
 	} catch (error) {
 		console.error("Error saving support banner:", error)
-		alert(`Error saving support banner: ${error.message}`)
-	}
-}
-
-// Delete user account
-export async function deleteUserAccount() {
-	try {
-		const response = await fetch("/api/user", {
-			method: "DELETE",
-		})
-
-		if (!response.ok) {
-			const errorData = await response.json()
-			throw new Error(errorData.error || "Failed to delete the account")
-		}
-	} catch (error) {
-		throw new Error(error.message)
 	}
 }
 
@@ -269,5 +268,29 @@ export async function handleDialogFormSubmit({ contextFn, formData, onClose, onE
 	} else {
 		onClose()
 		if (onError) onError(null)
+	}
+}
+
+// Handle feedback form submission
+export async function handleFeedbackSubmit(message: string) {
+	try {
+		const response = await fetch("/api/feedback", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ message }),
+		})
+
+		const responseData = await response.json()
+
+		if (!response.ok) {
+			throw new Error(responseData.error || "Failed to submit feedback")
+		}
+
+		return { success: true, message: "Feedback submitted successfully!" }
+	} catch (error) {
+		console.error("Error submitting feedback:", error)
+		return { success: false, message: error.message || "Failed to submit feedback" }
 	}
 }

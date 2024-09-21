@@ -1,8 +1,8 @@
 export const bannerMessages = {
 	LGBTQ_RIGHTS: "Support the LGBTQIA+ Community",
 	ANTI_RACISM: "Stand Against Racism and Injustice",
-	MENTAL_HEALTH: "Promote Mental Health Awareness and Support",
-	CLIMATE_ACTION: "Support Climate Action and Sustainability",
+	MENTAL_HEALTH: "Promote Mental Health Awareness",
+	CLIMATE_ACTION: "Support Climate Action & Sustainability",
 }
 
 export const bannerDescriptions = {

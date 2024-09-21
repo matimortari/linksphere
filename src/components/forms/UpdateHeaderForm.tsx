@@ -10,9 +10,8 @@ export default function UpdateHeaderForm() {
 	const [error, setError] = useState("")
 	const [success, setSuccess] = useState("")
 
-	// Update local state when description changes
 	useEffect(() => {
-		updateLocalDescription(description || "")
+		updateLocalDescription(description)
 	}, [description])
 
 	const handleSubmit = (e: React.FormEvent) => {

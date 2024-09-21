@@ -1,43 +1,20 @@
 "use client"
 
-import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import FeedbackForm from "@/src/components/forms/FeedbackForm"
 import Sidebar from "@/src/components/Sidebar"
-import { deleteUserAccount, updateUserBanner } from "@/src/lib/actions"
+import { deleteUserAccount } from "@/src/lib/actions"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import SupportBannerForm from "../../../components/forms/SupportBannerForm"
 
 export default function Preferences() {
 	const { data: session, status } = useSession()
-	const { settings } = useGlobalContext()
-	const [selectedOption, setSelectedOption] = useState("NONE")
-	const [isSaving, setIsSaving] = useState(false)
+
 	const [isDeleting, setIsDeleting] = useState(false)
 
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
-	}
-
-	useEffect(() => {
-		if (settings && settings.supportBanner) {
-			setSelectedOption(settings.supportBanner)
-		}
-	}, [settings])
-
-	const handleOptionChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-		const newBanner = event.target.value
-		setSelectedOption(newBanner)
-		setIsSaving(true)
-		try {
-			await updateUserBanner(newBanner)
-			alert("Support banner has been updated successfully!")
-		} catch (error) {
-			console.error("Error saving support banner:", error)
-			alert(`Error saving support banner: ${error.message}`)
-		} finally {
-			setIsSaving(false)
-		}
 	}
 
 	const handleDeleteAccount = async () => {
@@ -73,18 +50,7 @@ export default function Preferences() {
 						</header>
 
 						<p className="subtitle">Support Banner</p>
-						<select value={selectedOption} onChange={handleOptionChange} className="form-container">
-							<option value="NONE">None</option>
-							<option value="LGBTQ_RIGHTS">Pride</option>
-							<option value="ANTI_RACISM">Anti-Racism</option>
-							<option value="MENTAL_HEALTH">Mental Health</option>
-							<option value="CLIMATE_ACTION">Climate Action</option>
-						</select>
-						<div className="button-container">
-							<button className="button bg-accent text-accent-foreground" disabled={isSaving}>
-								{isSaving ? "Saving..." : "Save Banner"}
-							</button>
-						</div>
+						<SupportBannerForm />
 						<hr />
 
 						<p className="subtitle">Submit Feedback</p>

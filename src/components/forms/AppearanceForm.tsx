@@ -58,12 +58,12 @@ export default function AppearanceForm() {
 		handleFormSubmit(e, "/api/preferences", settings, setSuccess, setError, () => setSettings(settings))
 	}
 
-	const handleReset = async (e) => {
+	const handleReset = async (e: React.MouseEvent) => {
 		if (e) e.preventDefault()
 
 		try {
-			const result = await resetSettings() // Call the resetSettings function
-			setSettings(result.settings) // Update local state with the reset settings
+			const result = await resetSettings()
+			setSettings(result.settings)
 			setSuccess("Settings reset to default.")
 		} catch (err) {
 			console.error("Error resetting settings:", err)
