@@ -1,14 +1,19 @@
 "use client"
 
 import { handleFormSubmit } from "@/src/lib/utils"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
 export default function UpdateHeaderForm() {
 	const { description, setDescription } = useGlobalContext()
-	const [localDescription, updateLocalDescription] = useState(description)
+	const [localDescription, updateLocalDescription] = useState(description || "")
 	const [error, setError] = useState("")
 	const [success, setSuccess] = useState("")
+
+	// Update local state when description changes
+	useEffect(() => {
+		updateLocalDescription(description || "")
+	}, [description])
 
 	const handleSubmit = (e: FormEvent) => {
 		handleFormSubmit(e, "/api/user", { newDescription: localDescription }, setSuccess, setError, () =>
@@ -31,7 +36,11 @@ export default function UpdateHeaderForm() {
 					<button type="submit" className="button bg-primary text-primary-foreground">
 						Update
 					</button>
-					<button type="submit" className="button bg-destructive text-destructive-foreground">
+					<button
+						type="button"
+						className="button bg-destructive text-destructive-foreground"
+						onClick={() => setDescription("")}
+					>
 						Delete
 					</button>
 				</div>

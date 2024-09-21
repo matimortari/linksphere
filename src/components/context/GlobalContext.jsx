@@ -1,5 +1,6 @@
 "use client"
 
+import useIsHomePage from "@/src/hooks/useIsHomePage"
 import {
 	addButton,
 	addLink,
@@ -25,9 +26,9 @@ export const GlobalContextProvider = ({ children }) => {
 	const [description, setDescription] = useState("")
 	const [links, setLinks] = useState([])
 	const [buttons, setButtons] = useState([])
-	const [title, setTitle] = useState("")
-	const [url, setUrl] = useState("")
 	const [settings, setSettings] = useState(defaultSettings)
+
+	const isHomePage = useIsHomePage() // Use the custom hook
 
 	useEffect(() => {
 		const loadUserData = async () => {
@@ -47,8 +48,11 @@ export const GlobalContextProvider = ({ children }) => {
 			}
 		}
 
-		loadUserData()
-	}, [])
+		// Only load user data if not on the homepage
+		if (!isHomePage) {
+			loadUserData()
+		}
+	}, [isHomePage])
 
 	const handleAddLink = async (newLink) => {
 		try {
@@ -129,10 +133,6 @@ export const GlobalContextProvider = ({ children }) => {
 				deleteLink: handleDeleteLink,
 				addButton: handleAddButton,
 				deleteButton: handleDeleteButton,
-				title,
-				setTitle,
-				url,
-				setUrl,
 			}}
 		>
 			{children}
