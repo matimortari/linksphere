@@ -3,6 +3,7 @@ import { db } from "./db"
 // Fetch user data
 export async function fetchUserData() {
 	const response = await fetch("/api/user")
+
 	if (!response.ok) {
 		throw new Error("Failed to fetch user data")
 	}
@@ -12,6 +13,7 @@ export async function fetchUserData() {
 // Fetch user settings
 export async function fetchUserSettings() {
 	const response = await fetch("/api/preferences")
+
 	if (!response.ok) {
 		throw new Error((await response.json()).error)
 	}
@@ -22,6 +24,7 @@ export async function fetchUserSettings() {
 // Fetch user links based on slug
 export async function fetchUserLinks(slug: string) {
 	const response = await fetch(`/api/links?slug=${slug}`)
+
 	if (!response.ok) {
 		throw new Error("Failed to fetch user links")
 	}
@@ -31,6 +34,7 @@ export async function fetchUserLinks(slug: string) {
 // Fetch user social buttons based on slug
 export async function fetchUserButtons(slug: string) {
 	const response = await fetch(`/api/buttons?slug=${slug}`)
+
 	if (!response.ok) {
 		throw new Error("Failed to fetch user buttons")
 	}
@@ -39,24 +43,17 @@ export async function fetchUserButtons(slug: string) {
 
 // Fetch user analytics
 export async function fetchUserAnalytics() {
-	try {
-		const response = await fetch("/api/analytics")
-		if (!response.ok) throw new Error("Network response was not ok")
+	const response = await fetch("/api/analytics")
 
-		const data = await response.json()
-		if (!data.success) {
-			throw new Error("Failed to fetch analytics data")
-		}
-
-		return data
-	} catch (error) {
-		console.error("Error fetching analytics:", error)
-		throw error
+	if (!response.ok) {
+		throw new Error("Network response was not ok")
 	}
+
+	return response.json()
 }
 
 // Add a new link
-export async function addLink(newLink: object) {
+export async function addLink(newLink) {
 	try {
 		const response = await fetch("/api/links", {
 			method: "POST",
@@ -73,7 +70,7 @@ export async function addLink(newLink: object) {
 }
 
 // Update an existing link
-export async function updateLink(updatedLink: object) {
+export async function updateLink(updatedLink) {
 	try {
 		const response = await fetch("/api/links", {
 			method: "PUT",
@@ -90,7 +87,7 @@ export async function updateLink(updatedLink: object) {
 }
 
 // Delete a link by its ID
-export async function deleteLink(id: string) {
+export async function deleteLink(id: string): Promise<string> {
 	try {
 		const response = await fetch(`/api/links?id=${id}`, { method: "DELETE" })
 
@@ -103,7 +100,7 @@ export async function deleteLink(id: string) {
 }
 
 // Add a new social button
-export async function addButton(newButton: object) {
+export async function addButton(newButton) {
 	try {
 		const response = await fetch("/api/buttons", {
 			method: "POST",
@@ -120,7 +117,7 @@ export async function addButton(newButton: object) {
 }
 
 // Delete a social button by its ID
-export async function deleteButton(id: string) {
+export async function deleteButton(id) {
 	try {
 		const response = await fetch(`/api/buttons?id=${id}`, { method: "DELETE" })
 
@@ -133,7 +130,7 @@ export async function deleteButton(id: string) {
 }
 
 // Update user settings
-export async function updateSettings(newSettings: object) {
+export async function updateSettings(newSettings) {
 	try {
 		const response = await fetch("/api/preferences", {
 			method: "PUT",
@@ -150,9 +147,11 @@ export async function updateSettings(newSettings: object) {
 }
 
 // Update user banner
-export const updateUserBanner = async (newBanner: string) => {
+export async function updateUserBanner(newBanner) {
 	try {
-		await updateSettings({ supportBanner: newBanner })
+		const currentSettings = await fetchUserSettings()
+		const updatedSettings = { ...currentSettings, supportBanner: newBanner }
+		await updateSettings(updatedSettings)
 		alert("Support banner has been updated successfully!")
 	} catch (error) {
 		console.error("Error saving support banner:", error)
@@ -161,7 +160,7 @@ export const updateUserBanner = async (newBanner: string) => {
 }
 
 // Delete user account
-export const deleteUserAccount = async (): Promise<void> => {
+export async function deleteUserAccount() {
 	try {
 		const response = await fetch("/api/user", {
 			method: "DELETE",
@@ -177,7 +176,7 @@ export const deleteUserAccount = async (): Promise<void> => {
 }
 
 // Track a page visit based on the user's slug
-export async function trackPageVisit(slug: string) {
+export async function trackPageVisit(slug) {
 	const user = await db.user.findUnique({
 		where: { slug },
 		include: { UserStats: true },
@@ -197,8 +196,8 @@ export async function trackPageVisit(slug: string) {
 	})
 }
 
-// Track a user social button or link or link click
-export async function trackClick(id: string, type: string) {
+// Track a user click
+export async function trackClick(id, type) {
 	try {
 		await fetch("/api/analytics", {
 			method: "POST",

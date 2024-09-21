@@ -84,18 +84,17 @@ export async function DELETE(req: NextRequest) {
 	if (error) return response
 
 	try {
-		const { id } = await req.json()
-
-		if (typeof id !== "number") {
+		const id = req.nextUrl.searchParams.get("id")
+		if (!id || isNaN(Number(id))) {
 			return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
 		}
 
-		const existingButton = await db.socialButton.findUnique({ where: { id } })
+		const existingButton = await db.socialButton.findUnique({ where: { id: Number(id) } })
 		if (!existingButton || existingButton.userId !== session.user.id) {
 			return NextResponse.json({ error: "Forbidden" }, { status: 403 })
 		}
 
-		await db.socialButton.delete({ where: { id } })
+		await db.socialButton.delete({ where: { id: Number(id) } })
 
 		return new NextResponse(null, { status: 204 })
 	} catch (error) {

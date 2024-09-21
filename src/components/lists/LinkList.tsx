@@ -7,31 +7,10 @@ import AddLinkDialog from "../dialogs/AddLinkDialog"
 import UpdateLinkDialog from "../dialogs/UpdateLinkDialog"
 
 export default function LinkList() {
-	const { links: contextLinks, setLinks, deleteLink, updateLink } = useGlobalContext()
+	const { links: contextLinks, deleteLink } = useGlobalContext()
 	const [isAddLinkDialogOpen, setIsAddLinkDialogOpen] = useState(false)
 	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
 	const [currentLink, setCurrentLink] = useState(null)
-
-	// Handle updating a link
-	const handleUpdateLink = async (updatedLink) => {
-		try {
-			await updateLink(updatedLink)
-			setLinks((prevLinks) => prevLinks.map((link) => (link.id === updatedLink.id ? updatedLink : link)))
-			setIsUpdateDialogOpen(false)
-		} catch (error) {
-			console.error("Error updating link:", error)
-		}
-	}
-
-	// Handle deleting a link
-	const handleDeleteLink = async (id) => {
-		try {
-			await deleteLink(id)
-			setLinks((prevLinks) => prevLinks.filter((link) => link.id !== id))
-		} catch (error) {
-			console.error("Error deleting link:", error)
-		}
-	}
 
 	const handleEditClick = (link) => {
 		setCurrentLink(link)
@@ -59,7 +38,7 @@ export default function LinkList() {
 								</section>
 							</div>
 
-							<button className="mt-8 text-destructive" onClick={() => handleDeleteLink(link.id)}>
+							<button className="mt-8 text-destructive" onClick={() => deleteLink(link.id)}>
 								<Icon icon="material-symbols:delete-forever-outline" className="icon h-6 w-6" />
 							</button>
 						</li>

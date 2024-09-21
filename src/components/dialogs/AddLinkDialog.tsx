@@ -39,6 +39,7 @@ export default function AddLinkDialog({ onClose }) {
 							required
 						/>
 					</div>
+
 					<div className="my-4 flex flex-col space-y-2">
 						<label className="text-sm font-medium">URL:</label>
 						<input
@@ -49,6 +50,7 @@ export default function AddLinkDialog({ onClose }) {
 							required
 						/>
 					</div>
+
 					<div className="button-container justify-end">
 						<button type="button" className="button bg-destructive text-destructive-foreground" onClick={onClose}>
 							Cancel

@@ -82,18 +82,18 @@ export async function DELETE(req: NextRequest) {
 	if (error) return response
 
 	try {
-		const { id } = await req.json()
+		const id = req.nextUrl.searchParams.get("id")
 
-		if (typeof id !== "number") {
+		if (!id || isNaN(Number(id))) {
 			return NextResponse.json({ error: "Invalid ID" }, { status: 400 })
 		}
 
-		const existingLink = await db.userLink.findUnique({ where: { id } })
+		const existingLink = await db.userLink.findUnique({ where: { id: Number(id) } })
 		if (!existingLink || existingLink.userId !== session.user.id) {
 			return NextResponse.json({ error: "Forbidden" }, { status: 403 })
 		}
 
-		await db.userLink.delete({ where: { id } })
+		await db.userLink.delete({ where: { id: Number(id) } })
 
 		return new NextResponse(null, { status: 204 })
 	} catch (error) {

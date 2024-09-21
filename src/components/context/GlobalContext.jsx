@@ -28,7 +28,7 @@ export const GlobalContextProvider = ({ children }) => {
 	const [buttons, setButtons] = useState([])
 	const [settings, setSettings] = useState(defaultSettings)
 
-	const isHomePage = useIsHomePage() // Use the custom hook
+	const isHomePage = useIsHomePage()
 
 	useEffect(() => {
 		const loadUserData = async () => {
