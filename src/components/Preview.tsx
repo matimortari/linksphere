@@ -9,9 +9,12 @@ export default function Preview() {
 	const { description, links, image, buttons, slug, settings } = useGlobalContext()
 
 	return (
-		<div className="content-container my-2" style={{ backgroundColor: settings.backgroundColor }}>
-			<div className="flex flex-col items-center justify-center gap-2 py-10">
-				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar" />}
+		<div
+			className="content-container mx-auto my-2"
+			style={{ backgroundColor: settings.backgroundColor, maxWidth: "400px", overflow: "hidden" }}
+		>
+			<div className="flex flex-col items-center justify-center gap-2 py-5">
+				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar icon" />}
 				<h1
 					style={{
 						color: settings.slugTextColor,
@@ -39,7 +42,6 @@ export default function Preview() {
 				) : (
 					<hr />
 				)}
-
 				{links.length > 0 ? (
 					<ul className="space-y-4">
 						{links.map((link) => (

@@ -51,15 +51,19 @@ export default function FeedbackForm() {
 					required
 					placeholder="Enter your feedback here..."
 					rows={5}
-					className="form-container text-sm"
+					className="form-container resize-none text-sm"
 					style={{
 						paddingTop: "0.75rem",
+						paddingBottom: "0.75rem", // Added for symmetry
+						width: "100%", // Ensures full width
+						maxWidth: "100%", // Prevent overflow
+						overflow: "auto", // Allow scrolling if necessary
 					}}
 				/>
 
-				<div className="flex flex-row items-center gap-2">
+				<div className="flex flex-col items-start">
 					<label className="text-base font-semibold">Rating (Optional):</label>
-					<div className="flex space-x-1">{renderStars()}</div>
+					<div className="flex space-x-1 overflow-x-auto">{renderStars()}</div>
 				</div>
 
 				<div className="button-container">

@@ -15,8 +15,8 @@ export default function ClicksByLink() {
 	const LinkItem = ({ item }) => (
 		<a href={item.url} className="flex w-full flex-col items-start">
 			<div className="flex w-full flex-col items-start gap-1 px-2">
-				<p className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold">{item.title}</p>
-				<span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm text-muted-foreground">
+				<p className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold">{item.title}</p>
+				<span className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm text-muted-foreground">
 					{item.url}
 				</span>
 				<span className="text-sm text-muted-foreground">Created at {formatDate(item.createdAt)}</span>
@@ -32,8 +32,8 @@ export default function ClicksByLink() {
 					{item.icon && <Icon icon={item.icon} className="h-5 w-5" />}
 					<p className="text-lg font-semibold">{item.platform}</p>
 				</div>
-				<p className="font-medium">{item.title}</p>
-				<span className="overflow-hidden text-ellipsis whitespace-nowrap text-sm text-muted-foreground">
+				<p className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap font-medium">{item.title}</p>
+				<span className="max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm text-muted-foreground">
 					{item.url}
 				</span>
 				<span className="text-sm text-muted-foreground">Created at {formatDate(item.createdAt)}</span>

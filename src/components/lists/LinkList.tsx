@@ -24,7 +24,7 @@ export default function LinkList() {
 					{contextLinks.map((link) => (
 						<li key={link.id} className="flex items-center overflow-hidden rounded-2xl border border-muted p-2">
 							<div className="flex flex-1 flex-col">
-								<section className="flex flex-row items-center gap-2">
+								<section className="flex max-w-72 flex-row items-center gap-2">
 									<p className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold">{link.title}</p>
 									<button onClick={() => handleEditClick(link)}>
 										<Icon icon="material-symbols:edit-square-outline" className="icon h-6 w-6" />
