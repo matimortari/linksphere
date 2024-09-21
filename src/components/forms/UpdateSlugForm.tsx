@@ -1,6 +1,7 @@
 "use client"
 
 import { handleFormSubmit } from "@/src/lib/actions"
+import { generateSlug } from "@/src/lib/utils"
 import { useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
@@ -11,6 +12,11 @@ export default function UpdateSlugForm() {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		handleFormSubmit(e, "/api/user", { newSlug: slug }, setSuccess, setError)
+	}
+
+	const handleGenerateSlugFromUsername = () => {
+		const newSlug = generateSlug(slug)
+		setSlug(newSlug)
 	}
 
 	return (
@@ -24,9 +30,18 @@ export default function UpdateSlugForm() {
 					className="input flex-1 overflow-hidden text-ellipsis whitespace-nowrap"
 				/>
 
-				<button type="submit" className="button bg-primary text-primary-foreground">
-					Update
-				</button>
+				<div className="button-container">
+					<button type="submit" className="button bg-primary text-primary-foreground">
+						Update
+					</button>
+					<button
+						type="button"
+						onClick={handleGenerateSlugFromUsername}
+						className="button bg-accent text-accent-foreground"
+					>
+						Random URL{" "}
+					</button>
+				</div>
 			</form>
 
 			<>
