@@ -18,8 +18,8 @@ export default function SocialButton({ url, icon, settings, buttonId }) {
 					className="flex h-10 w-10 items-center justify-center rounded-full"
 					style={{
 						backgroundColor: isHovered ? settings.buttonHoverBackgroundColor : settings.buttonBackgroundColor,
-						boxShadow: `0 4px 6px ${settings.buttonShadowColor}`,
-						transition: "background-color 0.3s ease",
+						boxShadow: settings.isButtonShadow ? `0 4px 6px ${settings.buttonShadowColor}` : "none",
+						transition: "background-color 0.3s ease, box-shadow 0.3s ease",
 					}}
 					onMouseEnter={() => setIsHovered(true)}
 					onMouseLeave={() => setIsHovered(false)}

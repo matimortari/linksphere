@@ -7,36 +7,39 @@ import {
 	SLUG_TEXT_SIZE_OPTIONS,
 	SLUG_TEXT_WEIGHT_OPTIONS,
 } from "@/src/lib/userSettings"
+import "@/src/styles/inputs.css"
 import React, { useEffect, useState } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 
-const ColorInput = ({ id, label, value, onChange }) => (
-	<div className="mb-4 flex items-center space-x-2">
-		<input id={id} type="color" value={value} onChange={onChange} className="icon h-8 w-8 cursor-pointer rounded" />
-		<label htmlFor={id} className="font-semibold">
+const ColorInput = ({ id, label, value, onChange, disabled = false }) => (
+	<div className="my-2 flex items-center space-x-2">
+		<input id={id} type="color" value={value} onChange={onChange} disabled={disabled} />
+		<label htmlFor={id} className={`font-semibold ${disabled ? "text-muted-foreground" : ""}`}>
 			{label}
 		</label>
 	</div>
 )
 
 const RadioOptions = ({ options, name, value, onChange, label }) => (
-	<div className="mb-4">
-		<p className="mb-2 font-semibold">{label}</p>
+	<div className="my-2">
+		<p className="mb-2 font-bold">{label}</p>
 		<div className="space-y-1">
 			{options.map((option) => (
-				<label key={option.value} className="flex items-center space-x-2 text-sm">
-					<input
-						type="radio"
-						name={name}
-						value={option.value}
-						checked={value === option.value}
-						onChange={onChange}
-						className="cursor-pointer"
-					/>
-					<span className="font-medium">{option.label}</span>
+				<label key={option.value} className="flex items-center space-x-2 text-xs">
+					<input type="radio" name={name} value={option.value} checked={value === option.value} onChange={onChange} />
+					<span className="font-normal">{option.label}</span>
 				</label>
 			))}
 		</div>
+	</div>
+)
+
+const CheckboxInput = ({ id, label, checked, onChange }) => (
+	<div className="my-2 flex items-center space-x-2">
+		<input id={id} type="checkbox" checked={checked} onChange={onChange} className="cursor-pointer" />
+		<label htmlFor={id} className="font-semibold">
+			{label}
+		</label>
 	</div>
 )
 
@@ -79,34 +82,43 @@ export default function AppearanceForm() {
 		setSettings({ ...settings, [key]: e.target.value })
 	}
 
+	const handleCheckboxChange = (key: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+		setSettings({ ...settings, [key]: e.target.checked })
+	}
+
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="flex flex-wrap">
 				<div className="flex w-full flex-col md:w-1/2">
+					<h1 className="subtitle my-2">General Settings</h1>
+					<hr className="max-w-xs" />
+
 					<ColorInput
 						id="backgroundColor"
-						label="Main Background Color"
+						label="Main Page Background Color"
 						value={settings.backgroundColor}
 						onChange={handleColorChange("backgroundColor")}
 					/>
 
 					<ColorInput
 						id="slugTextColor"
-						label="Username Text Color"
+						label="Username Font Color"
 						value={settings.slugTextColor}
 						onChange={handleColorChange("slugTextColor")}
 					/>
 
 					<ColorInput
 						id="headerTextColor"
-						label="Header Text Color"
+						label="Header Font Color"
 						value={settings.headerTextColor}
 						onChange={handleColorChange("headerTextColor")}
 					/>
 
+					<hr className="max-w-xs" />
+
 					<RadioOptions
 						name="slugTextSize"
-						label="Username Text Size"
+						label="Username Font Size"
 						options={SLUG_TEXT_SIZE_OPTIONS}
 						value={settings.slugTextSize}
 						onChange={handleRadioChange("slugTextSize")}
@@ -114,7 +126,7 @@ export default function AppearanceForm() {
 
 					<RadioOptions
 						name="slugTextWeight"
-						label="Username Text Weight"
+						label="Username Font Weight"
 						options={SLUG_TEXT_WEIGHT_OPTIONS}
 						value={settings.slugTextWeight}
 						onChange={handleRadioChange("slugTextWeight")}
@@ -122,49 +134,8 @@ export default function AppearanceForm() {
 				</div>
 
 				<div className="flex w-full flex-col md:w-1/2">
-					<ColorInput
-						id="linkBackgroundColor"
-						label="Link Background Color"
-						value={settings.linkBackgroundColor}
-						onChange={handleColorChange("linkBackgroundColor")}
-					/>
-
-					<ColorInput
-						id="linkTextColor"
-						label="Link Text Color"
-						value={settings.linkTextColor}
-						onChange={handleColorChange("linkTextColor")}
-					/>
-
-					<ColorInput
-						id="linkHoverBackgroundColor"
-						label="Button Hover Background Color"
-						value={settings.linkHoverBackgroundColor}
-						onChange={handleColorChange("linkHoverBackgroundColor")}
-					/>
-
-					<ColorInput
-						id="linkShadowColor"
-						label="Button Shadow Color"
-						value={settings.linkShadowColor}
-						onChange={handleColorChange("linkShadowColor")}
-					/>
-
-					<RadioOptions
-						name="linkBorderRadius"
-						label="Button Border Radius"
-						options={BORDER_RADIUS_OPTIONS}
-						value={settings.linkBorderRadius}
-						onChange={handleRadioChange("linkBorderRadius")}
-					/>
-
-					<RadioOptions
-						name="linkPadding"
-						label="Button Padding"
-						options={PADDING_OPTIONS}
-						value={settings.linkPadding}
-						onChange={handleRadioChange("linkPadding")}
-					/>
+					<h1 className="subtitle my-2">Social Buttons</h1>
+					<hr className="max-w-xs" />
 
 					<ColorInput
 						id="buttonBackgroundColor"
@@ -187,11 +158,81 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("buttonHoverBackgroundColor")}
 					/>
 
+					<hr className="max-w-xs" />
+
+					<CheckboxInput
+						id="isButtonShadow"
+						label="Enable Social Button Shadow"
+						checked={settings.isButtonShadow}
+						onChange={handleCheckboxChange("isButtonShadow")}
+					/>
+
 					<ColorInput
 						id="buttonShadowColor"
 						label="Social Button Shadow Color"
 						value={settings.buttonShadowColor}
+						disabled={!settings.isButtonShadow}
 						onChange={handleColorChange("buttonShadowColor")}
+					/>
+
+					<hr className="max-w-xs" />
+					<h1 className="subtitle my-2">Link Buttons</h1>
+					<hr className="max-w-xs" />
+
+					<ColorInput
+						id="linkBackgroundColor"
+						label="Link Button Background Color"
+						value={settings.linkBackgroundColor}
+						onChange={handleColorChange("linkBackgroundColor")}
+					/>
+
+					<ColorInput
+						id="linkTextColor"
+						label="Link Button Font Color"
+						value={settings.linkTextColor}
+						onChange={handleColorChange("linkTextColor")}
+					/>
+
+					<ColorInput
+						id="linkHoverBackgroundColor"
+						label="Link Button Hover Background Color"
+						value={settings.linkHoverBackgroundColor}
+						onChange={handleColorChange("linkHoverBackgroundColor")}
+					/>
+
+					<hr className="max-w-xs" />
+
+					<CheckboxInput
+						id="isLinkShadow"
+						label="Enable Link Button Shadow"
+						checked={settings.isLinkShadow}
+						onChange={handleCheckboxChange("isLinkShadow")}
+					/>
+
+					<ColorInput
+						id="linkShadowColor"
+						label="Link Button Shadow Color"
+						value={settings.linkShadowColor}
+						disabled={!settings.isLinkShadow}
+						onChange={handleColorChange("linkShadowColor")}
+					/>
+
+					<hr className="max-w-xs" />
+
+					<RadioOptions
+						name="linkBorderRadius"
+						label="Link Button Corner Radius"
+						options={BORDER_RADIUS_OPTIONS}
+						value={settings.linkBorderRadius}
+						onChange={handleRadioChange("linkBorderRadius")}
+					/>
+
+					<RadioOptions
+						name="linkPadding"
+						label="Link Button Padding"
+						options={PADDING_OPTIONS}
+						value={settings.linkPadding}
+						onChange={handleRadioChange("linkPadding")}
 					/>
 				</div>
 
