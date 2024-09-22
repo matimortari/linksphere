@@ -22,19 +22,17 @@ export default function LinkList() {
 			{contextLinks && contextLinks.length > 0 ? (
 				<ul className="space-y-2">
 					{contextLinks.map((link) => (
-						<li key={link.id} className="flex items-center overflow-hidden rounded-2xl border border-muted p-2">
+						<li key={link.id} className="link-list-item">
 							<div className="flex flex-1 flex-col">
 								<section className="flex max-w-72 flex-row items-center gap-2">
-									<p className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-semibold">{link.title}</p>
+									<p className="text-lg font-semibold">{link.title}</p>
 									<button onClick={() => handleEditClick(link)}>
 										<Icon icon="material-symbols:edit-square-outline" className="icon h-6 w-6" />
 									</button>
 								</section>
 
 								<section className="flex items-center gap-2">
-									<a href={link.url} className="overflow-hidden text-ellipsis whitespace-nowrap">
-										{link.url}
-									</a>
+									<a href={link.url}>{link.url}</a>
 								</section>
 							</div>
 

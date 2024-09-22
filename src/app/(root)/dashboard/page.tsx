@@ -19,39 +19,37 @@ export default function Dashboard() {
 	}, [status, session])
 
 	return (
-		<div className="dashboard-container">
-			<div className="flex flex-col gap-2 bg-background md:flex-row">
-				<aside className="w-full md:w-3/12">
-					<Sidebar />
-				</aside>
+		<div className="flex min-h-screen flex-col gap-2 bg-background md:flex-row">
+			<aside className="w-full md:w-3/12">
+				<Sidebar />
+			</aside>
 
-				<main className="w-full md:w-9/12">
-					<div className="content-container flex flex-col gap-2">
-						<header className="flex flex-col">
-							<h1 className="title">Dashboard</h1>
-							<span className="title-label">
-								Welcome back, <span className="font-bold text-primary">{session.user.name}!</span>
-							</span>
-							<hr />
-						</header>
-
-						<p className="subtitle">My URL</p>
-						<UpdateSlugForm />
+			<main className="w-full md:w-9/12">
+				<div className="content-container flex flex-col gap-2">
+					<header className="flex flex-col">
+						<h1 className="title">Dashboard</h1>
+						<span className="title-label">
+							Welcome back, <span className="font-bold text-primary">{session.user.name}!</span>
+						</span>
 						<hr />
+					</header>
 
-						<p className="subtitle">My Header</p>
-						<UpdateHeaderForm />
-						<hr />
+					<p className="subtitle">My URL</p>
+					<UpdateSlugForm />
+					<hr />
 
-						<p className="subtitle">My Social Buttons</p>
-						<SocialButtonList />
-						<hr />
+					<p className="subtitle">My Header</p>
+					<UpdateHeaderForm />
+					<hr />
 
-						<p className="subtitle">My Links</p>
-						<LinkList />
-					</div>
-				</main>
-			</div>
+					<p className="subtitle">My Social Buttons</p>
+					<SocialButtonList />
+					<hr />
+
+					<p className="subtitle">My Links</p>
+					<LinkList />
+				</div>
+			</main>
 		</div>
 	)
 }

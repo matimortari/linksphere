@@ -28,37 +28,35 @@ export default function Preferences() {
 	}
 
 	return (
-		<div className="dashboard-container">
-			<div className="flex flex-col gap-2 bg-background md:flex-row">
-				<aside className="w-full md:w-3/12">
-					<Sidebar />
-				</aside>
+		<div className="flex min-h-screen flex-col gap-2 bg-background md:flex-row">
+			<aside className="w-full md:w-3/12">
+				<Sidebar />
+			</aside>
 
-				<main className="w-full md:w-9/12">
-					<div className="content-container flex flex-col gap-2">
-						<header className="flex flex-col">
-							<h1 className="title">Preferences</h1>
-							<span className="title-label">Update your account settings.</span>
-							<hr />
-						</header>
-
-						<p className="subtitle">Support Banner</p>
-						<SupportBannerForm />
+			<main className="w-full md:w-9/12">
+				<div className="content-container flex flex-col gap-2">
+					<header className="flex flex-col">
+						<h1 className="title">Preferences</h1>
+						<span className="title-label">Update your account settings.</span>
 						<hr />
+					</header>
 
-						<p className="subtitle">Submit Feedback</p>
-						<FeedbackForm />
-						<hr />
+					<p className="subtitle">Support Banner</p>
+					<SupportBannerForm />
+					<hr />
 
-						<p className="subtitle">Delete Account</p>
-						<div className="button-container mt-2">
-							<button className="button bg-destructive text-destructive-foreground" onClick={handleDeleteAccount}>
-								Delete Account
-							</button>
-						</div>
+					<p className="subtitle">Submit Feedback</p>
+					<FeedbackForm />
+					<hr />
+
+					<p className="subtitle">Delete Account</p>
+					<div className="button-container mt-2">
+						<button className="button bg-destructive text-destructive-foreground" onClick={handleDeleteAccount}>
+							Delete Account
+						</button>
 					</div>
-				</main>
-			</div>
+				</div>
+			</main>
 		</div>
 	)
 }

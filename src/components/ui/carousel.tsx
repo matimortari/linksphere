@@ -1,11 +1,11 @@
 "use client"
 
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react"
-import { ArrowLeft, ArrowRight } from "lucide-react"
 import * as React from "react"
 
 import { Button } from "@/src/components/ui/button"
 import { cn } from "@/src/lib/utils"
+import { Icon } from "@iconify/react"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -159,7 +159,11 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 				ref={ref}
 				role="group"
 				aria-roledescription="slide"
-				className={cn("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className)}
+				className={cn(
+					"min-w-0 shrink-0 grow-0 basis-full rounded-2xl",
+					orientation === "horizontal" ? "pl-4" : "pt-4",
+					className
+				)}
 				{...props}
 			/>
 		)
@@ -174,20 +178,20 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
 		return (
 			<Button
 				ref={ref}
-				variant={variant}
+				variant={"outline"}
 				size={size}
 				className={cn(
-					"absolute h-8 w-8 rounded-full",
+					"absolute h-10 w-10 rounded-full",
 					orientation === "horizontal"
-						? "-left-12 top-1/2 -translate-y-1/2"
-						: "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+						? "-left-6 top-1/2 -translate-y-1/2"
+						: "-top-6 left-1/2 -translate-x-1/2 rotate-90",
 					className
 				)}
 				disabled={!canScrollPrev}
 				onClick={scrollPrev}
 				{...props}
 			>
-				<ArrowLeft className="h-4 w-4" />
+				<Icon icon="ooui:previous-ltr" className="h-8 w-8" />
 				<span className="sr-only">Previous slide</span>
 			</Button>
 		)
@@ -202,20 +206,20 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 		return (
 			<Button
 				ref={ref}
-				variant={variant}
+				variant={"outline"}
 				size={size}
 				className={cn(
-					"absolute h-8 w-8 rounded-full",
+					"absolute h-10 w-10 rounded-full",
 					orientation === "horizontal"
-						? "-right-12 top-1/2 -translate-y-1/2"
-						: "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+						? "-right-6 top-1/2 -translate-y-1/2"
+						: "-bottom-6 left-1/2 -translate-x-1/2 rotate-90",
 					className
 				)}
 				disabled={!canScrollNext}
 				onClick={scrollNext}
 				{...props}
 			>
-				<ArrowRight className="h-4 w-4" />
+				<Icon icon="ooui:next-ltr" className="h-8 w-8" />
 				<span className="sr-only">Next slide</span>
 			</Button>
 		)

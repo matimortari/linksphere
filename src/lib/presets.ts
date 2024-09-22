@@ -1,7 +1,7 @@
 export const presets = [
 	{
-		description: "Unleash your creativity with Pixel Wizard, your portal to the artistic universe.",
-		slug: "pixel_wizard",
+		slug: "pixelwizard",
+		description: "Your portal to the artistic universe.",
 		image: "/placeholder.png",
 		links: [
 			{ id: 1, url: "https://pixelwizard.co/portfolio", title: "Artistic Portfolio" },
@@ -15,16 +15,18 @@ export const presets = [
 			{ id: 3, url: "https://twitter.com/nova_skylar", icon: "simple-icons:twitter" },
 		],
 		settings: {
-			backgroundColor: "#1abc9c",
+			backgroundColor: "#b2c6b6",
 			slugTextColor: "#2c3e50",
 			slugTextWeight: "700",
-			slugTextSize: "1.75rem",
-			headerTextColor: "#ffffff",
-			buttonBackgroundColor: "#34495e",
-			buttonHoverBackgroundColor: "#2c3e50",
-			buttonIconColor: "#ffffff",
+			slugTextSize: "1.5rem",
+			headerTextColor: "#272525",
+
+			buttonBackgroundColor: "#e8ecd6",
+			buttonHoverBackgroundColor: "#d1d9c6",
+			buttonIconColor: "#b75a48",
 			isButtonShadow: true,
 			buttonShadowColor: "rgba(0, 0, 0, 0.2)",
+
 			linkBackgroundColor: "#ecf0f1",
 			linkHoverBackgroundColor: "#bdc3c7",
 			linkTextColor: "#2c3e50",
@@ -34,9 +36,10 @@ export const presets = [
 			linkShadowColor: "rgba(0, 0, 0, 0.2)",
 		},
 	},
+
 	{
-		description: "Join Skylar Nova on a mission to connect, inspire, and thrive in the digital cosmos.",
-		slug: "nova_skylar",
+		slug: "coffee-shop",
+		description: "Discover the world of coffee with Coffee Shop, where every cup tells a story.",
 		image: "/placeholder.png",
 		links: [
 			{ id: 1, url: "https://novaskylar.com/subscribe", title: "Subscribe to Newsletter" },
@@ -48,28 +51,31 @@ export const presets = [
 			{ id: 2, url: "https://linkedin.com/in/skylar_nova", icon: "simple-icons:linkedin" },
 		],
 		settings: {
-			backgroundColor: "#f39c12",
-			slugTextColor: "#2c3e50",
+			backgroundColor: "#f1d3b2",
+			slugTextColor: "#a43820",
 			slugTextWeight: "900",
 			slugTextSize: "1.75rem",
-			headerTextColor: "#ffffff",
-			buttonBackgroundColor: "#2d3436",
+			headerTextColor: "#272525",
+
+			buttonBackgroundColor: "#b4a493",
 			buttonHoverBackgroundColor: "#1e272e",
-			buttonIconColor: "#ffffff",
+			buttonIconColor: "#46211a",
 			isButtonShadow: true,
 			buttonShadowColor: "rgba(0, 0, 0, 0.2)",
-			linkBackgroundColor: "#ffeaa7",
+
+			linkBackgroundColor: "#b4a493",
 			linkHoverBackgroundColor: "#fab1a0",
-			linkTextColor: "#2c3e50",
+			linkTextColor: "#46211a",
 			linkBorderRadius: "10px",
 			linkPadding: "10px 15px",
 			isLinkShadow: true,
 			linkShadowColor: "rgba(0, 0, 0, 0.2)",
 		},
 	},
+
 	{
-		description: "Experience high-tech innovation with Blitz Corp, where the future is now.",
 		slug: "blitz_corp",
+		description: "Experience high-tech innovation with Blitz Corp, where the future is now.",
 		image: "/placeholder.png",
 		links: [
 			{ id: 1, url: "https://blitzcorp.com/solutions", title: "Innovative Solutions" },
@@ -81,16 +87,18 @@ export const presets = [
 			{ id: 3, url: "https://youtube.com/blitzcorp", icon: "simple-icons:youtube" },
 		],
 		settings: {
-			backgroundColor: "#8e44ad",
+			backgroundColor: "#272525",
 			slugTextColor: "#ffffff",
 			slugTextWeight: "800",
-			slugTextSize: "1.75rem",
-			headerTextColor: "#c0392b",
+			slugTextSize: "1.5rem",
+			headerTextColor: "#ffffff",
+
 			buttonBackgroundColor: "#ffffff",
 			buttonHoverBackgroundColor: "#dcdcdc",
 			buttonIconColor: "#8e44ad",
 			isButtonShadow: true,
 			buttonShadowColor: "rgba(0, 0, 0, 0.2)",
+
 			linkBackgroundColor: "#f7f1e3",
 			linkHoverBackgroundColor: "#d1ccc0",
 			linkTextColor: "#8e44ad",
@@ -100,9 +108,10 @@ export const presets = [
 			linkShadowColor: "rgba(0, 0, 0, 0.2)",
 		},
 	},
+
 	{
-		description: "Uncover the mysteries of digital art with Mirage Studios, where imagination has no limits.",
-		slug: "mirage_studios",
+		slug: "matheus-mortari",
+		description: "I'm a full-stack dev :)",
 		image: "/placeholder.png",
 		links: [
 			{ id: 1, url: "https://miragestudios.com/art", title: "Digital Art" },
@@ -111,19 +120,21 @@ export const presets = [
 		],
 		buttons: [{ id: 1, url: "https://youtube.com/miragestudios", icon: "simple-icons:youtube" }],
 		settings: {
-			backgroundColor: "#3498db",
-			slugTextColor: "#ffffff",
+			backgroundColor: "#08080e",
+			slugTextColor: "#ececec",
 			slugTextWeight: "bold",
 			slugTextSize: "1.75rem",
-			headerTextColor: "#e67e22",
-			buttonBackgroundColor: "#2c3e50",
-			buttonHoverBackgroundColor: "#1abc9c",
-			buttonIconColor: "#ffffff",
+			headerTextColor: "#ececec",
+
+			buttonBackgroundColor: "#42413e",
+			buttonHoverBackgroundColor: "#4c4083",
+			buttonIconColor: "#ececec",
 			isButtonShadow: true,
 			buttonShadowColor: "rgba(0, 0, 0, 0.2)",
-			linkBackgroundColor: "#dfe6e9",
-			linkHoverBackgroundColor: "#b2bec3",
-			linkTextColor: "#2c3e50",
+
+			linkBackgroundColor: "#605492",
+			linkHoverBackgroundColor: "#4c4083",
+			linkTextColor: "#ececec",
 			linkBorderRadius: "10px",
 			linkPadding: "10px 15px",
 			isLinkShadow: true,

@@ -39,7 +39,7 @@ export default function Navbar() {
 	}, [])
 
 	return (
-		<nav className="absolute top-0 flex w-full items-center justify-end bg-transparent p-2">
+		<nav className="absolute top-0 z-10 flex w-full items-center justify-end bg-transparent p-4 md:p-10">
 			<div className="button-container">
 				<button onClick={toggleTheme} className="button h-10 w-10 bg-card">
 					<Icon

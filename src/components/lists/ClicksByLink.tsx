@@ -47,10 +47,7 @@ export default function ClicksByLink() {
 			{items.length > 0 ? (
 				<ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
 					{items.map((item) => (
-						<li
-							key={`${item.type}-${item.id}`}
-							className="flex flex-col items-center rounded-2xl border border-muted p-2"
-						>
+						<li key={`${item.type}-${item.id}`} className="link-list-item flex-col">
 							{item.type === "link" ? <LinkItem item={item} /> : <ButtonItem item={item} />}
 						</li>
 					))}

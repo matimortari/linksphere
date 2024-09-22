@@ -9,11 +9,11 @@ export function CardCarousel() {
 				align: "start",
 			}}
 			orientation="horizontal"
-			className="w-full max-w-sm"
+			className="max-w-sm"
 		>
-			<CarouselContent className="-mt-1">
+			<CarouselContent>
 				{presets.map((preset, index) => (
-					<CarouselItem key={index} className="h-full">
+					<CarouselItem key={index}>
 						<CarouselPreview presetId={index} />
 					</CarouselItem>
 				))}
