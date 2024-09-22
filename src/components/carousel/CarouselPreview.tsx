@@ -12,7 +12,7 @@ export default function CarouselPreview({ presetId = 0 }) {
 			className="content-container mx-auto my-2"
 			style={{ backgroundColor: settings.backgroundColor, maxWidth: "400px", overflow: "hidden" }}
 		>
-			<div className="flex flex-col items-center justify-center gap-2 py-5">
+			<div className="flex flex-col items-center justify-center gap-2 py-5 text-center">
 				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar icon" />}
 				<h1
 					style={{
@@ -20,30 +20,26 @@ export default function CarouselPreview({ presetId = 0 }) {
 						fontWeight: settings.slugTextWeight,
 						fontSize: settings.slugTextSize,
 					}}
+					className="text-center"
 				>
 					@{slug}
 				</h1>
 
 				{description && <p style={{ color: settings.headerTextColor, textAlign: "center" }}>{description}</p>}
 
-				{buttons.length > 0 ? (
-					<ul className="my-2 flex flex-row gap-2">
-						{buttons.map((button) => (
-							<CarouselSocialButton key={button.id} icon={button.icon} settings={settings} />
-						))}
-					</ul>
-				) : (
-					<hr />
-				)}
-				{links.length > 0 ? (
-					<ul className="space-y-4">
-						{links.map((link) => (
-							<CarouselLinkItem key={link.id} title={link.title} settings={settings} />
-						))}
-					</ul>
-				) : (
-					<p className="text-muted-foreground">No links available</p>
-				)}
+				<ul className="my-2 flex flex-row justify-center gap-2">
+					{buttons.map((button) => (
+						<CarouselSocialButton key={button.id} icon={button.icon} settings={settings} />
+					))}
+				</ul>
+
+				<hr />
+
+				<ul className="space-y-4">
+					{links.map((link) => (
+						<CarouselLinkItem key={link.id} title={link.title} settings={settings} />
+					))}
+				</ul>
 			</div>
 		</div>
 	)

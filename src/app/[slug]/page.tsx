@@ -23,7 +23,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 		return (
 			<div className="main-container">
 				<div className="mb-2 flex flex-col items-center justify-center gap-3">
-					<p className="text-muted-foreground">User `{slug}` not found.</p>
+					<p className="text-center text-muted-foreground">User `{slug}` not found.</p>
 				</div>
 			</div>
 		)
@@ -33,7 +33,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 
 	return (
 		<div className="min-h-screen p-12" style={{ backgroundColor: settings.backgroundColor }}>
-			<div className="flex flex-col items-center justify-center gap-3">
+			<div className="flex flex-col items-center justify-center gap-3 text-center">
 				{settings.supportBanner !== "NONE" && <SupportBanner bannerType={settings.supportBanner} />}
 
 				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar icon" />}
@@ -43,6 +43,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 						fontWeight: settings.slugTextWeight,
 						fontSize: settings.slugTextSize,
 					}}
+					className="text-center"
 				>
 					@{slug}
 				</h1>
@@ -50,7 +51,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 				{description && <p style={{ color: settings.headerTextColor, textAlign: "center" }}>{description}</p>}
 
 				{buttons.length > 0 ? (
-					<ul className="my-2 flex flex-row gap-2">
+					<ul className="my-2 flex flex-row justify-center gap-2">
 						{buttons.map((button) => (
 							<SocialButton
 								key={button.id}
@@ -62,7 +63,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 						))}
 					</ul>
 				) : (
-					<p className="text-muted-foreground">No social buttons available</p>
+					<p className="text-center text-muted-foreground">No social buttons available</p> // Centering the "No social buttons available" text
 				)}
 
 				{links.length > 0 ? (
@@ -72,7 +73,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 						))}
 					</ul>
 				) : (
-					<p className="text-muted-foreground">No links available</p>
+					<p className="text-center text-muted-foreground">No links available</p>
 				)}
 			</div>
 		</div>

@@ -13,7 +13,7 @@ export default function Preview() {
 			className="content-container mx-auto my-2"
 			style={{ backgroundColor: settings.backgroundColor, maxWidth: "400px", overflow: "hidden" }}
 		>
-			<div className="flex flex-col items-center justify-center gap-2 py-5">
+			<div className="flex flex-col items-center justify-center gap-2 py-5 text-center">
 				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar icon" />}
 				<h1
 					style={{
@@ -21,6 +21,7 @@ export default function Preview() {
 						fontWeight: settings.slugTextWeight,
 						fontSize: settings.slugTextSize,
 					}}
+					className="text-center"
 				>
 					@{slug}
 				</h1>
@@ -28,7 +29,7 @@ export default function Preview() {
 				{description && <p style={{ color: settings.headerTextColor, textAlign: "center" }}>{description}</p>}
 
 				{buttons.length > 0 ? (
-					<ul className="my-2 flex flex-row gap-2">
+					<ul className="my-2 flex flex-row justify-center gap-2">
 						{buttons.map((button) => (
 							<SocialButton
 								key={button.id}
@@ -49,7 +50,7 @@ export default function Preview() {
 						))}
 					</ul>
 				) : (
-					<p className="text-muted-foreground">No links available</p>
+					<p className="text-center text-muted-foreground">No links available</p>
 				)}
 			</div>
 		</div>
