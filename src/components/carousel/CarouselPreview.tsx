@@ -29,13 +29,7 @@ export default function CarouselPreview({ presetId = 0 }) {
 				{buttons.length > 0 ? (
 					<ul className="my-2 flex flex-row gap-2">
 						{buttons.map((button) => (
-							<CarouselSocialButton
-								key={button.id}
-								url={button.url}
-								icon={button.icon}
-								settings={settings}
-								buttonId={button.id}
-							/>
+							<CarouselSocialButton key={button.id} icon={button.icon} settings={settings} />
 						))}
 					</ul>
 				) : (
@@ -44,7 +38,7 @@ export default function CarouselPreview({ presetId = 0 }) {
 				{links.length > 0 ? (
 					<ul className="space-y-4">
 						{links.map((link) => (
-							<CarouselLinkItem key={link.id} url={link.url} title={link.title} settings={settings} linkId={link.id} />
+							<CarouselLinkItem key={link.id} title={link.title} settings={settings} />
 						))}
 					</ul>
 				) : (

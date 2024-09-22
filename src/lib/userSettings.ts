@@ -36,7 +36,7 @@ export const SOCIAL_ICONS: { [key: string]: string } = {
 	"Bandcamp ": "simple-icons:bandcamp",
 	"Bluesky ": "simple-icons:bluesky",
 	"Discord ": "simple-icons:discord",
-	"Email ": "simple-icons:gmail",
+	"Gmail ": "simple-icons:gmail",
 	"Etsy ": "simple-icons:etsy",
 	"Facebook ": "simple-icons:facebook",
 	"GitHub ": "simple-icons:github",

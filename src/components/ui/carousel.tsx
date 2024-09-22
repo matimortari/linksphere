@@ -141,7 +141,7 @@ const CarouselContent = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
 			<div ref={carouselRef} className="overflow-hidden">
 				<div
 					ref={ref}
-					className={cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
+					className={cn("flex", orientation === "horizontal" ? "-mx-4" : "-mt-4 flex-col", className)}
 					{...props}
 				/>
 			</div>
@@ -161,7 +161,7 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
 				aria-roledescription="slide"
 				className={cn(
 					"min-w-0 shrink-0 grow-0 basis-full rounded-2xl",
-					orientation === "horizontal" ? "pl-4" : "pt-4",
+					orientation === "horizontal" ? "px-8" : "pt-4",
 					className
 				)}
 				{...props}
@@ -183,7 +183,7 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
 				className={cn(
 					"absolute h-10 w-10 rounded-full",
 					orientation === "horizontal"
-						? "-left-6 top-1/2 -translate-y-1/2"
+						? "-left-6 bottom-1/2 -translate-y-1/2"
 						: "-top-6 left-1/2 -translate-x-1/2 rotate-90",
 					className
 				)}
@@ -211,7 +211,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 				className={cn(
 					"absolute h-10 w-10 rounded-full",
 					orientation === "horizontal"
-						? "-right-6 top-1/2 -translate-y-1/2"
+						? "-right-6 bottom-1/2 -translate-y-1/2"
 						: "-bottom-6 left-1/2 -translate-x-1/2 rotate-90",
 					className
 				)}
