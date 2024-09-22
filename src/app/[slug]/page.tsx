@@ -47,7 +47,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 					@{slug}
 				</h1>
 
-				{description && <p style={{ color: settings.headerTextColor }}>{description}</p>}
+				{description && <p style={{ color: settings.headerTextColor, textAlign: "center" }}>{description}</p>}
 
 				{buttons.length > 0 ? (
 					<ul className="my-2 flex flex-row gap-2">
