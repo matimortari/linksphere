@@ -10,7 +10,8 @@ export const presets = [
 		],
 		links: [
 			{ id: 1, title: "Online Menu & Ordering" },
-			{ id: 3, title: "Find Us!" },
+			{ id: 2, title: "Find Us!" },
+			{ id: 3, title: "Contact" },
 		],
 		settings: {
 			backgroundColor: "#2c1f14",

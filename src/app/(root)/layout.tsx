@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<Providers session={session}>
 					<GlobalContextProvider>
 						<Navbar />
-						<div className="p-2 md:p-8">{children}</div>
+						<div className="p-2 md:p-6">{children}</div>
 						<Footer />
 					</GlobalContextProvider>
 				</Providers>

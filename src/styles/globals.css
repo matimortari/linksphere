@@ -31,7 +31,7 @@
 		--accent: #5c7a83;
 		--accent-foreground: #f5f3f3;
 
-		--muted: #c8c8c9;
+		--muted: #d9d9da;
 		--muted-foreground: #656c72;
 
 		--destructive: #ac434d;
@@ -64,17 +64,21 @@
 
 .main-container {
 	min-height: 100vh;
-	box-shadow: 1px 0px 4px 0px var(--muted);
-	border-radius: 1rem;
-}
-
-.content-container {
-	padding: 1rem;
 	background-color: var(--card);
 	border-color: var(--muted);
 	box-shadow: 1px 0px 4px 0px var(--muted);
 	border-width: 1px;
 	border-radius: 1rem;
+	padding: 1rem;
+}
+
+.content-container {
+	background-color: var(--card);
+	border-color: var(--muted);
+	box-shadow: 1px 0px 4px 0px var(--muted);
+	border-width: 1px;
+	border-radius: 1rem;
+	padding: 1rem;
 }
 
 .form-container {

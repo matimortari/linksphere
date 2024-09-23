@@ -10,23 +10,27 @@ export default function Preview() {
 
 	return (
 		<div
-			className="content-container mx-auto my-2"
-			style={{ backgroundColor: settings.backgroundColor, maxWidth: "400px", overflow: "hidden" }}
+			className="content-container mx-auto my-2 max-w-[400px] overflow-hidden"
+			style={{ backgroundColor: settings.backgroundColor }}
 		>
 			<div className="flex flex-col items-center justify-center gap-2 py-5 text-center">
 				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar icon" />}
 				<h1
+					className="text-center"
 					style={{
 						color: settings.slugTextColor,
 						fontWeight: settings.slugTextWeight,
 						fontSize: settings.slugTextSize,
 					}}
-					className="text-center"
 				>
 					@{slug}
 				</h1>
 
-				{description && <p style={{ color: settings.headerTextColor, textAlign: "center" }}>{description}</p>}
+				{description && (
+					<p className="text-center" style={{ color: settings.headerTextColor }}>
+						{description}
+					</p>
+				)}
 
 				{buttons.length > 0 ? (
 					<ul className="my-2 flex flex-row justify-center gap-2">

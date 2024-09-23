@@ -9,23 +9,25 @@ export default function CarouselPreview({ presetId = 0 }) {
 
 	return (
 		<div
-			className="content-container mx-auto my-2"
-			style={{ backgroundColor: settings.backgroundColor, maxWidth: "400px", overflow: "hidden" }}
+			className="content-container mx-auto w-72 md:w-80"
+			style={{
+				backgroundColor: settings.backgroundColor,
+			}}
 		>
 			<div className="flex flex-col items-center justify-center gap-2 py-5 text-center">
-				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar icon" />}
+				<Image src={image} alt={slug} width={100} height={100} className="avatar icon" />
 				<h1
+					className="text-center"
 					style={{
 						color: settings.slugTextColor,
 						fontWeight: settings.slugTextWeight,
 						fontSize: settings.slugTextSize,
 					}}
-					className="text-center"
 				>
 					@{slug}
 				</h1>
 
-				{description && <p style={{ color: settings.headerTextColor, textAlign: "center" }}>{description}</p>}
+				<p style={{ color: settings.headerTextColor, textAlign: "center" }}>{description}</p>
 
 				<ul className="my-2 flex flex-row justify-center gap-2">
 					{buttons.map((button) => (
@@ -35,7 +37,7 @@ export default function CarouselPreview({ presetId = 0 }) {
 
 				<hr />
 
-				<ul className="space-y-4">
+				<ul className="max-h-[550px] space-y-4 overflow-auto">
 					{links.map((link) => (
 						<CarouselLinkItem key={link.id} title={link.title} settings={settings} />
 					))}
