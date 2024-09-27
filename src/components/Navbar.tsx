@@ -39,8 +39,12 @@ export default function Navbar() {
 	}, [])
 
 	return (
-		<nav className="absolute right-8 top-8 z-10 flex w-full items-center justify-end bg-transparent">
-			<div className="button-container">
+		<nav className="absolute top-8 z-10 flex w-full items-center justify-between bg-transparent px-8">
+			<Link href="/" className="button h-10 w-10 bg-card">
+				<Icon icon="ri:home-2-fill" />
+			</Link>
+
+			<div className="flex items-center gap-2">
 				<button onClick={toggleTheme} className="button h-10 w-10 bg-card">
 					<Icon
 						icon={theme === "light" ? "material-symbols:light-mode-rounded" : "material-symbols:dark-mode-rounded"}
@@ -56,32 +60,32 @@ export default function Navbar() {
 						<Icon icon="charm:menu-hamburger" />
 					</button>
 				)}
-			</div>
 
-			{isDialogOpen && (
-				<div ref={dialogRef} className="content-container absolute top-14 z-10 flex">
-					<div className="flex flex-col justify-center gap-2 p-2 text-sm font-semibold">
-						{session && (
-							<>
-								<Link href={`/${slug}`} className="button">
-									My Page
+				{isDialogOpen && (
+					<div ref={dialogRef} className="content-container absolute right-2 top-12 z-10 flex">
+						<div className="flex flex-col justify-center gap-2 p-4 text-sm font-semibold">
+							{session && (
+								<>
+									<Link href={`/${slug}`} className="button">
+										My Page
+									</Link>
+									<Link href="/dashboard" className="button">
+										Dashboard
+									</Link>
+									<button onClick={handleSignOut} className="button">
+										Sign Out
+									</button>
+								</>
+							)}
+							{!session && (
+								<Link href="/login" className="button">
+									<Icon icon="material-symbols:logout" />
 								</Link>
-								<Link href="/dashboard" className="button">
-									Dashboard
-								</Link>
-								<button onClick={handleSignOut} className="button">
-									Sign Out
-								</button>
-							</>
-						)}
-						{!session && (
-							<Link href="/login" className="button">
-								<Icon icon="material-symbols:logout" />
-							</Link>
-						)}
+							)}
+						</div>
 					</div>
-				</div>
-			)}
+				)}
+			</div>
 		</nav>
 	)
 }
