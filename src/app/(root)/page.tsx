@@ -10,7 +10,7 @@ export default function Home() {
 	return (
 		<div className="main-container relative">
 			<div className="absolute inset-x-0 bottom-0 z-0 h-96">
-				<Image src="/grid-bg.png" fill alt="Background" />
+				<Image src="/grid-bg.png" alt="Background" fill />
 			</div>
 
 			<main className="relative flex flex-col md:flex-row">
@@ -25,12 +25,13 @@ export default function Home() {
 						</h2>
 
 						<p className="text-center text-lg text-muted-foreground md:text-left">
-							Welcome to <strong>NeSS</strong>! Share your links, social profiles, contact information, and more in one
-							convenient page. Create and customize your personalized page and share it seamlessly with your audience.
+							Welcome to <strong>LinkSphere</strong>! Share your links, social profiles, contact information, and more
+							in one convenient page. Create and customize your personalized page and share it seamlessly with your
+							audience.
 						</p>
 
 						<form className="form-container">
-							<span className="text-muted-foreground">ness-live.vercel.app/</span>
+							<span className="text-muted-foreground">linksphere-live.vercel.app/</span>
 							<input type="text" placeholder="your_name" className="input flex-1" />
 							<Link href="/login" className="button bg-primary text-primary-foreground">
 								Get Started!
@@ -45,9 +46,9 @@ export default function Home() {
 									<Icon icon="ri:paint-brush-fill" />
 								</span>
 								<div>
-									<p className="text-lg font-bold">Customizable Themes</p>
+									<p className="text-lg font-bold">Fully Customizable</p>
 									<span className="text-muted-foreground">
-										Customize your page with a variety of themes and colors to match your brand or style.
+										Customize your page with any color you want, add shadows, or change the size of your links.
 									</span>
 								</div>
 							</div>
@@ -59,7 +60,7 @@ export default function Home() {
 								<div>
 									<p className="font-bold">Unlimited Links</p>
 									<span className="text-muted-foreground">
-										Add as many links as you want to your personal page, with no restrictions.
+										Add as many links or social buttons as you want to your personal page.
 									</span>
 								</div>
 							</div>
@@ -83,7 +84,7 @@ export default function Home() {
 								<div>
 									<p className="font-bold">Free to Use!</p>
 									<span className="text-muted-foreground">
-										NeSS is completely free to use, with no hidden fees or charges.
+										LinkSphere is completely free to use, with no hidden fees or charges.
 									</span>
 								</div>
 							</div>

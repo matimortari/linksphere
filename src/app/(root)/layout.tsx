@@ -14,7 +14,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	const session = await getServerSession(authOptions)
 
 	const metadata: Metadata = {
-		title: "neSS",
+		title: "LinkSphere",
 		description: "Social media & link aggregator",
 	}
 

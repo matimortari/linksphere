@@ -1,8 +1,8 @@
-# neSS
+# LinkSphere
 
 Social media & link aggregator website.
 
-[🚀 Check it out!](https://ness-live.vercel.app)
+[🚀 Check it out!](https://linksphere-live.vercel.app)
 
 ## 🖧 Stack
 

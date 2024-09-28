@@ -20,8 +20,8 @@ export default function Sidebar() {
 			<div className="flex flex-col items-center justify-center py-4">
 				{image && <Image src={image} alt={name} width={60} height={60} className="avatar mb-3" />}
 				<p className="text-lg font-bold">{name}</p>
-				<a href={`https://ness-live.vercel.app/${slug}`} className="text-xs font-normal text-muted-foreground">
-					ness-live.vercel.app/{slug}
+				<a href={`https://linksphere-live.vercel.app/${slug}`} className="text-xs font-normal text-muted-foreground">
+					linksphere-live.vercel.app/{slug}
 				</a>
 			</div>
 
