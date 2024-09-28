@@ -26,8 +26,7 @@ export default function Home() {
 
 						<p className="text-center text-lg text-muted-foreground md:text-left">
 							Welcome to <strong>LinkSphere</strong>! Share your links, social profiles, contact information, and more
-							in one convenient page. Create and customize your personalized page and share it seamlessly with your
-							audience.
+							in one convenient page. Create and customize your personalized page and share it with your audience.
 						</p>
 
 						<form className="form-container">

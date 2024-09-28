@@ -1,12 +1,6 @@
-import { type ClassValue, clsx } from "clsx"
 import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
-import { twMerge } from "tailwind-merge"
 import { authOptions } from "./auth"
-
-export function cn(...inputs: ClassValue[]) {
-	return twMerge(clsx(inputs))
-}
 
 export function validateLinkData(data: any) {
 	return data && typeof data.title === "string" && typeof data.url === "string"
