@@ -32,14 +32,14 @@ export default function UpdateLinkDialog({ onClose, linkData }) {
 	const isTitleTooLong = localTitle.length > maxTitleLength
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+		<div className="fixed inset-0 -top-2 z-50 flex items-center justify-center bg-black bg-opacity-50">
 			<div ref={dialogRef} className="content-container w-full max-w-xl shadow-lg">
 				<h2 className="title">Update Link</h2>
 				{error && <p className="title text-destructive">{error}</p>}
 				<hr />
 
 				<form onSubmit={handleSubmit}>
-					<div className="my-4 flex flex-col space-y-2">
+					<div className="my-2 flex flex-col space-y-2">
 						<label className="text-sm font-medium">Link Title (Max. {maxTitleLength} characters):</label>
 						<input
 							type="text"

@@ -18,7 +18,7 @@ export default function Sidebar() {
 	return (
 		<div className="content-container flex flex-col items-center justify-center">
 			<div className="flex flex-col items-center justify-center py-4">
-				{image && <Image src={image} alt={name} width={60} height={60} className="avatar mb-3" />}
+				{image && <Image src={image} alt={name} width={60} height={60} className="mb-3 rounded-full" />}
 				<p className="text-lg font-bold">{name}</p>
 				<a href={`https://linksphere-live.vercel.app/${slug}`} className="text-xs font-normal text-muted-foreground">
 					linksphere-live.vercel.app/{slug}

@@ -22,7 +22,7 @@ export default function UpdateSlugForm() {
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="form-container w-full">
-				<span className="text-muted-foreground">linksphere-live.vercel.app/</span>
+				<span className="hidden text-muted-foreground md:block">linksphere-live.vercel.app/</span>
 				<input
 					type="text"
 					value={slug}

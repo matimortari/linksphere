@@ -9,7 +9,7 @@ const bowlby = Bowlby_One({ subsets: ["latin"], weight: "400" })
 export default function Home() {
 	return (
 		<div className="main-container relative">
-			<div className="absolute inset-x-0 bottom-0 h-96">
+			<div className="absolute inset-x-0 bottom-0 h-3/6 opacity-35">
 				<Image src="/grid-bg.png" alt="Background" fill />
 			</div>
 

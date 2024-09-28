@@ -15,7 +15,7 @@ export default function CarouselPreview({ presetId = 0 }) {
 			}}
 		>
 			<div className="flex flex-col items-center justify-center gap-2 py-5 text-center">
-				<Image src={image} alt={slug} width={100} height={100} className="avatar icon" />
+				<Image src={image} alt={slug} width={100} height={100} className="icon rounded-full" />
 				<h1
 					className="text-center"
 					style={{

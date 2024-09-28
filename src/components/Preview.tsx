@@ -14,7 +14,7 @@ export default function Preview() {
 			style={{ backgroundColor: settings.backgroundColor }}
 		>
 			<div className="flex flex-col items-center justify-center gap-2 py-5 text-center">
-				{image && <Image src={image} alt={slug} width={100} height={100} className="avatar icon" />}
+				{image && <Image src={image} alt={slug} width={100} height={100} className="icon rounded-full" />}
 				<h1
 					className="text-center"
 					style={{
