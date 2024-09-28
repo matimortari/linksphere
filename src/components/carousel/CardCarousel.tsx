@@ -20,10 +20,10 @@ export const CardCarousel = () => {
 		<div className="relative flex h-[500px] items-center justify-center">
 			<button
 				onClick={prevCard}
-				className="absolute -left-6 z-10 flex items-center justify-center md:left-16"
+				className="absolute -left-6 z-10 flex items-center justify-center rounded-full border border-accent hover:bg-accent md:left-24"
 				style={{ top: "50%", transform: "translateY(-50%)" }}
 			>
-				<Icon icon="ri:arrow-left-s-line" className="icon h-8 w-8" />
+				<Icon icon="ri:arrow-left-s-line" className="icon h-8 w-8 hover:text-background" />
 			</button>
 
 			<div className="flex items-center">
@@ -32,10 +32,10 @@ export const CardCarousel = () => {
 
 			<button
 				onClick={nextCard}
-				className="absolute -right-6 z-10 flex items-center justify-center md:right-16"
+				className="absolute -right-6 z-10 flex items-center justify-center rounded-full border border-accent hover:bg-accent md:right-24"
 				style={{ top: "50%", transform: "translateY(-50%)" }}
 			>
-				<Icon icon="ri:arrow-right-s-line" className="icon h-8 w-8" />
+				<Icon icon="ri:arrow-right-s-line" className="icon h-8 w-8 hover:text-background" />
 			</button>
 		</div>
 	)

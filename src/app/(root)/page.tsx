@@ -9,12 +9,12 @@ const bowlby = Bowlby_One({ subsets: ["latin"], weight: "400" })
 export default function Home() {
 	return (
 		<div className="main-container relative">
-			<div className="absolute inset-x-0 bottom-0 z-0 h-96">
+			<div className="absolute inset-x-0 bottom-0 h-96">
 				<Image src="/grid-bg.png" alt="Background" fill />
 			</div>
 
 			<main className="relative flex flex-col md:flex-row">
-				<section className="flex px-4 py-14 md:w-7/12">
+				<section className="flex px-4 py-16 md:w-6/12">
 					<div className="flex flex-col items-center gap-4 md:items-start">
 						<h1 className={`text-center text-3xl font-bold md:text-left md:text-6xl ${bowlby.className}`}>
 							Keep all your stuff together!
@@ -37,11 +37,9 @@ export default function Home() {
 							</Link>
 						</form>
 
-						<hr className="w-full" />
-
-						<div className="my-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+						<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
 							<div className="content-container flex items-start gap-2">
-								<span className="rounded-full bg-muted p-2">
+								<span className="icon rounded-full bg-muted p-2">
 									<Icon icon="ri:paint-brush-fill" />
 								</span>
 								<div>
@@ -53,7 +51,7 @@ export default function Home() {
 							</div>
 
 							<div className="content-container flex items-start gap-2">
-								<span className="rounded-full bg-muted p-2">
+								<span className="icon rounded-full bg-muted p-2">
 									<Icon icon="ri:infinity-fill" />
 								</span>
 								<div>
@@ -65,7 +63,7 @@ export default function Home() {
 							</div>
 
 							<div className="content-container flex items-start gap-2">
-								<span className="rounded-full bg-muted p-2">
+								<span className="icon rounded-full bg-muted p-2">
 									<Icon icon="ri:line-chart-fill" />
 								</span>
 								<div>
@@ -77,7 +75,7 @@ export default function Home() {
 							</div>
 
 							<div className="content-container flex items-start gap-2">
-								<span className="rounded-full bg-muted p-2">
+								<span className="icon rounded-full bg-muted p-2">
 									<Icon icon="ri:price-tag-3-fill" />
 								</span>
 								<div>
@@ -91,7 +89,7 @@ export default function Home() {
 					</div>
 				</section>
 
-				<section className="flex px-4 py-14 md:w-6/12">
+				<section className="flex px-4 py-16 md:w-6/12">
 					<div className="w-full">
 						<CardCarousel />
 					</div>

@@ -62,8 +62,8 @@ export default function Navbar() {
 				)}
 
 				{isDialogOpen && (
-					<div ref={dialogRef} className="content-container absolute right-2 top-12 z-10 flex">
-						<div className="flex flex-col justify-center gap-2 p-4 text-sm font-semibold">
+					<div ref={dialogRef} className="content-container absolute right-8 top-8 flex">
+						<div className="flex flex-col justify-center gap-4 p-2 text-sm font-semibold">
 							{session && (
 								<>
 									<Link href={`/${slug}`} className="button">
