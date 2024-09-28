@@ -30,17 +30,17 @@ export default function AddButtonDialog({ onClose }) {
 				{error && <p className="mb-4 text-destructive">{error}</p>}
 				<hr />
 
-				<form onSubmit={handleSubmit} className="flex flex-col space-y-2">
-					<div className="my-4 flex flex-col space-y-4">
+				<form onSubmit={handleSubmit} className="flex flex-col">
+					<div className="my-4 flex flex-col space-y-2">
 						<label className="text-sm font-medium">Select Platform:</label>
-						<div className="my-4 grid grid-cols-9 gap-4">
+						<div className="grid grid-cols-5 gap-2 md:grid-cols-9">
 							{Object.entries(SOCIAL_ICONS).map(([platform, icon]) => (
 								<div
 									key={platform}
 									onClick={() => setSelectedPlatform(platform)}
-									className={`icon flex cursor-pointer flex-col items-center justify-center rounded-lg border ${selectedPlatform === platform ? "border-primary" : "border-transparent"}`}
+									className={`icon flex cursor-pointer flex-col items-center justify-center rounded-lg p-1 ${selectedPlatform === platform ? "bg-muted" : "bg-transparent"}`}
 								>
-									<Icon icon={icon} className="text-2xl" />
+									<Icon icon={icon} className="text-xl" />
 									<p className="mt-1 text-center text-xs">{platform.charAt(0).toUpperCase() + platform.slice(1)}</p>
 								</div>
 							))}
