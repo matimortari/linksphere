@@ -2,6 +2,7 @@
 
 import { Icon } from "@iconify/react"
 import { signIn, useSession } from "next-auth/react"
+import Image from "next/image"
 import { redirect } from "next/navigation"
 
 export default function Login() {
@@ -12,12 +13,16 @@ export default function Login() {
 	}
 
 	return (
-		<div className="main-container bg-card">
-			<div className="flex flex-col items-center justify-center p-8">
-				<strong className="p-4 text-5xl">Sign In</strong>
+		<div className="main-container relative">
+			<div className="absolute inset-x-0 bottom-0 h-3/6 opacity-35">
+				<Image src="/grid-bg.png" alt="Background" fill />
+			</div>
+
+			<main className="flex flex-col items-center justify-center gap-4 p-8">
+				<strong className="text-6xl">Sign In</strong>
 				<p className="text-muted-foreground">Sign in with your preferred provider.</p>
 
-				<hr className="my-6 w-full" />
+				<hr className="w-full" />
 
 				<div className="flex flex-col items-center justify-center gap-2">
 					<button className="button bg-google text-accent-foreground" onClick={() => signIn("google")}>
@@ -29,7 +34,7 @@ export default function Login() {
 						Sign In With GitHub
 					</button>
 				</div>
-			</div>
+			</main>
 		</div>
 	)
 }

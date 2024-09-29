@@ -1,9 +1,9 @@
 "use client"
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
+import { SOCIAL_ICONS } from "@/src/data/userSettings"
 import useDialog from "@/src/hooks/useDialog"
 import { handleDialogFormSubmit } from "@/src/lib/actions"
-import { SOCIAL_ICONS } from "@/src/lib/userSettings"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
 

@@ -1,8 +1,13 @@
 "use client"
 
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
+import {
+	BORDER_RADIUS_OPTIONS,
+	PADDING_OPTIONS,
+	SLUG_FONT_SIZES,
+	SLUG_FONT_WEIGHT_SIZES,
+} from "@/src/data/userSettings"
 import { fetchUserSettings, handleFormSubmit, resetSettings } from "@/src/lib/actions"
-import { BORDER_RADIUS_OPTIONS, PADDING_OPTIONS, SLUG_FONT_SIZES, SLUG_FONT_WEIGHT_SIZES } from "@/src/lib/userSettings"
 import "@/src/styles/inputs.css"
 import { useEffect, useState } from "react"
 

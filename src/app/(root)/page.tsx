@@ -1,12 +1,22 @@
+"use client"
+
 import { CardCarousel } from "@/src/components/carousel/CardCarousel"
 import { Icon } from "@iconify/react"
+import { useSession } from "next-auth/react"
 import { Bowlby_One } from "next/font/google"
 import Image from "next/image"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 const bowlby = Bowlby_One({ subsets: ["latin"], weight: "400" })
 
 export default function Home() {
+	const { status } = useSession()
+
+	if (status === "authenticated") {
+		redirect("/dashboard")
+	}
+
 	return (
 		<div className="main-container relative">
 			<div className="absolute inset-x-0 bottom-0 h-3/6 opacity-35">

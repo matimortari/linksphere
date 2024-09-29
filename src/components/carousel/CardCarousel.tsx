@@ -1,6 +1,6 @@
 "use client"
 
-import { presets } from "@/src/lib/presets"
+import { presets } from "@/src/data/presets"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
 import CarouselPreview from "./CarouselPreview"

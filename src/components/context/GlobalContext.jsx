@@ -1,5 +1,6 @@
 "use client"
 
+import { defaultSettings } from "@/src/data/userSettings"
 import {
 	addButton,
 	addLink,
@@ -12,7 +13,6 @@ import {
 	updateLink,
 	updateSettings,
 } from "@/src/lib/actions"
-import { defaultSettings } from "@/src/lib/userSettings"
 import { useSession } from "next-auth/react"
 import { createContext, useContext, useEffect, useState } from "react"
 

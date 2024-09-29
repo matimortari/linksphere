@@ -1,10 +1,10 @@
+import { defaultSettings } from "@/src/data/userSettings"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { SocialButton, UserLink } from "@prisma/client"
 import { DefaultSession, SessionStrategy } from "next-auth"
 import GitHubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import { db } from "./db"
-import { defaultSettings } from "./userSettings"
 import { generateSlug } from "./utils"
 
 // Extend the default session with custom properties

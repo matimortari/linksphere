@@ -7,16 +7,13 @@ import LinkList from "@/src/components/lists/LinkList"
 import SocialButtonList from "@/src/components/lists/SocialButtonList"
 import { useSession } from "next-auth/react"
 import { redirect } from "next/navigation"
-import { useEffect } from "react"
 
 export default function Dashboard() {
 	const { data: session, status } = useSession()
 
-	useEffect(() => {
-		if (status === "unauthenticated" || !session?.user) {
-			redirect("/login")
-		}
-	}, [status, session])
+	if (status === "unauthenticated" || !session?.user) {
+		redirect("/login")
+	}
 
 	return (
 		<div className="flex min-h-screen flex-col gap-2 bg-background md:flex-row">

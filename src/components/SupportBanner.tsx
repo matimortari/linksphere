@@ -1,4 +1,4 @@
-import { bannerDescriptions, bannerIcons, bannerLinks, bannerMessages, bannerStyles } from "@/src/lib/bannerSettings"
+import { bannerDescriptions, bannerIcons, bannerLinks, bannerMessages, bannerStyles } from "@/src/data/bannerSettings"
 import { Icon } from "@iconify/react"
 
 export default function SupportBanner({ bannerType }) {

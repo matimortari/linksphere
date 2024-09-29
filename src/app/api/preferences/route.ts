@@ -1,5 +1,5 @@
+import { defaultSettings } from "@/src/data/userSettings"
 import { db } from "@/src/lib/db"
-import { defaultSettings } from "@/src/lib/userSettings"
 import { getSessionOrUnauthorized } from "@/src/lib/utils"
 import { NextResponse } from "next/server"
 

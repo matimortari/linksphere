@@ -1,5 +1,5 @@
+import { presets } from "@/src/data/presets"
 import Image from "next/image"
-import { presets } from "../../lib/presets"
 import CarouselLinkItem from "./CarouselLinkItem"
 import CarouselSocialButton from "./CarouselSocialButton"
 
