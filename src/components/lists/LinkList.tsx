@@ -50,7 +50,7 @@ export default function LinkList() {
 				<UpdateLinkDialog onClose={() => setIsUpdateDialogOpen(false)} linkData={currentLink} />
 			)}
 
-			{isAddLinkDialogOpen && <AddLinkDialog onClose={() => setIsAddLinkDialogOpen(false)} linkData={currentLink} />}
+			{isAddLinkDialogOpen && <AddLinkDialog onClose={() => setIsAddLinkDialogOpen(false)} />}
 			<div className="button-container">
 				<button onClick={() => setIsAddLinkDialogOpen(true)} className="button bg-primary text-primary-foreground">
 					Add Link

@@ -6,10 +6,10 @@ import { handleDialogFormSubmit } from "@/src/lib/actions"
 import { useState } from "react"
 
 export default function UpdateLinkDialog({ onClose, linkData }) {
-	const { dialogRef, error, setError } = useDialog(onClose)
 	const { updateLink } = useGlobalContext()
-	const [localTitle, setLocalTitle] = useState(linkData.title)
 	const [localUrl, setLocalUrl] = useState(linkData.url)
+	const [localTitle, setLocalTitle] = useState(linkData.title)
+	const { dialogRef, error, setError } = useDialog(onClose)
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -28,7 +28,6 @@ export default function UpdateLinkDialog({ onClose, linkData }) {
 		<div className="fixed inset-0 -top-2 z-50 flex items-center justify-center bg-black bg-opacity-50">
 			<div ref={dialogRef} className="content-container w-full max-w-xl shadow-lg">
 				<h2 className="title">Update Link</h2>
-				{error && <p className="title text-destructive">{error}</p>}
 				<hr />
 
 				<form onSubmit={handleSubmit}>
@@ -38,9 +37,9 @@ export default function UpdateLinkDialog({ onClose, linkData }) {
 							type="text"
 							value={localTitle}
 							onChange={(e) => setLocalTitle(e.target.value)}
+							maxLength={maxTitleLength}
 							className="form-container"
 							required
-							maxLength={maxTitleLength}
 						/>
 						<p className={`text-sm font-bold ${isTitleTooLong ? "text-destructive" : "text-muted-foreground"}`}>
 							{isTitleTooLong ? "Title is too long!" : `${localTitle.length} / ${maxTitleLength}`}

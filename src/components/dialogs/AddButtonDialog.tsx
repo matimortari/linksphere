@@ -8,10 +8,10 @@ import { Icon } from "@iconify/react"
 import { useState } from "react"
 
 export default function AddButtonDialog({ onClose }) {
-	const { dialogRef, error, setError } = useDialog(onClose)
 	const { addButton } = useGlobalContext()
-	const [selectedPlatform, setSelectedPlatform] = useState(null)
 	const [url, setUrl] = useState("")
+	const [selectedPlatform, setSelectedPlatform] = useState(null)
+	const { dialogRef, error, setError } = useDialog(onClose)
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -27,7 +27,6 @@ export default function AddButtonDialog({ onClose }) {
 		<div className="fixed inset-0 -top-2 z-50 flex items-center justify-center bg-black bg-opacity-50">
 			<div ref={dialogRef} className="content-container w-full max-w-3xl shadow-lg">
 				<h2 className="title mb-2">Add Social Button</h2>
-				{error && <p className="mb-4 text-destructive">{error}</p>}
 				<hr />
 
 				<form onSubmit={handleSubmit} className="flex flex-col">
