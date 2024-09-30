@@ -6,7 +6,7 @@ import { handleDialogFormSubmit } from "@/src/lib/actions"
 import { useState } from "react"
 
 export default function AddLinkDialog({ onClose }) {
-	const { dialogRef, error, setError } = useDialog(onClose)
+	const { dialogRef, setError } = useDialog(onClose)
 	const { addLink } = useGlobalContext()
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")

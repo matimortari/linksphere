@@ -1,5 +1,5 @@
 import { db } from "@/src/lib/db"
-import { getSessionOrUnauthorized } from "@/src/lib/utils"
+import { errorResponse, getSessionOrUnauthorized } from "@/src/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
@@ -7,18 +7,18 @@ export async function GET(req: NextRequest) {
 		const { error, session, response } = await getSessionOrUnauthorized()
 		if (error) return response
 
-		const { slug } = session.user
+		const slug = session.user?.slug
 		if (!slug || typeof slug !== "string") {
-			return NextResponse.json({ error: "Invalid or missing slug" }, { status: 400 })
+			return errorResponse("Invalid or missing slug", 400)
 		}
 
 		const user = await db.user.findUnique({ where: { slug } })
-		if (!user) return NextResponse.json({ error: "User not found" }, { status: 404 })
+		if (!user) return errorResponse("User not found", 404)
 
 		return NextResponse.json(user)
 	} catch (error) {
 		console.error("Error fetching user:", error)
-		return NextResponse.json({ error: "Error fetching user data" }, { status: 500 })
+		return errorResponse("Error fetching user data", 500)
 	}
 }
 
@@ -34,7 +34,7 @@ export async function PUT(req: NextRequest) {
 		}
 
 		if (!Object.keys(updateData).length) {
-			return NextResponse.json({ error: "No valid fields provided" }, { status: 400 })
+			return errorResponse("No valid fields provided", 400)
 		}
 
 		const updatedUser = await db.user.update({
@@ -45,7 +45,7 @@ export async function PUT(req: NextRequest) {
 		return NextResponse.json({ message: "User updated successfully", updatedUser })
 	} catch (error) {
 		console.error("Error updating user:", error)
-		return NextResponse.json({ error: "Error updating user data" }, { status: 500 })
+		return errorResponse("Error updating user data", 500)
 	}
 }
 
@@ -54,10 +54,10 @@ export async function DELETE(req: NextRequest) {
 		const { error, session, response } = await getSessionOrUnauthorized()
 		if (error) return response
 
-		const user = await db.user.delete({ where: { id: session.user.id } })
-		return NextResponse.json({ message: "User deleted successfully", user })
+		const deletedUser = await db.user.delete({ where: { id: session.user.id } })
+		return NextResponse.json({ message: "User deleted successfully", deletedUser })
 	} catch (error) {
 		console.error("Error deleting user:", error)
-		return NextResponse.json({ error: "Error deleting user data" }, { status: 500 })
+		return errorResponse("Error deleting user data", 500)
 	}
 }

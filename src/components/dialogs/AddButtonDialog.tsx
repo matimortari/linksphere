@@ -11,7 +11,7 @@ export default function AddButtonDialog({ onClose }) {
 	const { addButton } = useGlobalContext()
 	const [url, setUrl] = useState("")
 	const [selectedPlatform, setSelectedPlatform] = useState(null)
-	const { dialogRef, error, setError } = useDialog(onClose)
+	const { dialogRef, setError } = useDialog(onClose)
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()

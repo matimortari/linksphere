@@ -9,7 +9,7 @@ export default function UpdateLinkDialog({ onClose, linkData }) {
 	const { updateLink } = useGlobalContext()
 	const [localUrl, setLocalUrl] = useState(linkData.url)
 	const [localTitle, setLocalTitle] = useState(linkData.title)
-	const { dialogRef, error, setError } = useDialog(onClose)
+	const { dialogRef, setError } = useDialog(onClose)
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()

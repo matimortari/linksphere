@@ -2,6 +2,16 @@ import { getServerSession } from "next-auth"
 import { NextResponse } from "next/server"
 import { authOptions } from "./auth"
 
+export async function getSessionOrUnauthorized() {
+	const session = await getServerSession(authOptions)
+	if (!session || !session.user) {
+		return { error: true, response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) }
+	}
+	return { error: false, session }
+}
+
+export const errorResponse = (message: string, status: number) => NextResponse.json({ error: message }, { status })
+
 export function validateLinkData(data: any) {
 	return data && typeof data.title === "string" && typeof data.url === "string"
 }
@@ -22,14 +32,6 @@ export function generateSlug(base: string = "", isInitial: boolean = false, leng
 				.replace(/\s+/g, "-")
 				.replace(/[^a-z0-9-]/g, "")}-${randomString()}`
 		: `${randomString()}-${randomString()}`
-}
-
-export async function getSessionOrUnauthorized() {
-	const session = await getServerSession(authOptions)
-	if (!session || !session.user) {
-		return { error: true, response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) }
-	}
-	return { error: false, session }
 }
 
 export function formatDate(dateString) {
