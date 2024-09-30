@@ -50,7 +50,8 @@ export async function updateLink(updatedLink: object) {
 
 // Delete a link by its ID
 export async function deleteLink(id: string): Promise<string> {
-	await fetchAPI(`/api/links?id=${id}`, { method: "DELETE" })
+	await fetch(`/api/links?id=${id}`, { method: "DELETE" })
+	// await fetchAPI(`/api/links?id=${id}`, { method: "DELETE" })
 	return id
 }
 
@@ -64,7 +65,8 @@ export async function addButton(newButton: object) {
 
 // Delete a social button by its ID
 export async function deleteButton(id: string) {
-	await fetchAPI(`/api/buttons?id=${id}`, { method: "DELETE" })
+	await fetch(`/api/buttons?id=${id}`, { method: "DELETE" })
+	// await fetchAPI(`/api/buttons?id=${id}`, { method: "DELETE" })
 	return id
 }
 
