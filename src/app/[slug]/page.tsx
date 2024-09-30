@@ -63,7 +63,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 						))}
 					</ul>
 				) : (
-					<p className="text-center text-muted-foreground">No social buttons available</p> // Centering the "No social buttons available" text
+					<hr />
 				)}
 
 				{links.length > 0 ? (
@@ -73,7 +73,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 						))}
 					</ul>
 				) : (
-					<p className="text-center text-muted-foreground">No links available</p>
+					<p className="text-center text-muted-foreground">No links yet.</p>
 				)}
 			</div>
 		</div>

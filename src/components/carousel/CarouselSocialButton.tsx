@@ -18,11 +18,7 @@ export default function CarouselSocialButton({ icon, settings }) {
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 			>
-				{icon ? (
-					<Icon icon={icon} className="h-5 w-5" style={{ color: settings.buttonIconColor }} />
-				) : (
-					<p>No icon available</p>
-				)}
+				<Icon icon={icon} className="h-5 w-5" style={{ color: settings.buttonIconColor }} />
 			</div>
 		</li>
 	)

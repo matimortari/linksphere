@@ -47,6 +47,7 @@ export default function Preview() {
 				) : (
 					<hr />
 				)}
+
 				{links.length > 0 ? (
 					<ul className="space-y-4">
 						{links.map((link) => (
@@ -54,7 +55,7 @@ export default function Preview() {
 						))}
 					</ul>
 				) : (
-					<p className="text-center text-muted-foreground">No links available</p>
+					<p className="text-center text-muted-foreground">No links yet.</p>
 				)}
 			</div>
 		</div>
