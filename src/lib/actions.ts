@@ -1,197 +1,91 @@
 import { db } from "./db"
+import { fetchAPI } from "./utils"
 
 // Fetch user data
 export async function fetchUserData() {
-	const response = await fetch("/api/user", {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		},
-	})
-
-	if (!response.ok) {
-		throw new Error("Failed to fetch user data")
-	}
-
-	return response.json()
+	return fetchAPI("/api/user", { method: "GET" })
 }
 
 // Fetch user settings
 export async function fetchUserSettings() {
-	const response = await fetch("/api/preferences")
-
-	if (!response.ok) {
-		throw new Error((await response.json()).error)
-	}
-
-	return (await response.json()).settings
+	const data = await fetchAPI("/api/preferences")
+	return data.settings
 }
 
 // Fetch user links based on slug
 export async function fetchUserLinks(slug: string) {
-	const response = await fetch(`/api/links?slug=${slug}`)
-
-	if (!response.ok) {
-		throw new Error("Failed to fetch user links")
-	}
-	return response.json()
+	return fetchAPI(`/api/links?slug=${slug}`)
 }
 
 // Fetch user social buttons based on slug
 export async function fetchUserButtons(slug: string) {
-	const response = await fetch(`/api/buttons?slug=${slug}`)
-
-	if (!response.ok) {
-		throw new Error("Failed to fetch user buttons")
-	}
-	return response.json()
+	return fetchAPI(`/api/buttons?slug=${slug}`)
 }
 
 // Fetch user analytics
 export async function fetchUserAnalytics() {
-	const response = await fetch("/api/analytics")
-
-	if (!response.ok) {
-		throw new Error("Network response was not ok")
-	}
-
-	return response.json()
+	return fetchAPI("/api/analytics")
 }
 
 // Delete user account
 export async function deleteUserAccount() {
-	try {
-		const response = await fetch("/api/user", {
-			method: "DELETE",
-		})
-
-		if (!response.ok) {
-			const errorData = await response.json()
-			throw new Error(errorData.error || "Failed to delete the account")
-		}
-	} catch (error) {
-		throw new Error(error.message)
-	}
+	return fetchAPI("/api/user", { method: "DELETE" })
 }
 
 // Add a new link
-export async function addLink(newLink) {
-	try {
-		const response = await fetch("/api/links", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(newLink),
-		})
-
-		if (!response.ok) throw new Error((await response.json()).error)
-
-		return response.json()
-	} catch (error) {
-		throw new Error("Failed to add link: " + error.message)
-	}
+export async function addLink(newLink: object) {
+	return fetchAPI("/api/links", {
+		method: "POST",
+		body: JSON.stringify(newLink),
+	})
 }
 
 // Update an existing link
-export async function updateLink(updatedLink) {
-	try {
-		const response = await fetch("/api/links", {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(updatedLink),
-		})
-
-		if (!response.ok) throw new Error((await response.json()).error)
-
-		return response.json()
-	} catch (error) {
-		throw new Error("Failed to update link: " + error.message)
-	}
+export async function updateLink(updatedLink: object) {
+	return fetchAPI("/api/links", {
+		method: "PUT",
+		body: JSON.stringify(updatedLink),
+	})
 }
 
 // Delete a link by its ID
 export async function deleteLink(id: string): Promise<string> {
-	try {
-		const response = await fetch(`/api/links?id=${id}`, { method: "DELETE" })
-
-		if (response.status !== 204) throw new Error((await response.json()).error)
-
-		return id
-	} catch (error) {
-		throw new Error("Failed to delete link: " + error.message)
-	}
+	await fetchAPI(`/api/links?id=${id}`, { method: "DELETE" })
+	return id
 }
 
 // Add a new social button
-export async function addButton(newButton) {
-	try {
-		const response = await fetch("/api/buttons", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(newButton),
-		})
-
-		if (!response.ok) throw new Error((await response.json()).error)
-
-		return response.json()
-	} catch (error) {
-		throw new Error("Failed to add button: " + error.message)
-	}
+export async function addButton(newButton: object) {
+	return fetchAPI("/api/buttons", {
+		method: "POST",
+		body: JSON.stringify(newButton),
+	})
 }
 
 // Delete a social button by its ID
-export async function deleteButton(id) {
-	try {
-		const response = await fetch(`/api/buttons?id=${id}`, { method: "DELETE" })
-
-		if (response.status !== 204) throw new Error((await response.json()).error)
-
-		return id
-	} catch (error) {
-		throw new Error("Failed to delete button: " + error.message)
-	}
+export async function deleteButton(id: string) {
+	await fetchAPI(`/api/buttons?id=${id}`, { method: "DELETE" })
+	return id
 }
 
 // Update user settings
-export async function updateSettings(newSettings) {
-	try {
-		const response = await fetch("/api/preferences", {
-			method: "PUT",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(newSettings),
-		})
-
-		if (!response.ok) throw new Error((await response.json()).error)
-
-		return response.json()
-	} catch (error) {
-		throw new Error("Failed to update settings: " + error.message)
-	}
+export async function updateSettings(newSettings: object) {
+	return fetchAPI("/api/preferences", {
+		method: "PUT",
+		body: JSON.stringify(newSettings),
+	})
 }
 
 // Reset user settings to default
 export async function resetSettings() {
-	try {
-		const response = await fetch("/api/preferences", {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({}),
-		})
-
-		if (!response.ok) {
-			const errorData = await response.json()
-			throw new Error(errorData.error || "Failed to reset settings")
-		}
-
-		return await response.json()
-	} catch (error) {
-		throw new Error("Failed to reset settings: " + error.message)
-	}
+	return fetchAPI("/api/preferences", {
+		method: "PUT",
+		body: JSON.stringify({}),
+	})
 }
 
 // Update user banner
-export async function updateUserBanner(newBanner) {
+export async function updateUserBanner(newBanner: string) {
 	try {
 		const currentSettings = await fetchUserSettings()
 		const updatedSettings = { ...currentSettings, supportBanner: newBanner }
@@ -202,7 +96,7 @@ export async function updateUserBanner(newBanner) {
 }
 
 // Track a page visit based on the user's slug
-export async function trackPageVisit(slug) {
+export async function trackPageVisit(slug: string) {
 	const user = await db.user.findUnique({
 		where: { slug },
 		include: { UserStats: true },
@@ -211,7 +105,7 @@ export async function trackPageVisit(slug) {
 	if (!user) return
 
 	const stats =
-		user.UserStats[0] ??
+		user.UserStats[0] ||
 		(await db.userStats.create({
 			data: { userId: user.id, views: 0, clicks: 0 },
 		}))
@@ -223,13 +117,10 @@ export async function trackPageVisit(slug) {
 }
 
 // Track a user click
-export async function trackClick(id, type) {
+export async function trackClick(id: string, type: string) {
 	try {
-		await fetch("/api/analytics", {
+		await fetchAPI("/api/analytics", {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
 			body: JSON.stringify({ id, type }),
 		})
 	} catch (error) {
@@ -249,50 +140,47 @@ export async function handleFormSubmit(
 	e.preventDefault()
 
 	try {
-		const response = await fetch(url, {
+		const data = await fetchAPI(url, {
 			method: "PUT",
-			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(payload),
 		})
 
-		const data = await response.json()
-		if (!response.ok) throw new Error(data.error)
-
 		setSuccess("Updated successfully!")
-		onSuccess?.()
-	} catch (error) {
-		setError((error as Error).message)
+		if (onSuccess) onSuccess()
+	} catch (error: any) {
+		setError(error.message)
 	}
 }
 
-// Handle form submission for dialogs
-export async function handleDialogFormSubmit({ contextFn, formData, onClose, onError }) {
+// Handle dialog form submission
+export async function handleDialogFormSubmit({
+	contextFn,
+	formData,
+	onClose,
+	onError,
+}: {
+	contextFn: (data: object) => Promise<any>
+	formData: object
+	onClose: () => void
+	onError: (error: string | null) => void
+}) {
 	const result = await contextFn(formData)
 
-	if (result && result.error) {
-		if (onError) onError(result.error)
+	if (result?.error) {
+		onError(result.error)
 	} else {
 		onClose()
-		if (onError) onError(null)
+		onError(null)
 	}
 }
 
 // Handle feedback form submission
 export async function handleFeedbackSubmit(message: string, rating: number | null) {
 	try {
-		const response = await fetch("/api/feedback", {
+		const responseData = await fetchAPI("/api/feedback", {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ message, rating }), // Include rating in the request body
+			body: JSON.stringify({ message, rating }),
 		})
-
-		const responseData = await response.json()
-
-		if (!response.ok) {
-			throw new Error(responseData.error || "Failed to submit feedback")
-		}
 
 		return { success: true, message: "Feedback submitted successfully!" }
 	} catch (error: any) {

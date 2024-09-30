@@ -10,14 +10,31 @@ export async function getSessionOrUnauthorized() {
 	return { error: false, session }
 }
 
-export const errorResponse = (message: string, status: number) => NextResponse.json({ error: message }, { status })
-
 export function validateLinkData(data: any) {
 	return data && typeof data.title === "string" && typeof data.url === "string"
 }
 
 export function validateButtonData(data: any) {
 	return data && typeof data.platform === "string" && typeof data.url === "string" && typeof data.icon === "string"
+}
+
+export function errorResponse(message: string, status: number) {
+	return NextResponse.json({ error: message }, { status })
+}
+
+export async function fetchAPI(endpoint: string, options?: RequestInit) {
+	const response = await fetch(endpoint, {
+		headers: { "Content-Type": "application/json" },
+		...options,
+	})
+
+	const data = await response.json()
+
+	if (!response.ok) {
+		throw new Error(data.error || "An error occurred")
+	}
+
+	return data
 }
 
 export function generateSlug(base: string = "", isInitial: boolean = false, length: number = 6) {
