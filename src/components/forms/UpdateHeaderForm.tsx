@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 
 export default function UpdateHeaderForm() {
 	const { description, setDescription } = useGlobalContext()
-	const [localDescription, updateLocalDescription] = useState(description ?? "")
+	const [localDescription, updateLocalDescription] = useState(description)
 	const [error, setError] = useState("")
 	const [success, setSuccess] = useState("")
 
@@ -25,7 +25,7 @@ export default function UpdateHeaderForm() {
 			<form onSubmit={handleSubmit} className="form-container w-full">
 				<input
 					type="text"
-					value={localDescription ?? ""} // Ensure it's always a string
+					value={localDescription}
 					onChange={(e) => updateLocalDescription(e.target.value)}
 					placeholder="Enter new header description"
 					className="input flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground"

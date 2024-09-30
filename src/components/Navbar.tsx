@@ -39,12 +39,12 @@ export default function Navbar() {
 	}, [])
 
 	return (
-		<nav className="absolute top-8 z-10 flex w-full items-center justify-between bg-transparent px-8">
+		<nav className="absolute top-6 z-10 flex w-full items-center justify-between bg-transparent px-6">
 			<Link href="/" className="button h-10 w-10 bg-card">
 				<Icon icon="ri:home-2-line" />
 			</Link>
 
-			<div className="flex items-center gap-2">
+			<div className="flex items-center gap-1">
 				<button onClick={toggleTheme} className="button h-10 w-10 bg-card">
 					<Icon
 						icon={theme === "light" ? "material-symbols:light-mode-rounded" : "material-symbols:dark-mode-rounded"}

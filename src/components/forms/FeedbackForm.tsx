@@ -7,9 +7,9 @@ import { useState } from "react"
 export default function FeedbackForm() {
 	const { data: session } = useSession()
 	const [message, setMessage] = useState("")
-	const [rating, setRating] = useState<number | null>(null)
-	const [error, setError] = useState("")
+	const [rating, setRating] = useState(null)
 	const [success, setSuccess] = useState("")
+	const [error, setError] = useState("")
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -19,7 +19,6 @@ export default function FeedbackForm() {
 		try {
 			await handleFeedbackSubmit(message, rating)
 			setSuccess("Feedback submitted!")
-			setMessage("")
 			setRating(null)
 		} catch (error) {
 			console.error("Error submitting feedback:", error)

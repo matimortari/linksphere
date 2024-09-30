@@ -6,9 +6,9 @@ import { useEffect, useState } from "react"
 
 export default function SupportBannerForm() {
 	const { settings } = useGlobalContext()
-	const [error, setError] = useState("")
-	const [success, setSuccess] = useState("")
 	const [selectedOption, setSelectedOption] = useState("NONE")
+	const [success, setSuccess] = useState("")
+	const [error, setError] = useState("")
 
 	useEffect(() => {
 		if (settings && settings.supportBanner) {

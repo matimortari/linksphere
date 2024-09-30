@@ -20,7 +20,7 @@ export default function Home() {
 	return (
 		<div className="main-container relative">
 			<div className="absolute inset-x-0 bottom-0 h-3/6 opacity-35">
-				<Image src="/grid-bg.png" alt="Background" fill />
+				<Image src="/grid-bg.png" alt="Background" fill className="rounded-2xl" />
 			</div>
 
 			<main className="relative flex flex-col md:flex-row">
@@ -34,9 +34,9 @@ export default function Home() {
 							Your link-in-bio page 🔗
 						</h2>
 
-						<p className="text-center text-lg text-muted-foreground md:text-left">
-							Welcome to <strong>LinkSphere</strong>! Share your links, social profiles, contact information, and more
-							in one convenient page. Create and customize your personalized page and share it with your audience.
+						<p className="text-center text-base text-muted-foreground md:text-left">
+							Welcome to <strong>LinkSphere</strong>! Share your links, social profiles, contact info, and more in one
+							page. Create and customize your page and share it with your audience.
 						</p>
 
 						<form className="form-container">
@@ -47,7 +47,7 @@ export default function Home() {
 							</Link>
 						</form>
 
-						<div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+						<section className="grid grid-cols-1 gap-4 md:grid-cols-2">
 							<div className="content-container flex items-start gap-2">
 								<span className="icon rounded-full bg-muted p-2">
 									<Icon icon="ri:paint-brush-fill" />
@@ -95,7 +95,7 @@ export default function Home() {
 									</span>
 								</div>
 							</div>
-						</div>
+						</section>
 					</div>
 				</section>
 

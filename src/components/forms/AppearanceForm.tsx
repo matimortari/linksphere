@@ -45,8 +45,8 @@ const CheckboxInput = ({ id, label, checked, onChange }) => (
 
 export default function AppearanceForm() {
 	const { settings, setSettings } = useGlobalContext()
-	const [error, setError] = useState("")
 	const [success, setSuccess] = useState("")
+	const [error, setError] = useState("")
 
 	useEffect(() => {
 		const loadUserSettings = async () => {
@@ -61,12 +61,12 @@ export default function AppearanceForm() {
 		loadUserSettings()
 	}, [setSettings])
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 		handleFormSubmit(e, "/api/preferences", settings, setSuccess, setError, () => setSettings(settings))
 	}
 
-	const handleReset = async (e) => {
+	const handleReset = async (e: React.MouseEvent) => {
 		if (e) e.preventDefault()
 
 		try {
@@ -79,38 +79,38 @@ export default function AppearanceForm() {
 		}
 	}
 
-	const handleColorChange = (key) => (e) => {
+	const handleColorChange = (key) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSettings((prev) => ({ ...prev, [key]: e.target.value }))
 	}
 
-	const handleRadioChange = (key) => (e) => {
+	const handleRadioChange = (key) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSettings((prev) => ({ ...prev, [key]: e.target.value }))
 	}
 
-	const handleCheckboxChange = (key) => (e) => {
+	const handleCheckboxChange = (key) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSettings((prev) => ({ ...prev, [key]: e.target.checked }))
 	}
 
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="flex flex-wrap">
-				{/* General Settings */}
 				<div className="flex w-full flex-col md:w-1/2">
 					<h1 className="subtitle my-2">General Settings</h1>
 					<hr className="max-w-xs" />
-					{/* Color Inputs */}
 					<ColorInput
 						id="backgroundColor"
 						label="Main Page Background Color"
 						value={settings.backgroundColor}
 						onChange={handleColorChange("backgroundColor")}
 					/>
+
 					<ColorInput
 						id="slugTextColor"
 						label="Username Font Color"
 						value={settings.slugTextColor}
 						onChange={handleColorChange("slugTextColor")}
 					/>
+
 					<ColorInput
 						id="headerTextColor"
 						label="Header Font Color"
@@ -118,7 +118,7 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("headerTextColor")}
 					/>
 					<hr className="max-w-xs" />
-					{/* Radio Options */}
+
 					<RadioOptions
 						name="slugTextSize"
 						label="Username Font Size"
@@ -126,6 +126,7 @@ export default function AppearanceForm() {
 						value={settings.slugTextSize}
 						onChange={handleRadioChange("slugTextSize")}
 					/>
+
 					<RadioOptions
 						name="slugTextWeight"
 						label="Username Font Weight"
@@ -135,7 +136,6 @@ export default function AppearanceForm() {
 					/>
 				</div>
 
-				{/* Social Buttons */}
 				<div className="flex w-full flex-col md:w-1/2">
 					<h1 className="subtitle my-2">Social Buttons</h1>
 					<hr className="max-w-xs" />
@@ -145,12 +145,14 @@ export default function AppearanceForm() {
 						value={settings.buttonBackgroundColor}
 						onChange={handleColorChange("buttonBackgroundColor")}
 					/>
+
 					<ColorInput
 						id="buttonIconColor"
 						label="Social Button Icon Color"
 						value={settings.buttonIconColor}
 						onChange={handleColorChange("buttonIconColor")}
 					/>
+
 					<ColorInput
 						id="buttonHoverBackgroundColor"
 						label="Social Button Hover Background Color"
@@ -158,12 +160,14 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("buttonHoverBackgroundColor")}
 					/>
 					<hr className="max-w-xs" />
+
 					<CheckboxInput
 						id="isButtonShadow"
 						label="Enable Social Button Shadow"
 						checked={settings.isButtonShadow}
 						onChange={handleCheckboxChange("isButtonShadow")}
 					/>
+
 					<ColorInput
 						id="buttonShadowColor"
 						label="Social Button Shadow Color"
@@ -172,6 +176,7 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("buttonShadowColor")}
 					/>
 					<hr className="max-w-xs" />
+
 					<h1 className="subtitle my-2">Link Buttons</h1>
 					<hr className="max-w-xs" />
 					<ColorInput
@@ -180,12 +185,14 @@ export default function AppearanceForm() {
 						value={settings.linkBackgroundColor}
 						onChange={handleColorChange("linkBackgroundColor")}
 					/>
+
 					<ColorInput
 						id="linkTextColor"
 						label="Link Button Font Color"
 						value={settings.linkTextColor}
 						onChange={handleColorChange("linkTextColor")}
 					/>
+
 					<ColorInput
 						id="linkHoverBackgroundColor"
 						label="Link Button Hover Background Color"
@@ -193,12 +200,14 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("linkHoverBackgroundColor")}
 					/>
 					<hr className="max-w-xs" />
+
 					<CheckboxInput
 						id="isLinkShadow"
 						label="Enable Link Button Shadow"
 						checked={settings.isLinkShadow}
 						onChange={handleCheckboxChange("isLinkShadow")}
 					/>
+
 					<ColorInput
 						id="linkShadowColor"
 						label="Link Button Shadow Color"
@@ -207,6 +216,7 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("linkShadowColor")}
 					/>
 					<hr className="max-w-xs" />
+
 					<RadioOptions
 						name="linkBorderRadius"
 						label="Link Button Corner Radius"
@@ -214,6 +224,7 @@ export default function AppearanceForm() {
 						value={settings.linkBorderRadius}
 						onChange={handleRadioChange("linkBorderRadius")}
 					/>
+
 					<RadioOptions
 						name="linkPadding"
 						label="Link Button Padding"
@@ -223,7 +234,6 @@ export default function AppearanceForm() {
 					/>
 				</div>
 
-				{/* Action Buttons */}
 				<div className="button-container justify-end">
 					<button type="submit" className="button bg-primary text-primary-foreground">
 						Update Settings
@@ -234,7 +244,6 @@ export default function AppearanceForm() {
 				</div>
 			</form>
 
-			{/* Feedback Messages */}
 			{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
 			{success && <p className="mt-2 font-bold text-accent">{success}</p>}
 		</>

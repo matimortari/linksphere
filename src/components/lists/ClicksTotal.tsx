@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 
 export default function ClicksTotal() {
 	const [stats, setStats] = useState(null)
-	const [links, setLinks] = useState([])
 	const [error, setError] = useState(null)
 
 	useEffect(() => {
@@ -13,8 +12,8 @@ export default function ClicksTotal() {
 			try {
 				const data = await fetchUserAnalytics()
 				setStats(data.stats)
-				setLinks(data.links)
 			} catch (error) {
+				console.error("Error fetching user analytics:", error)
 				setError("Error fetching analytics")
 			}
 		}
@@ -31,6 +30,8 @@ export default function ClicksTotal() {
 			<div className="font-semibold">
 				Total Page Clicks: <span className="font-normal">{stats?.clicks ?? 0}</span>
 			</div>
+
+			{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
 		</div>
 	)
 }
