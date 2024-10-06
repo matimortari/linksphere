@@ -19,6 +19,7 @@ export default function Home() {
 
 	return (
 		<div className="main-container relative">
+			<div className="gradient-bg rounded-2xl" />
 			<div className="absolute inset-x-0 bottom-0 h-3/6 opacity-35">
 				<Image src="/grid-bg.png" alt="Background" fill className="rounded-2xl" />
 			</div>
