@@ -3,6 +3,7 @@
 import { useGlobalContext } from "@/src/components/context/GlobalContext"
 import { formatDate } from "@/src/lib/utils"
 import { Icon } from "@iconify/react"
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts"
 
 export default function ClicksByLink() {
 	const { links: contextLinks, buttons: contextButtons } = useGlobalContext()
@@ -42,16 +43,36 @@ export default function ClicksByLink() {
 		</a>
 	)
 
+	const pieData = items.map((item) => ({
+		name: item.title,
+		value: item.clicks,
+	}))
+
+	const COLORS = ["#458a7c", "#3d6a85", "#5c7a83"]
+
 	return (
 		<div className="w-full">
 			{items.length > 0 ? (
-				<ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
-					{items.map((item) => (
-						<li key={`${item.type}-${item.id}`} className="link-list-item flex-col">
-							{item.type === "link" ? <LinkItem item={item} /> : <ButtonItem item={item} />}
-						</li>
-					))}
-				</ul>
+				<>
+					<ul className="grid grid-cols-1 gap-2 md:grid-cols-2">
+						{items.map((item) => (
+							<li key={`${item.type}-${item.id}`} className="link-list-item flex-col">
+								{item.type === "link" ? <LinkItem item={item} /> : <ButtonItem item={item} />}
+							</li>
+						))}
+					</ul>
+
+					<ResponsiveContainer width="100%" height={200} className="content-container my-4">
+						<PieChart>
+							<Pie data={pieData} cx="50%" cy="50%" innerRadius={0} outerRadius={80} dataKey="value" nameKey="name">
+								{pieData.map((entry, index) => (
+									<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+								))}
+							</Pie>
+							<Tooltip />
+						</PieChart>
+					</ResponsiveContainer>
+				</>
 			) : (
 				<p className="text-muted-foreground">No links yet.</p>
 			)}
