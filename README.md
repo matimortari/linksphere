@@ -18,11 +18,11 @@ Free social media & link aggregator website! Based on [Linktree](https://linktr.
 
 ## 🖧 Stack
 
-- _Next.js_ for routing & server-side rendering.
-- NextAuth for authentication with Google & GitHub.
-- Prisma ORM for database management.
-- TypeScript.
-- Tailwind CSS.
+- **Next.js** for routing & server-side rendering.
+- **NextAuth** for authentication with Google & GitHub.
+- **Prisma ORM** for database management.
+- **TypeScript**.
+- **Tailwind CSS**.
 
 ## 📬 Contact
 
