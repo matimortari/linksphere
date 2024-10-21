@@ -19,7 +19,7 @@ export default function AddButtonDialog({ onClose }) {
 			contextFn: addButton,
 			formData: { platform: selectedPlatform, url, icon: SOCIAL_ICONS[selectedPlatform] },
 			onClose,
-			onError: setError,
+			onError: setError
 		})
 	}
 

@@ -14,7 +14,7 @@ export default function CarouselLinkItem({ title, settings }) {
 					boxShadow: settings.isLinkShadow ? `0 4px 6px ${settings.linkShadowColor}` : "none",
 					borderRadius: settings.linkBorderRadius,
 					padding: settings.linkPadding,
-					transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+					transition: "background-color 0.3s ease, box-shadow 0.3s ease"
 				}}
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}

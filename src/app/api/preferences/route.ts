@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 
 	try {
 		const settings = await db.userSettings.findUnique({
-			where: { userId: session.user.id },
+			where: { userId: session.user.id }
 		})
 
 		if (!settings) return errorResponse("Settings not found", 404)
@@ -29,7 +29,7 @@ export async function PUT(req: NextRequest) {
 
 		const updatedSettings = await db.userSettings.update({
 			where: { userId: session.user.id },
-			data: Object.keys(settingsData).length === 0 ? defaultSettings : settingsData,
+			data: Object.keys(settingsData).length === 0 ? defaultSettings : settingsData
 		})
 
 		const message =

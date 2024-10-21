@@ -10,7 +10,7 @@ export default function ClicksByLink() {
 
 	const items = [
 		...contextLinks.map((link) => ({ type: "link", ...link })),
-		...contextButtons.map((button) => ({ type: "button", ...button })),
+		...contextButtons.map((button) => ({ type: "button", ...button }))
 	]
 
 	const LinkItem = ({ item }) => (
@@ -45,7 +45,7 @@ export default function ClicksByLink() {
 
 	const pieData = items.map((item) => ({
 		name: item.title,
-		value: item.clicks,
+		value: item.clicks
 	}))
 
 	const COLORS = ["#458a7c", "#3d6a85", "#5c7a83"]

@@ -25,7 +25,7 @@ export function errorResponse(message: string, status: number) {
 export async function fetchAPI(endpoint: string, options?: RequestInit) {
 	const response = await fetch(endpoint, {
 		headers: { "Content-Type": "application/json" },
-		...options,
+		...options
 	})
 
 	const data = await response.json()
@@ -56,7 +56,7 @@ export function formatDate(dateString) {
 	const formattedDate = date.toLocaleDateString("en-US", {
 		year: "numeric",
 		month: "long",
-		day: "numeric",
+		day: "numeric"
 	})
 
 	return formattedDate.charAt(0).toLowerCase() + formattedDate.slice(1)

@@ -15,7 +15,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 	const metadata: Metadata = {
 		title: "LinkSphere",
-		description: "Your Link-in-bio page!",
+		description: "Your Link-in-bio page!"
 	}
 
 	return (

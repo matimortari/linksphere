@@ -20,7 +20,7 @@ export default function Preview() {
 					style={{
 						color: settings.slugTextColor,
 						fontWeight: settings.slugTextWeight,
-						fontSize: settings.slugTextSize,
+						fontSize: settings.slugTextSize
 					}}
 				>
 					@{slug}

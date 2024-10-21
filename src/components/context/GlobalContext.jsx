@@ -11,7 +11,7 @@ import {
 	fetchUserLinks,
 	fetchUserSettings,
 	updateLink,
-	updateSettings,
+	updateSettings
 } from "@/src/lib/actions"
 import { useSession } from "next-auth/react"
 import { createContext, useContext, useEffect, useState } from "react"
@@ -130,7 +130,7 @@ export const GlobalContextProvider = ({ children }) => {
 				updateLink: handleUpdateLink,
 				deleteLink: handleDeleteLink,
 				addButton: handleAddButton,
-				deleteButton: handleDeleteButton,
+				deleteButton: handleDeleteButton
 			}}
 		>
 			{children}

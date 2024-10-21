@@ -8,33 +8,33 @@ const config = {
 				foreground: "var(--foreground)",
 				card: {
 					DEFAULT: "var(--card)",
-					foreground: "var(--card-foreground)",
+					foreground: "var(--card-foreground)"
 				},
 				primary: {
 					DEFAULT: "var(--primary)",
-					foreground: "var(--primary-foreground)",
+					foreground: "var(--primary-foreground)"
 				},
 				secondary: {
 					DEFAULT: "var(--secondary)",
-					foreground: "var(--secondary-foreground)",
+					foreground: "var(--secondary-foreground)"
 				},
 				accent: {
 					DEFAULT: "var(--accent)",
-					foreground: "var(--accent-foreground)",
+					foreground: "var(--accent-foreground)"
 				},
 				muted: {
 					DEFAULT: "var(--muted)",
-					foreground: "var(--muted-foreground)",
+					foreground: "var(--muted-foreground)"
 				},
 				destructive: {
 					DEFAULT: "var(--destructive)",
-					foreground: "var(--destructive-foreground)",
+					foreground: "var(--destructive-foreground)"
 				},
 				google: "#DB4437", // Google Login
-				github: "#333333", // GitHub Login
-			},
-		},
-	},
+				github: "#333333" // GitHub Login
+			}
+		}
+	}
 }
 
 export default config

@@ -36,7 +36,7 @@ export async function deleteUserAccount() {
 export async function addLink(newLink: object) {
 	return fetchAPI("/api/links", {
 		method: "POST",
-		body: JSON.stringify(newLink),
+		body: JSON.stringify(newLink)
 	})
 }
 
@@ -44,7 +44,7 @@ export async function addLink(newLink: object) {
 export async function updateLink(updatedLink: object) {
 	return fetchAPI("/api/links", {
 		method: "PUT",
-		body: JSON.stringify(updatedLink),
+		body: JSON.stringify(updatedLink)
 	})
 }
 
@@ -59,7 +59,7 @@ export async function deleteLink(id: string): Promise<string> {
 export async function addButton(newButton: object) {
 	return fetchAPI("/api/buttons", {
 		method: "POST",
-		body: JSON.stringify(newButton),
+		body: JSON.stringify(newButton)
 	})
 }
 
@@ -74,7 +74,7 @@ export async function deleteButton(id: string) {
 export async function updateSettings(newSettings: object) {
 	return fetchAPI("/api/preferences", {
 		method: "PUT",
-		body: JSON.stringify(newSettings),
+		body: JSON.stringify(newSettings)
 	})
 }
 
@@ -82,7 +82,7 @@ export async function updateSettings(newSettings: object) {
 export async function resetSettings() {
 	return fetchAPI("/api/preferences", {
 		method: "PUT",
-		body: JSON.stringify({}),
+		body: JSON.stringify({})
 	})
 }
 
@@ -101,7 +101,7 @@ export async function updateUserBanner(newBanner: string) {
 export async function trackPageVisit(slug: string) {
 	const user = await db.user.findUnique({
 		where: { slug },
-		include: { UserStats: true },
+		include: { UserStats: true }
 	})
 
 	if (!user) return
@@ -109,12 +109,12 @@ export async function trackPageVisit(slug: string) {
 	const stats =
 		user.UserStats[0] ||
 		(await db.userStats.create({
-			data: { userId: user.id, views: 0, clicks: 0 },
+			data: { userId: user.id, views: 0, clicks: 0 }
 		}))
 
 	await db.userStats.update({
 		where: { id: stats.id },
-		data: { views: stats.views + 1 },
+		data: { views: stats.views + 1 }
 	})
 }
 
@@ -123,7 +123,7 @@ export async function trackClick(id: string, type: string) {
 	try {
 		await fetchAPI("/api/analytics", {
 			method: "POST",
-			body: JSON.stringify({ id, type }),
+			body: JSON.stringify({ id, type })
 		})
 	} catch (error) {
 		console.error("Failed to increment click count:", error)
@@ -144,7 +144,7 @@ export async function handleFormSubmit(
 	try {
 		const data = await fetchAPI(url, {
 			method: "PUT",
-			body: JSON.stringify(payload),
+			body: JSON.stringify(payload)
 		})
 
 		setSuccess("Updated successfully!")
@@ -159,7 +159,7 @@ export async function handleDialogFormSubmit({
 	contextFn,
 	formData,
 	onClose,
-	onError,
+	onError
 }: {
 	contextFn: (data: object) => Promise<any>
 	formData: object
@@ -181,7 +181,7 @@ export async function handleFeedbackSubmit(message: string, rating: number | nul
 	try {
 		const responseData = await fetchAPI("/api/feedback", {
 			method: "POST",
-			body: JSON.stringify({ message, rating }),
+			body: JSON.stringify({ message, rating })
 		})
 
 		return { success: true, message: "Feedback submitted successfully!" }

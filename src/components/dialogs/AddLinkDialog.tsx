@@ -17,7 +17,7 @@ export default function AddLinkDialog({ onClose }) {
 			contextFn: addLink,
 			formData: { title, url },
 			onClose,
-			onError: setError,
+			onError: setError
 		})
 	}
 

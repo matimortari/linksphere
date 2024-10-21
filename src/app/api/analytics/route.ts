@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
 
 		const user = await db.user.findUnique({
 			where: { slug: userSlug },
-			include: { UserStats: true, links: true, buttons: true },
+			include: { UserStats: true, links: true, buttons: true }
 		})
 		if (!user) return errorResponse("User not found", 404)
 
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 
 		const updatedStats = await db.userStats.update({
 			where: { id: stats.id },
-			data: { clicks: totalClicks },
+			data: { clicks: totalClicks }
 		})
 
 		return NextResponse.json({ user, stats: updatedStats })
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
 
 		const updatedItem = await dbModel.update({
 			where: { id },
-			data: { clicks: { increment: 1 } },
+			data: { clicks: { increment: 1 } }
 		})
 
 		return NextResponse.json(updatedItem)

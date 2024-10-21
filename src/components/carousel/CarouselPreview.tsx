@@ -11,7 +11,7 @@ export default function CarouselPreview({ presetId = 0 }) {
 		<div
 			className="content-container mx-auto w-72 md:w-80"
 			style={{
-				backgroundColor: settings.backgroundColor,
+				backgroundColor: settings.backgroundColor
 			}}
 		>
 			<div className="flex flex-col items-center justify-center gap-2 py-5 text-center">
@@ -21,7 +21,7 @@ export default function CarouselPreview({ presetId = 0 }) {
 					style={{
 						color: settings.slugTextColor,
 						fontWeight: settings.slugTextWeight,
-						fontSize: settings.slugTextSize,
+						fontSize: settings.slugTextSize
 					}}
 				>
 					@{slug}

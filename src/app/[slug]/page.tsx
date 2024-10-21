@@ -13,8 +13,8 @@ export default async function UserPage({ params }: { params: { slug: string } })
 		include: {
 			links: true,
 			buttons: true,
-			settings: true,
-		},
+			settings: true
+		}
 	})
 
 	await trackPageVisit(slug)
@@ -41,7 +41,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 					style={{
 						color: settings.slugTextColor,
 						fontWeight: settings.slugTextWeight,
-						fontSize: settings.slugTextSize,
+						fontSize: settings.slugTextSize
 					}}
 					className="text-center"
 				>

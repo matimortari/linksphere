@@ -17,7 +17,7 @@ export default function UpdateLinkDialog({ onClose, linkData }) {
 			contextFn: updateLink,
 			formData: { ...linkData, title: localTitle, url: localUrl },
 			onClose,
-			onError: setError,
+			onError: setError
 		})
 	}
 

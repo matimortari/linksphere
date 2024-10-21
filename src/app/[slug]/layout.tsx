@@ -13,7 +13,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 	const metadata: Metadata = {
 		title: session?.user?.slug ? `${session.user.slug} | LinkSphere` : "LinkSphere",
-		description: "Social media & link aggregator",
+		description: "Social media & link aggregator"
 	}
 
 	return (

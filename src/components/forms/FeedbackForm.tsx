@@ -52,7 +52,7 @@ export default function FeedbackForm() {
 					rows={5}
 					className="form-container w-full max-w-full resize-none overflow-auto text-sm"
 					style={{
-						paddingTop: "0.75rem",
+						paddingTop: "0.75rem"
 					}}
 				/>
 

@@ -19,7 +19,7 @@ export default function SocialButton({ url, icon, settings, buttonId }) {
 					style={{
 						backgroundColor: isHovered ? settings.buttonHoverBackgroundColor : settings.buttonBackgroundColor,
 						boxShadow: settings.isButtonShadow ? `0 4px 6px ${settings.buttonShadowColor}` : "none",
-						transition: "background-color 0.3s ease, box-shadow 0.3s ease",
+						transition: "background-color 0.3s ease, box-shadow 0.3s ease"
 					}}
 					onMouseEnter={() => setIsHovered(true)}
 					onMouseLeave={() => setIsHovered(false)}

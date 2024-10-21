@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 		}
 
 		await db.feedback.create({
-			data: { name, email, message, rating: rating ?? null },
+			data: { name, email, message, rating: rating ?? null }
 		})
 
 		return new NextResponse(JSON.stringify({ message: "Feedback received successfully!" }), { status: 200 })

@@ -30,7 +30,7 @@ export default function ClicksTotal() {
 	const chartData = stats
 		? [
 				{ name: "Views", value: stats.views },
-				{ name: "Clicks", value: stats.clicks },
+				{ name: "Clicks", value: stats.clicks }
 			]
 		: []
 

@@ -5,7 +5,7 @@ import {
 	BORDER_RADIUS_OPTIONS,
 	PADDING_OPTIONS,
 	SLUG_FONT_SIZES,
-	SLUG_FONT_WEIGHT_SIZES,
+	SLUG_FONT_WEIGHT_SIZES
 } from "@/src/data/userSettings"
 import { fetchUserSettings, handleFormSubmit, resetSettings } from "@/src/lib/actions"
 import "@/src/styles/inputs.css"

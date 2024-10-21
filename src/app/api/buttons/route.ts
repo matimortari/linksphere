@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 	if (!platform || !url || !icon) return errorResponse("Invalid input", 400)
 
 	const newButton = await db.socialButton.create({
-		data: { platform, url, icon, userId: session.user.id },
+		data: { platform, url, icon, userId: session.user.id }
 	})
 
 	return NextResponse.json(newButton)
@@ -43,7 +43,7 @@ export async function PUT(req: NextRequest) {
 
 	const updatedButton = await db.socialButton.update({
 		where: { id },
-		data: { platform, url, icon },
+		data: { platform, url, icon }
 	})
 
 	return NextResponse.json(updatedButton)

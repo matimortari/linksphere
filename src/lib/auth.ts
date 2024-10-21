@@ -25,21 +25,21 @@ export const authOptions = {
 	providers: [
 		GitHubProvider({
 			clientId: process.env.GITHUB_CLIENT_ID,
-			clientSecret: process.env.GITHUB_CLIENT_SECRET,
+			clientSecret: process.env.GITHUB_CLIENT_SECRET
 		}),
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-		}),
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET
+		})
 	],
 	adapter: PrismaAdapter(db),
 	session: {
-		strategy: "database" as SessionStrategy,
+		strategy: "database" as SessionStrategy
 	},
 	callbacks: {
 		async signIn({ user, account, profile }) {
 			const existingUser = await db.user.findUnique({
-				where: { email: user.email },
+				where: { email: user.email }
 			})
 
 			if (!existingUser) {
@@ -50,23 +50,23 @@ export const authOptions = {
 						email: user.email,
 						name: profile?.name ?? user.name,
 						image: user.image,
-						slug,
-					},
+						slug
+					}
 				})
 
 				await db.userSettings.create({
 					data: {
 						userId: newUser.id,
-						...defaultSettings,
-					},
+						...defaultSettings
+					}
 				})
 			} else {
 				await db.user.update({
 					where: { email: user.email },
 					data: {
 						image: user.image,
-						name: profile?.name ?? existingUser.name,
-					},
+						name: profile?.name ?? existingUser.name
+					}
 				})
 			}
 
@@ -81,22 +81,22 @@ export const authOptions = {
 				session.user.description = dbUser.description
 
 				const links = await db.userLink.findMany({
-					where: { userId: dbUser.id },
+					where: { userId: dbUser.id }
 				})
 				session.user.links = links
 
 				const socialButtons = await db.socialButton.findMany({
-					where: { userId: dbUser.id },
+					where: { userId: dbUser.id }
 				})
 				session.user.buttons = socialButtons
 
 				const settings = await db.userSettings.findUnique({
-					where: { userId: dbUser.id },
+					where: { userId: dbUser.id }
 				})
 				session.user.settings = settings || defaultSettings
 			}
 
 			return session
-		},
-	},
+		}
+	}
 }

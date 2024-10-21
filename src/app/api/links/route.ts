@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 	if (!title || !url) return errorResponse("Invalid input", 400)
 
 	const newLink = await db.userLink.create({
-		data: { title, url, userId: session.user.id },
+		data: { title, url, userId: session.user.id }
 	})
 
 	return NextResponse.json(newLink)
@@ -43,7 +43,7 @@ export async function PUT(req: NextRequest) {
 
 	const updatedLink = await db.userLink.update({
 		where: { id },
-		data: { title, url },
+		data: { title, url }
 	})
 
 	return NextResponse.json(updatedLink)

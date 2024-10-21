@@ -30,7 +30,7 @@ export async function PUT(req: NextRequest) {
 		const { newSlug, newDescription } = await req.json()
 		const updateData = {
 			...(newSlug && typeof newSlug === "string" && { slug: newSlug }),
-			...(newDescription && typeof newDescription === "string" && { description: newDescription }),
+			...(newDescription && typeof newDescription === "string" && { description: newDescription })
 		}
 
 		if (!Object.keys(updateData).length) {
@@ -39,7 +39,7 @@ export async function PUT(req: NextRequest) {
 
 		const updatedUser = await db.user.update({
 			where: { id: session.user.id },
-			data: updateData,
+			data: updateData
 		})
 
 		return NextResponse.json({ message: "User updated successfully", updatedUser })

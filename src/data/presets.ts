@@ -6,12 +6,12 @@ export const presets = [
 		buttons: [
 			{ id: 1, icon: "simple-icons:instagram" },
 			{ id: 2, icon: "simple-icons:facebook" },
-			{ id: 3, icon: "simple-icons:gmail" },
+			{ id: 3, icon: "simple-icons:gmail" }
 		],
 		links: [
 			{ id: 1, title: "Online Menu & Ordering" },
 			{ id: 2, title: "Find Us!" },
-			{ id: 3, title: "Contact" },
+			{ id: 3, title: "Contact" }
 		],
 		settings: {
 			backgroundColor: "#2c1f14",
@@ -32,8 +32,8 @@ export const presets = [
 			linkBorderRadius: "0.5rem",
 			linkPadding: "1rem",
 			isLinkShadow: false,
-			linkShadowColor: "#ffffff",
-		},
+			linkShadowColor: "#ffffff"
+		}
 	},
 
 	{
@@ -43,13 +43,13 @@ export const presets = [
 		buttons: [
 			{ id: 1, icon: "simple-icons:twitter" },
 			{ id: 2, icon: "simple-icons:linkedin" },
-			{ id: 3, icon: "simple-icons:youtube" },
+			{ id: 3, icon: "simple-icons:youtube" }
 		],
 		links: [
 			{ id: 1, title: "Innovative Solutions" },
 			{ id: 2, title: "Our Story" },
 			{ id: 3, title: "Join Our Team" },
-			{ id: 4, title: "Contact Us" },
+			{ id: 4, title: "Contact Us" }
 		],
 		settings: {
 			backgroundColor: "#272525",
@@ -70,8 +70,8 @@ export const presets = [
 			linkBorderRadius: "0.5rem",
 			linkPadding: "0.5rem",
 			isLinkShadow: true,
-			linkShadowColor: "#3e7a70",
-		},
+			linkShadowColor: "#3e7a70"
+		}
 	},
 
 	{
@@ -81,12 +81,12 @@ export const presets = [
 		buttons: [
 			{ id: 1, icon: "simple-icons:instagram" },
 			{ id: 2, icon: "simple-icons:pinterest" },
-			{ id: 3, icon: "simple-icons:youtube" },
+			{ id: 3, icon: "simple-icons:youtube" }
 		],
 		links: [
 			{ id: 1, title: "Latest Travel Blog" },
 			{ id: 2, title: "Travel Vlogs" },
-			{ id: 3, title: "Travel Tips & Gear" },
+			{ id: 3, title: "Travel Tips & Gear" }
 		],
 		settings: {
 			backgroundColor: "#b2c6b6",
@@ -107,8 +107,8 @@ export const presets = [
 			linkBorderRadius: "5rem",
 			linkPadding: "0.75rem",
 			isLinkShadow: true,
-			linkShadowColor: "#e7e5e5",
-		},
+			linkShadowColor: "#e7e5e5"
+		}
 	},
 
 	{
@@ -118,12 +118,12 @@ export const presets = [
 		buttons: [
 			{ id: 1, icon: "simple-icons:github" },
 			{ id: 2, icon: "simple-icons:linkedin" },
-			{ id: 3, icon: "simple-icons:gmail" },
+			{ id: 3, icon: "simple-icons:gmail" }
 		],
 		links: [
 			{ id: 1, title: "My Coding Playlist!" },
 			{ id: 2, title: "My Blog" },
-			{ id: 3, title: "Contact Me" },
+			{ id: 3, title: "Contact Me" }
 		],
 		settings: {
 			backgroundColor: "#08080e",
@@ -144,7 +144,7 @@ export const presets = [
 			linkBorderRadius: "5rem",
 			linkPadding: "0.5rem",
 			isLinkShadow: true,
-			linkShadowColor: "#4c4083",
-		},
-	},
+			linkShadowColor: "#4c4083"
+		}
+	}
 ]
