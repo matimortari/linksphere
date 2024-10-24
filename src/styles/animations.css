@@ -1,0 +1,37 @@
+/* Keyframe animation for expanding and moving an element */
+@keyframes expandMove {
+	0% {
+		transform: scale(0.2) translateX(-120px);
+		opacity: 0;
+	}
+
+	50% {
+		transform: scale(1.1) translateX(0px);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(1) translateX(0px);
+		opacity: 1;
+	}
+}
+
+/* Keyframe animation for floating effect */
+@keyframes float {
+	0%,
+	100% {
+		transform: translate(0, 0px);
+	}
+
+	60% {
+		transform: translate(0, 12px);
+	}
+}
+
+.expand-move {
+	animation: expandMove 2s ease-in-out forwards;
+}
+
+.float {
+	animation: float 5s ease-in-out infinite;
+}

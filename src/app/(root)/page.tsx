@@ -101,7 +101,7 @@ export default function Home() {
 				</section>
 
 				<section className="flex px-4 py-16 md:w-6/12">
-					<div className="w-full">
+					<div className="expand-move float w-full">
 						<CardCarousel />
 					</div>
 				</section>

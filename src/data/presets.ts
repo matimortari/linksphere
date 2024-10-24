@@ -19,13 +19,11 @@ export const presets = [
 			slugTextWeight: "600",
 			slugTextSize: "2rem",
 			headerTextColor: "#f5f5f5",
-
 			buttonBackgroundColor: "#7b4a2e",
 			buttonHoverBackgroundColor: "#a66240",
 			buttonIconColor: "#f5f5f5",
 			isButtonShadow: false,
 			buttonShadowColor: "#ffffff",
-
 			linkBackgroundColor: "#9e705d",
 			linkHoverBackgroundColor: "#7b4a2e",
 			linkTextColor: "#f5f5f5",
@@ -57,13 +55,11 @@ export const presets = [
 			slugTextWeight: "800",
 			slugTextSize: "1.5rem",
 			headerTextColor: "#f5f3f3",
-
 			buttonBackgroundColor: "#f5f3f3",
 			buttonHoverBackgroundColor: "#dcdcdc",
 			buttonIconColor: "#3e7a70",
 			isButtonShadow: false,
 			buttonShadowColor: "#ffffff",
-
 			linkBackgroundColor: "#f7f1e3",
 			linkHoverBackgroundColor: "#d1ccc0",
 			linkTextColor: "#272525",
@@ -94,13 +90,11 @@ export const presets = [
 			slugTextWeight: "700",
 			slugTextSize: "1.5rem",
 			headerTextColor: "#272525",
-
 			buttonBackgroundColor: "#e8ecd6",
 			buttonHoverBackgroundColor: "#d1d9c6",
 			buttonIconColor: "#b75a48",
 			isButtonShadow: true,
 			buttonShadowColor: "#e7e5e5",
-
 			linkBackgroundColor: "#ecf0f1",
 			linkHoverBackgroundColor: "#bdc3c7",
 			linkTextColor: "#2c3e50",
@@ -131,13 +125,11 @@ export const presets = [
 			slugTextWeight: "bold",
 			slugTextSize: "1.75rem",
 			headerTextColor: "#ececec",
-
 			buttonBackgroundColor: "#42413e",
 			buttonHoverBackgroundColor: "#4c4083",
 			buttonIconColor: "#ececec",
 			isButtonShadow: true,
 			buttonShadowColor: "#42413e",
-
 			linkBackgroundColor: "#605492",
 			linkHoverBackgroundColor: "#4c4083",
 			linkTextColor: "#ececec",
